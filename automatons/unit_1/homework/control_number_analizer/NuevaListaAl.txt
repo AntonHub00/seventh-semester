@@ -1,0 +1,26 @@
+﻿	SISTEMAS OPERATIVOS I    IINF     Lunes-Jueves 12:00-13:00  F5						
+	Nº control	Nombre del alumno	T1A	T1B	T1	Ex	U1
+1	14120204	Ambriz Hernandez Jose Martin	90	100	95	76	79.8
+2	14121255	Aviles Hernadez Agustin	0	100	50	47	47.6
+3	16120172	Delgado Sanchez Luis Vicente	90	0	45	0	9
+4	15121269	Diaz Neri Ulises	95	8	51.5	48	48.7
+5	15120635	Galvan Ezequiel Jose	90	91.3	90.65	35	46.13
+6	15120636	Gil Vazquez Jose	90	13	51.5	55	54.3
+7	14121266	Hernandez Carrillo Rocio	0	91.3	45.65	77	70.73
+8	14120215	Herrejon Montoya Maribel	80	88	84	96	93.6
+9	15120644	Lemus Navarro Gabriel	80	88	84	85	84.8
+10	16120176	Lopez Correa Daniela	90	96	93	62	68.2
+11	16120181	Medina Uribe Ramiro Javier	100	85	92.5	82	84.1
+12	15121744	Moreno Garcia Fernando Daniel	100	8	54	57	56.4
+13	15120649	Murillo Liñan Brenda	90	84	87	42	51
+14	16120635	Orozco Parra Carlos	95	0	47.5	67	63.1
+15	16120185	Ortiz Calderon Aaron Misael	0	85	42.5	21	25.3
+16	16120657	Ortiz Perez Yuritzi	95	96	95.5	75	79.1
+17	15121289	Reyes Rodriguez Oscar Ivan	100	92	96	53	61.6
+18	14121282	Rodriguez Ortiz Jose Carlos	85	100	92.5	88	88.9
+19	15121291	Serrano Martinez Ariadny Lizeth	90	84	87	94	92.6
+20	16120194	Vega Castell Henrry Fernando	0	0	0	82	65.6
+20	16121053 Castell Henrry Fernando	0	0	0	82	65.6
+							
+T1A	Completar Tabla SO especifico por persona			Tareas 20% 			
+T1B	Entregar Tarea 1			Examen 80%			

@@ -1,0 +1,24 @@
+PARSER_BEGIN(ControlNumberList)
+
+public class ControlNumberList{
+    public static void main(String args[]) throws ParseException{
+        ControlNumberList parser = new ControlNumberList(System.in);
+        parser.Inicio();
+    }
+}
+
+PARSER_END(ControlNumberList)
+
+    SKIP : {" " | "\t" | "\n" | "\r"}
+
+TOKEN : {
+            <ControlNumber : (["0"-"9"]){8}>
+            {System.out.println(image + "@itmorelia.edu.mx");}
+        }
+
+SKIP : {<~[]> {System.out.println("ERROR: léxico");}}
+
+void Inicio() : {}
+{
+    (<ControlNumber>)+<EOF>
+}

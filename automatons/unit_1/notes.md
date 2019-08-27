@@ -59,3 +59,31 @@ Todos los tokens que sean de tipo identificador van a la tabla de símbolos.
 * Símbolo no permitido
 * Identificador mal construido o que excede cierta longitud permitida
 * Constante numérica al construida o que excede cierto número de caracteres
+
+## Tarea
+
+Archivo como entrada, identificar los números de control y dar como salida
+los correoss de la siguiente forma: "no. de control"@itmorelia.edu.mx
+
+## Tarea (Miércoles 28 de Agosto)
+
+Clave de materia: A4O5 (grupo, semestre, carrera(O(info), L(sistemas), T(tics)), (0-9))
+Carrera(No es token, se obtiene a partir de la clave de materia)
+Días:
+Horario:
+Salón: F o K
+
+---
+
+Empezamos a derivar con el axioma principal
+
+Poner tokens en parte léxica.
+
+matchedToken.beginLine: Sirve para saber el tamaño del lexema
+ "|" (or) para dentro de los tokens
+
+Si un lexema tiene la misma longitud, se toma el primero que aparece en los
+tokens definidos.
+
+SKIP: No pasa la coincidencia a la fase sintáctica
+MORE: Esta cadena será un prefijo para la nueva cadena coincidencia.

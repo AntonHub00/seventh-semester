@@ -1,0 +1,6 @@
+Encontré un identificador: id2
+Encontré un identificador: a6
+Encontré un identificador: perro
+Encontré un identificador: velocidad
+Encontré un identificador: unidad3m
+Encontré un identificador: o9
