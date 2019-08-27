@@ -164,3 +164,54 @@ actividad es más pequeña o grande dependiendo del avance del proyecto.
 
 La relación entre la incertidumbre y riesgo, y costo de los cambios en un
 proyecto a través del tiempo, varía dependiendo de la metodología utilizada.
+
+
+## Conflictos en equipo y conflictos de cliente
+
+Ejercicio:
+
+### Conflicto en equipo
+
+1.- Los miembros del equipo nos están  completando las tareas asignadas:
+Hablar con el equipo (hacer una junta) para saber qué está pasando.
+
+2.- Los miembros del equipo nos están  completando las tareas asignadas en tiempo:
+Hablar con el equipo (hacer una junta) para saber qué está pasando.
+
+3.- Los miembros del equipo nos están desmotivados para completar las tareas:
+Una bonficación en tiempo, dinero u equivalente recreativo.
+
+### Conflicto de cliente
+
+1.-Los requisitos del cliente no son claros
+Hacer junta
+
+2.-
+El cliente se demora en tomar desiciones importantes en momentos críticos.
+
+## Habilidades interpersonales
+
+* Liderazgo
+* Desarollo del espíritu de equipo
+* Motivación
+* Comunicación
+* Influencia
+* Toma de decisiones
+* Conocimientos político sy culturales
+* Negociación
+* Generar confianza
+* Gestión de conflictos
+* Entrenamiento
+
+## Habilidades que tiene que tener un director de proyectos
+
+* Conocimiento
+* Desempeño
+* Habilidades interpersonales (11)
+
+Cocimientos políticos y culturales.
+
+* Uso hábil de política
+* Conocimie del entorno global y la diversidad cultural
+* Comprensión y aprovechamiento de diferencias
+* Conocer y tener comunicación con el equipo
