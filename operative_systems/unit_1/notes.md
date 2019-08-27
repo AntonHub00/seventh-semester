@@ -75,3 +75,32 @@ personales (PC)
 ## Tarea
 
 ver "Her" (Done)
+
+ * Tiene emociones
+ * Inteligencia artificial
+ * Velocidad de procesamiento
+ * Personalizado
+ * Multi-plataforma
+
+## Clasificación de los OSs
+
+### Administración de tareas
+
+* Monotarea (MS-DOS, TSR "Terminate and Stay Resident")
+* Multitarea:
+    * Coordinada (Un proceso cedía el uso del procesador a otro proceso y por
+    intervalos) (Se cuelga)
+    * Preemtiva o apropiativa (El sitema operativo determina el tiempo de
+    procesamiento por intervalos)(No se cuelga)
+    * Real (Solo con 2 o más procesadores)(Cada proceso corre en un procesador)
+
+### Administración  de usuariosj:w
+
+* Mono usuario (oredenadores comunes)
+* Multiusuario (Uso compartido y terminales bobas)(VMS, UNIX, Windows Server)
+    Terminal boba: Solo una extensión de conexión para el procesamiento, pero
+    no tiene CPU propio, depende del otro CPU.
+
+### Manejo de recursos
+
+* 
