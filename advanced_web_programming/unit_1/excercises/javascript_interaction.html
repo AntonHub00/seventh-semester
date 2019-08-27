@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Javascript Interaction</title>
+    <style>
+      .blue-square{
+        height: 200px;
+        width: 200px;
+        background-color: blue;
+        float:left;
+      }
+
+      .green-square{
+        height: 200px;
+        width: 200px;
+        background-color: green;
+        float:left;
+      }
+
+
+      .red-square{
+        height: 200px;
+        width: 200px;
+        background-color: red;
+        float:left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blue-square">
+      I'm blue
+    </div>
+    <div class="green-square">
+      I'm green
+    </div>
+    <div class="red-square">
+      I'm red an I'm here
+    </div>
+  </body>
+  <script>
+
+    //Blue div changes
+    var blue_div = document.getElementsByClassName('blue-square');
+
+    blue_div.addEventListener('click', function (blue_div){
+      blue_div [0].style.backgroundColor = 'black';
+      blue_div [0].style.color = 'white';
+      blue_div[0].innerHTML= 'I was blue';
+    });
+
+    //Green div changes
+    var green_div = document.getElementsByClassName('green-square')
+    green_div[0].innerHTML= 'I was bigger';
+    green_div[0].style.height = '100px';
+    green_div[0].style.width = '100px';
+
+    //Green div changes
+    var green_div = document.getElementsByClassName('red-square')
+    green_div[0].style.display = 'none';
+  </script>
+</html>

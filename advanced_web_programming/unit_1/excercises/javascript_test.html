@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <p>Párrafo1</p>
+    <p>Párrafo2</p>
+    <p>Párrafo3</p>
+
+    <img id="imagen" src="ddd" height="200" width="200">
+
+    <div id="menu">Menu de prueba</div>
+
+    <section class="articulo">ar1</section>
+    <section class="articulo">ar2</section>
+    <section class="articulo">ar3</section>
+    <section class="articulo">ar4</section>
+    <section class="articulo">ar5</section>
+  </body>
+  <script>
+    var parrafo = document.getElementsByTagName('p');
+    <!-- console.log(parrafo[0].innerHTML); -->
+
+    var elementoid = document.getElementById('menu');
+    <!-- console.log(elementoid.innerHTML); -->
+
+    var articulos = document.getElementsByClassName('articulo');
+    <!-- console.log(articulos.innerHTML); -->
+
+    elementoid.innerHTML = 'HOLA';
+
+    var img = document.getElementById('imagen');
+    img.src = "src nuevo";
+    img.setAttribute('alt', 'imagen_de_prueba');
+  </script>
+</html>
