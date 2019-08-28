@@ -119,3 +119,45 @@ carga, confiabilidad.
 ## Equilibrio de carga
 
 ## Distancia administrativa
+
+## Práctica
+
+1841 Es recomendado (router básico)
+
+Faz ethernet es LAN
+rs232 y al puerto de la consola del router
+
+Los b/s depende del router o switch a configurar.
+
+Rutas directamentes conectadas
+
+Show ip route muestra las tabla de direcciones
+
+Se puede tener más puertos a través de loopback o tener más puertos físicamente.
+
+Down en protocol significa cable físicamente desconectado
+
+Down en status significa que no está activada la configuración
+
+copy running-config (la config actual) en startup config
+
+startup-config no pasa nada al borrarlo (pero es mejor no hacerlo)
+
+Poner módulo hweek-2t para poder conectar 2 routers porque se ocupan puertos
+seriales.
+
+Rayitos rojos son los seriales
+
+DCE y DTE
+
+¿Cómo saber quién es DTE y quién DCE?
+
+en show running-config en las seriales dice clock rate. Las 2 posibles seriales
+pueden ser DTE
+
+El que tiene clock rate DCE
+El DTE no tiene clock rate
+
+## Tarea
+
+200.33.4.0/30
