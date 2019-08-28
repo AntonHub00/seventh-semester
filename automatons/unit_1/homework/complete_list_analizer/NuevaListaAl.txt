@@ -1,4 +1,4 @@
-﻿	SISTEMAS OPERATIVOS I    IINF     Lunes-Jueves 12:00-13:00  F5						
+﻿A4O5	SISTEMAS OPERATIVOS I    IINF     Lunes-Jueves 12:00-13:00  F5						
 	Nº control	Nombre del alumno	T1A	T1B	T1	Ex	U1
 1	14120204	Ambriz Hernandez Jose Martin	90	100	95	76	79.8
 2	14121255	Aviles Hernadez Agustin	0	100	50	47	47.6

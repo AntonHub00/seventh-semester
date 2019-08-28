@@ -11,11 +11,17 @@ public interface CompleteListAnalizerConstants {
   /** RegularExpression Id. */
   int SubjectCode = 5;
   /** RegularExpression Id. */
-  int Days = 6;
+  int Subject = 6;
   /** RegularExpression Id. */
-  int Hours = 7;
+  int Day = 7;
   /** RegularExpression Id. */
-  int Room = 8;
+  int Days = 8;
+  /** RegularExpression Id. */
+  int Hour = 9;
+  /** RegularExpression Id. */
+  int Hours = 10;
+  /** RegularExpression Id. */
+  int Room = 11;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -28,10 +34,13 @@ public interface CompleteListAnalizerConstants {
     "\"\\n\"",
     "\"\\r\"",
     "<SubjectCode>",
+    "<Subject>",
+    "<Day>",
     "<Days>",
+    "<Hour>",
     "<Hours>",
     "<Room>",
-    "<token of kind 9>",
+    "<token of kind 12>",
   };
 
 }

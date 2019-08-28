@@ -26,6 +26,10 @@ public class CompleteListAnalizer implements CompleteListAnalizerConstants {
         jj_consume_token(Room);
         break;
         }
+      case Subject:{
+        jj_consume_token(Subject);
+        break;
+        }
       default:
         jj_la1[0] = jj_gen;
         jj_consume_token(-1);
@@ -33,6 +37,7 @@ public class CompleteListAnalizer implements CompleteListAnalizerConstants {
       }
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case SubjectCode:
+      case Subject:
       case Days:
       case Hours:
       case Room:{
@@ -63,7 +68,7 @@ public class CompleteListAnalizer implements CompleteListAnalizerConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1e0,0x1e0,};
+      jj_la1_0 = new int[] {0xd60,0xd60,};
    }
 
   /** Constructor with InputStream. */
@@ -201,7 +206,7 @@ public class CompleteListAnalizer implements CompleteListAnalizerConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[10];
+    boolean[] la1tokens = new boolean[13];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -215,7 +220,7 @@ public class CompleteListAnalizer implements CompleteListAnalizerConstants {
         }
       }
     }
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 13; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

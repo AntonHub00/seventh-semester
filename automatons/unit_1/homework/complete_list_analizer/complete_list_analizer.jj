@@ -25,25 +25,46 @@ TOKEN : {
                     System.out.println("Carrera: TICS");
             }
             |
-            <Days : ("Lunes" | "Martes" | "Miercoles" | "Jueves" | "Viernes") "-"
-            ("Lunes" | "Martes" | "Miercoles" | "Jueves" | "Viernes")>
+            <Subject : ((["A"-"Z"])+(" " | "\t"))+>
+            {
+                if(lengthOfMatch > 10)
+                    System.out.println("Materia: " + image);
+            }
+            |
+            <Day : ("Lunes" | "Martes" | "Miercoles" | "Jueves" | "Viernes")>
+            {System.out.println("Día: " + image);}
+            |
+            <Days : <Day> "-" <Day>>
             {System.out.println("Días: " + image);}
             |
-            /* <Hour : ("0"["0"-"9"] | "1"["0"-"9"] | "2"["0"-"3"]) ":" (["0"-"5"]["0"-"9"])> */
-            /* | */
-            /* <Hours : (<Hour>)"-"(<Hour>)> */
-            /* {System.out.println("Horas: " + image);} */
-            <Hours : ("0"["0"-"9"] | "1"["0"-"9"] | "2"["0"-"3"]) ":" (["0"-"5"]["0"-"9"]) "-"
-            ("0"["0"-"9"] | "1"["0"-"9"] | "2"["0"-"3"]) ":" (["0"-"5"]["0"-"9"])>
+            <Hour : ("0"["0"-"9"] | "1"["0"-"9"] | "2"["0"-"3"]) ":" (["0"-"5"]["0"-"9"])>
+            {System.out.println("Horas: " + image);}
+            |
+            <Hours : <Hour> "-" <Hour>>
             {System.out.println("Horas: " + image);}
             |
             <Room : ("F"["1"-"5"]) | ("K"["1"-"8"])>
             {System.out.println("Salón: " + image);}
+            /* <Subject : ["A"-"Z"](["A"-"Z"] | " " | "\t")* ("IINF" | "ISIS" | "ITIC"| "ITICS")> */
+            /* { */
+            /*     String lexeme = image.toString(); */
+            /*     int position = lexeme.length() - 1; */
+
+            /*     while(lexeme.charAt(position) != ' ') */
+            /*         position--; */
+
+            /*     while(lexeme.charAt(position) == ' ') */
+            /*         position--; */
+
+            /*     position++; */
+
+            /*     System.out.println("Materia: " + lexeme.substring(0, position)); */
+            /* } */
         }
 
 SKIP : {<~[]>}
 
 void Inicio() : {}
 {
-    (<SubjectCode> | <Days> | <Hours> | <Room>)+<EOF>
+    (<SubjectCode> | <Days> | <Hours> | <Room> | <Subject>)+<EOF>
 }

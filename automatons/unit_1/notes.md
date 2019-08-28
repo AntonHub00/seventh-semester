@@ -85,5 +85,36 @@ matchedToken.beginLine: Sirve para saber el tamaño del lexema
 Si un lexema tiene la misma longitud, se toma el primero que aparece en los
 tokens definidos.
 
+TOKEN: Crea un token ue coincida con la regex y lo envía al analizador
+sináctico
+
 SKIP: No pasa la coincidencia a la fase sintáctica
+
 MORE: Esta cadena será un prefijo para la nueva cadena coincidencia.
+
+(MORE) Estado léxico: sirve para encontrar string.
+
+DEFAULT: Primer token que nosotros definamos (en orden) en javacc.
+
+"image" es un string buffer (se puede hacer cast a string).
+
+TOKEN_MGR_DECLS:{
+
+}
+
+Todo dentro de de TOKEN_MGR_DECLS puede ser accesible desde cualquier acción
+léxica.
+
+Acción léxica: Lo que se ejecutará cuando encuentre un lexema.
+
+## C- o C-Minus (lo que haremos con javacc)
+
+* Subconjunto del lenguaje C
+* Palabras reservadas: else, if, int, return, void, while
+* Símbolos: los símbolos
+
+* Símbolo no válido (Con número de línea)
+* Id mal construido (Con número de línea)
+* Decimales mal construidos (Con número de línea)
+
+Equipos de 3: Ángel, Antonio y Julia
