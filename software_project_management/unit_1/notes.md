@@ -42,7 +42,7 @@ del proyecto para cumplir con los objetivos del proyecto.
 * Inicio
 * Planificación
 * Ejecución
-* Monitoreo
+* Monitoreo y control
 * Cierre
 
 Aspectos de la dirección de un proyecto:
@@ -215,3 +215,69 @@ Cocimientos políticos y culturales.
 * Conocimie del entorno global y la diversidad cultural
 * Comprensión y aprovechamiento de diferencias
 * Conocer y tener comunicación con el equipo
+
+## Inicio
+
+* Comienzo del proyectos
+* Se asigna director del proyecto y se identifica los interesados del proyecto
+* Los interesados comienzan a considerar la idea general del proyecto
+* Se investiga la idea, se evalúa, se define y se justifica
+*  Espectativas, requisitos y partipación del patrocinador y los involucrados
+*  Definir metas y objetivos, se discuten restricciones y se evalúan
+*  Determinar los resultados y se autoriza el proyecto
+
+## Planificación
+
+* Determinar el curso de acción del proyecto
+* El director y los miembros definen tareas a completarse
+* Determinar el personal y otros recuros, plazos, fecha de finalización
+* Se crean planes individuales apra abordar el iresgo, la calidad,
+la comunicación y las adquisiciones
+* Redefinir el plan a medida que el proyecto evolucione, por ejemplo, al
+identificar  un nuevo requisito o encontrar un incidente.
+
+Los planes se definen antes del inicio del proyecto.
+
+
+## Ejecución
+
+* El plan funcionando
+* Consiste en trabajar o reaizar las tareas que definieron en la planificación
+
+## Monitoreo y control
+
+* Vigilar el proceso del proyecto, controlar incidentes y administrar los cambios
+desde el plan original
+* Los cambios en restricciones pueden requerir una evaluación del plan original
+para asegurar que los objetivos y metas se cumplan
+
+## Cierre
+
+* Aceptación de los resultados del proyecto por parte de las personas apropiadas
+y la firma del patrocinador del proyecto.
+* Incluye evaluar y capturas las lecciones aprendidas, realizar el trabajo administrativo
+final y finalizar el proyecto celebrando la terminación y el éxito del proyecto
+
+## PMI (Project Management Institute)
+
+Es una de las asociaciones profesionales sin fines de lucro más importantes y de
+mayor crecimiento a nivel mundial.
+
+Tiene como misión convertir a la gerencia de proyectos como la actividad
+indispensable para obtener resultados en cualquier actividad de negocio.
+
+* Lo logra a través de estándares y certificaciones reconocidas mundialmente
+* Comunidades de colaboración, programa de investigación y oportunidades de
+desarrollo profesional
+
+Cuenta con medio millón de mienbros e individuos cetificados en 180 países.
+
+Las empresas la utilizan como referencia para la contratación de profesionales
+en el área de la gerencia de proyectos.
+
+PMP (La más completa)
+CAMP (Técnica para tomar cursos)
+
+## Examen
+
+Viernes 30 de agosto
