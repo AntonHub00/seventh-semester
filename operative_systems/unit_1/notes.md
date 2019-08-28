@@ -103,4 +103,105 @@ ver "Her" (Done)
 
 ### Manejo de recursos
 
-* 
+* Algo debe ir aquí
+
+### Organizacional o estructura
+
+* Monolítico
+* Microkernel
+* Híbridos
+
+***Kernel o núcleo***: Software que constituye la parte fundamental del OS. y se
+define como la parte que se ejecuta en modo privilegiado.
+Facilita a los dinstintos programas el acceso seguro al hardware y es el
+encargado de gestionar recursos, a través de de servicios de llamadas al
+sistema
+
+#### Monolítico
+
+* Macroprograma con miles de líneas de código.
+* Macroprograma: Conjunto o colección de procedimientos enlazados entre sí con la
+libertad de llamar a cualquier otro.
+* En un macroprograma no existe encapsulamiento, por lo tanto, todos los recursos
+están disponibles en todo el sistema y porque no se oculta la información.
+* Estructura básica
+* Todos los procedimientos se ejecutan en modo privilegiado
+* MS-DOS UNIX
+
+Característica principal del encapsulamiento: Ocultamiento de datos
+
+Le procedimiento principal o programa inicial es el que manda a llamar a los
+procedimientos o servicios. A la vez, lo procedimientos o servicios mandan a
+llamar a los procedimientos de utilidad.
+
+* Modo privilegiado (kernel mode)(Acceso a todas las instrucciones y sin validación;
+es rápido)
+* Modo usuario (user mode)(Acceso a intrucciones básicas; es más lento)
+
+### Microkernel o micronúcleo
+
+* Abstracción mínima y muy simple de servicio de llamada a sistema como la gestión
+* de hilos (scheduling), almacenamiento de direcciones y comunicación entre procesos.
+
+Tipos de procesos:
+
+* Procesos de aplicación
+* Comunicación de procesos
+
+Tipos de procesos:
+
+* Entrada/salida
+* Gestión de memoria + (En modo privilegiado)
+* Procesos de aplicación
+* Scheduling + (En modo privilegiado)
+* Gestión de archivos
+* Procesos de servicio
+* Comunicación de procesos + (En modo privilegiado)
+
+El objetivo principal es la separación de los servicios básicos que se ejecutan
+en modo privilegiado y el resto de servicios que se ejecuten en modo usuario.
+
+### Híbrido
+
+Es un micro núcleo que tiene algo de código "no escencial" en espacio e núcleo.
+
+Igual que en micronúcleo pero ejecuta ciertos procesos en modo usuario porque
+se ejecuta más rápido.
+
+## Sistemas de capas
+
+Capa 5: Interfaz de usuario
+Capa 4: Programas de usuario
+Capa 3: Gstión de dispositivos I/O
+Capa 2: Gestión de procesos
+Capa 1: Getión de memoria
+Capa 0: Hardware
+
+Cada capa solo pueda interactuar con sus capas adyacentes. Es por seguridad.
+
+Todos los tipos de sistemas operativos tiene este sistema de capas.
+
+## Sistema por módulos
+
+* Parecido al de capas, pero cualquier módulo puede llamar a otro.
+
+No está obligado a interactuar con capas.
+
+## Sistemas cliente-servidor
+
+* Separa funcionalmente el núcleo, los procesos de sistema y los proceoss de
+aplicación en sistemas de servicio o cliente.
+* Lo único que hace el núcleo es conttrolar la comunicación entre los clientes
+y los servidores.
+* Separación entre "mecanismos" u "política" para hacer que algunos de los
+procesos críticos se ejecuten en modo privilegiado.
+
+Unos procesos actúan como servidor de datos y otros procesos los consumen.
+
+El kernel solo se encarga de la comunicación entre procesos.
+
+Ejemplo: un programa inicia en modo usuario, llega a una parte crítica, esta se
+ejecuta en modo privilegiado y después lo demás vuelve a ejecutarse en modo
+usuario.
+
+Ningún sistema es puro, siempre es una combinación de todos.
