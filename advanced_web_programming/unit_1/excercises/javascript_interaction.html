@@ -43,20 +43,26 @@
     //Blue div changes
     var blue_div = document.getElementsByClassName('blue-square');
 
-    blue_div.addEventListener('click', function (blue_div){
-      blue_div [0].style.backgroundColor = 'black';
-      blue_div [0].style.color = 'white';
-      blue_div[0].innerHTML= 'I was blue';
+    blue_div[0].addEventListener('click', function (){
+      this.style.backgroundColor = 'black';
+      this.style.color = 'white';
+      this.innerHTML= 'I was blue';
     });
 
     //Green div changes
     var green_div = document.getElementsByClassName('green-square')
-    green_div[0].innerHTML= 'I was bigger';
-    green_div[0].style.height = '100px';
-    green_div[0].style.width = '100px';
+
+    green_div[0].addEventListener('mouseover', function (){
+      this.innerHTML = 'I was bigger';
+      this.style.height = '100px';
+      this.style.width = '100px';
+    });
 
     //Green div changes
-    var green_div = document.getElementsByClassName('red-square')
-    green_div[0].style.display = 'none';
+    var red_div = document.getElementsByClassName('red-square')
+
+    red_div[0].addEventListener('mouseout', function (){
+      this.style.display = 'none';
+    });
   </script>
 </html>

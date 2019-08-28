@@ -77,3 +77,55 @@ Eventos de click (ejemplos):
 Eventos de carga:
 
 * No ejemplos
+
+### Patrones de diseño
+
+Soluciones probadas, expresivas y fácilesde mantener para resolver problemas
+comunes en el desarrollo de software.
+
+### Arquitecrua de software
+
+Esctructuras de un sistema, compuestas de elementos con propiedades visibles de
+forma externa y las relaciones que existen entre ellos.
+
+### MVC
+
+Patrón de diseño que seara la lógica de la aplicación, la vista y los datos.
+
+Ventajas:
+
+* Mantenible
+* Pauta para desarrollo colaborativo
+* Estanrdarización de código
+* Cambios independientes de acuerdo al problema
+
+### Modelo
+
+Representación de los datos con los que la aplicación va a interactuar.
+
+* Consulta la DB
+* Consulta de apis externas
+* CRUD de datos
+
+### Vista
+
+Representación gráfica de los datos al usuario
+
+* Mostrar los datos al usuario final
+*
+*
+
+### Controlador
+
+Gestiona el flujo de información entre el modelo y la vista
+
+* Contesta paeticiones al usuario (vista)
+* Responde información estructurada por el modelo
+
+### Fundamentos de MVC
+
+* Convención sobre configuración:
+Preocupate por codificar, no por configurar
+
+* No repitas(princio "DRY"):
+Su principal ventaja es mantener el código centralizado
