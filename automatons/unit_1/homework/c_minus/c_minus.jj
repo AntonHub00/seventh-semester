@@ -1,0 +1,168 @@
+PARSER_BEGIN(CMinus)
+
+public class CMinus{
+    public static void main(String args[]) throws ParseException{
+        CMinus parser = new CMinus(System.in);
+        parser.Start();
+    }
+}
+
+PARSER_END(CMinus)
+
+//Keywords
+TOKEN : {
+            <Keywords : ("else" | "if" | "int" | "return" | "void" | "while")>
+            {
+                System.out.println("Palabra reservada: " + image);
+            }
+        }
+
+//Symbols
+TOKEN : {
+            <Plus : "+">
+            {
+                System.out.println("Símbolo \"mas\": " + image);
+            }
+            |
+            <Minus : "-">
+            {
+                System.out.println("Símbolo \"menos\": " + image);
+            }
+            |
+            <Multiplier : "*">
+            {
+                System.out.println("Símbolo \"por\": " + image);
+            }
+            |
+            <Slash : "/">
+            {
+                System.out.println("Símbolo \"diagonal\": " + image);
+            }
+            |
+            <OpenLeftAngularBracket : "<">
+            {
+                System.out.println("Símbolo \"menor que\": " + image);
+            }
+            |
+            <OpenRightAngularBracket : ">">
+            {
+                System.out.println("Símbolo \"mayor que\": " + image);
+            }
+            |
+            <Equal : "=">
+            {
+                System.out.println("Símbolo \"igual que\": " + image);
+            }
+            |
+            <LeftAngularEqual : <OpenLeftAngularBracket><Equal>>
+            {
+                System.out.println("Símbolo \"menor igual que\": " + image);
+            }
+            |
+            <RightAngularEqual : <OpenRightAngularBracket><Equal>>
+            {
+                System.out.println("Símbolo \"mayor igual que\": " + image);
+            }
+            |
+            <EqualEqual : <Equal><Equal>>
+            {
+                System.out.println("Símbolo \"Doble igual que\": " + image);
+            }
+            |
+            <Different : ["!"]<Equal>>
+            {
+                System.out.println("Símbolo \"Diferente que\": " + image);
+            }
+            |
+            <Semicolon : ";">
+            {
+                System.out.println("Símbolo \"fin de instrucción\": " + image);
+            }
+            |
+            <Comma : ",">
+            {
+                System.out.println("Símbolo \"coma\": " + image);
+            }
+            |
+            <LeftParen : "(">
+            {
+                System.out.println("Símbolo \"paréntesis izquierdo\": " + image);
+            }
+            |
+            <RightParen : ")">
+            {
+                System.out.println("Símbolo \"paréntesis derecho\": " + image);
+            }
+            |
+            <LeftSquareBracket : "[">
+            {
+                System.out.println("Símbolo \"corchete izquierdo\": " + image);
+            }
+            |
+            <RightSquareBracket : "]">
+            {
+                System.out.println("Símbolo \"corchete derecho\": " + image);
+            }
+            |
+            <LeftBrace : "{">
+            {
+                System.out.println("Símbolo \"llave izquierda\": " + image);
+            }
+            |
+            <RightBrace : "}">
+            {
+                System.out.println("Símbolo \"llave derecho\": " + image);
+            }
+        }
+
+//Others
+TOKEN : {
+            <Id : ["a"-"z", "A"-"Z"]((["a"-"z", "A"-"Z", "0"-"9"])*)>
+            {
+                System.out.println("Id: " + image);
+            }
+            |
+            <Number : (["0"-"9"])+>
+            {
+                System.out.println("Número: " + image);
+            }
+            |
+            <Decimal : ((["0"-"9"])+ "." (["0"-"9"])+)>
+            {
+                System.out.println("Decimal: " + image);
+            }
+        }
+
+//White spaces
+SKIP : {" " | "\t" | "\n" | "\r"}
+
+//Errors
+SKIP : {
+           < (["0"-"9"])+(["a"-"z", "A"-"Z"])+>
+           {System.out.println("Id mal construido: " + image);}
+           |
+           <"." (["0"-"9"])+>
+           {System.out.println("Decimal mal construido: " + image);}
+           |
+           <(["0"-"9"])+ ".">
+           {System.out.println("Decimal mal construido: " + image);}
+        }
+
+//All other chars
+SKIP : {<~[]>{System.out.println("Símbolo no válido: " + image);}}
+
+void Start() : {}
+{
+    (
+    <Keywords>
+
+    | <Plus> | <Minus> | <Multiplier> | <Slash>
+    | <OpenLeftAngularBracket> | <OpenRightAngularBracket> | <Equal>
+    | <LeftAngularEqual> | <RightAngularEqual> | <EqualEqual> | <Different>
+    | <Semicolon> | <LeftParen> | <RightParen> | <LeftSquareBracket>
+    | <RightSquareBracket> | <LeftBrace> | <RightBrace>
+
+    |<Id> | <Number> | <Decimal>// | <BadDecimal>
+
+    )+<EOF>
+}

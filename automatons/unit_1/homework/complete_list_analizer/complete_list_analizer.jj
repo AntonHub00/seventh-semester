@@ -37,7 +37,7 @@ TOKEN : {
             <Days : <Day> "-" <Day>>
             {System.out.println("Días: " + image);}
             |
-            <Hour : ("0"["0"-"9"] | "1"["0"-"9"] | "2"["0"-"3"]) ":" (["0"-"5"]["0"-"9"])>
+            <Hour : (("0")?["0"-"9"] | "1"["0"-"9"] | "2"["0"-"3"]) ":" (["0"-"5"]["0"-"9"])>
             {System.out.println("Horas: " + image);}
             |
             <Hours : <Hour> "-" <Hour>>
@@ -45,6 +45,9 @@ TOKEN : {
             |
             <Room : ("F"["1"-"5"]) | ("K"["1"-"8"])>
             {System.out.println("Salón: " + image);}
+            |
+            <ControlNumber : (["0"-"9"]){8}>
+            {System.out.println(image + "@itmorelia.edu.mx");}
             /* <Subject : ["A"-"Z"](["A"-"Z"] | " " | "\t")* ("IINF" | "ISIS" | "ITIC"| "ITICS")> */
             /* { */
             /*     String lexeme = image.toString(); */
@@ -66,5 +69,5 @@ SKIP : {<~[]>}
 
 void Inicio() : {}
 {
-    (<SubjectCode> | <Days> | <Hours> | <Room> | <Subject>)+<EOF>
+    (<SubjectCode> | <Days> | <Hours> | <Room> | <Subject> | <ControlNumber>)+<EOF>
 }

@@ -22,6 +22,8 @@ public interface CompleteListAnalizerConstants {
   int Hours = 10;
   /** RegularExpression Id. */
   int Room = 11;
+  /** RegularExpression Id. */
+  int ControlNumber = 12;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -40,7 +42,8 @@ public interface CompleteListAnalizerConstants {
     "<Hour>",
     "<Hours>",
     "<Room>",
-    "<token of kind 12>",
+    "<ControlNumber>",
+    "<token of kind 13>",
   };
 
 }
