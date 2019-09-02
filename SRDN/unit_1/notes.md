@@ -148,16 +148,164 @@ seriales.
 
 Rayitos rojos son los seriales
 
-DCE y DTE
+DCE (Data Comunication Equipment) y DTE (Data Terminal Equipment)
 
 ¿Cómo saber quién es DTE y quién DCE?
 
 en show running-config en las seriales dice clock rate. Las 2 posibles seriales
-pueden ser DTE
+pueden ser DTE.
 
-El que tiene clock rate DCE
-El DTE no tiene clock rate
+Solo el DCE tiene clock rate.
+
+El DTE no tiene clock rate.
+
+## Configuración de básica de un router
+
+Nota: exit (sale del modo actual: root, configuración global, configuración de línea,
+configuración de interfaz, etc.)
+
+enable (Entre en modo root)
+
+configure terminal (Entra a modo de configuración global)
+
+hostname R1 (asgina el nombre "R1" al router que se está configurando)
+
+enable secret class (Se configura "class" como la contraseña secreta)
+
+line console 0 (Entra al modo de configuración de línea, en este caso, para la
+configuración de la línea de consola)
+
+password cisco (Configura la cisco como contraseña para la línea de consola)
+
+login (Pide a los usuarios que inicien sesión)
+
+exit (para salir de modo de configuración de línea de consola)
+
+line vty 0 4 (entra en moto de línea de teletype para configurar las líneas de la
+0 a la 4)
+
+password cisco (Configura la cisco como contraseña para la línea de teletype)
+
+login (Pide a los usuarios que inicien sesión)
+
+exit (para salir de modo de configuración de línea de teletype)
+
+service password-encryption (para cifrar las contraseñas previamente configuradas)
+
+banner motd #¡Acceso autorizado únicamente!# (Se configura el aviso legal y se usa
+el símbolo "#" como delimitador del mensaje)
+
+no ip domain-lookup (Previene que el router trate de resolver comandos incorrectos
+enviando un consulta de DNS, es decir, desabilita tener que esperar cuando se
+poner un comando incorrecto en modo usuario)
+
+exit (para salir de modo de configuración global)
+
+copy running-config startup-config (Copia la configuración actual que se encuentra
+en la RAM hacia la NVRAM la cual contiene la configuración de arranque, es decir,
+este comando nos permite guardar la configuración acutal por si el router se apaga,
+así no se pierde dicha configuración y esta es cargada al encender el router)
+
+## Configuración de una interfaz de un router
+
+(En modo de configuración global)
+
+interface nombre_interfaz  puerto_de_interfaz (Entra al modo de configuración de
+la interfaz). Ejemplo: interface fastethernet 0/0
+
+description texto_de_max_240_caracteres (Ayuda a identificar de manera fácil la
+interfaz). Ejemplo: description Enlance a LAN 1
+
+ip address direccion_ip mascara_de_red (Configura la dirección ip de la interfaz
+y su máscara de red): Ejemplo: ip address 192.168.11.1 255.255.255.0
+
+no shutdown (Enciende/habilita de manera "lógica" la interfaz)
+
+exit (para salir de modo de configuración de interfaz)
+
+## Configuración de una interfaz serial un router
+
+(En modo de configuración global)
+
+interface serial puerto_de_interfaz (Entra al modo de configuración de la
+interfaz serial). Ejemplo: inteface serial 0/0/0
+
+description texto_de_max_240_caracteres (Ayuda a identificar de manera fácil la
+interfaz). Ejemplo: description Enlance a router R2
+
+ip address direccion_ip mascara_de_red (Configura la dirección ip de la interfaz
+y su máscara de red): Ejemplo: ip address 200.165.200.225 255.255.255.25252
+
+clock rate numero_de_clock_rate (Configuración de velocidad de envío de datos
+en b/s, es decir, bits por segundo). Ejemplo:  clock rate 128000
+
+Nota: El clock rate solo se puede configurar en el DCE (Data Comunication
+Equipment).
+
+no shutdown (Enciende/habilita de manera "lógica" la interfaz)
+
+exit (para salir de modo de configuración de interfaz)
+
+Nota: El mensaje que muestra al configurar la interfaz serial muestra "down",
+esto es porque aún no se ha configurado el otro router. cuando el otro router
+sea configurado, el estado cambiará a "UP".
 
 ## Tarea
 
 200.33.4.0/30
+
+---
+
+1.1.3.1 (config de router)
+
+Para que no espere con comando erróneo:
+
+"no ip domain-lookup" ("transfer preferred none"?????)
+
+
+Tabla de enrutamiento:
+Guarda las rutas que puede conocer
+
+La C significa directamente conectada.
+
+## Tarea (Lunes 2 de septiembre)
+
+* Interconectar dispositivos
+* Configurar interfaces con redes diferentes
+* Configuración básica de router
+* Desactivación de la ruta por defecto
+* El router "2" debe tener una ruta estática por defecto a router "5" (entre el
+y 5 no van conectados)
+
+Red a utilizar decidida por mí: 192.168.1.0/24
+
+Clase: C
+
+Máscara de subnet: 255.255.255.0 (por defecto)
+
+Cantidad de bits de subnet: 0
+
+Número de redes: 1 (No subnetting)
+
+Número de direcciones por red: 256
+
+Números de direcciones utilizables por red: 254
+
+| Dirección de red | Primera ip utilizable | Última ip utilizable |   Broadcast   |      Tipo de red      |
+|:----------------:|:---------------------:|:--------------------:|:-------------:|:---------------------:|
+|   192.168.1.0    |       192.168.1.1     |    192.168.1.254     | 192.168.1.255 |      Primera red      |
+|   192.168.2.0    |       192.168.2.1     |    192.168.2.254     | 192.168.2.255 | Primera red de enlace |
+|   192.168.3.0    |       192.168.3.1     |    192.168.3.254     | 192.168.3.255 |      Segunda red      |
+|   192.168.4.0    |       192.168.4.1     |    192.168.4.254     | 192.168.4.255 | Segunda red de enlace |
+|   192.168.5.0    |       192.168.5.1     |    192.168.5.254     | 192.168.5.255 |      Tercera red      |
+
+Registro de direccionamiento de red (documentación)
+
+| Dispositivo | Interfaz |   Dirección IP   | Máscara de subred | Gateway predeterminado |
+|:------------:|:--------:|:---------------:|:-----------------:|:----------------------:|
+|      R1      |   Fa0/0  |   192.168.1.1   |   255.255.255.0   |          N/D           |
+
+
+## Examen (Jueves 5 de septiembre)
+
+Teórico
