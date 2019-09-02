@@ -129,3 +129,19 @@ Preocupate por codificar, no por configurar
 
 * No repitas(princio "DRY"):
 Su principal ventaja es mantener el código centralizado
+
+## Patrones derivados
+
+* MVP: Modelo vista presentador
+* MVA: Modelo vistar adaptador
+
+## MVVM (Modelo-Vista-Vista Modelo)
+
+Patrón de diseño derivao del patrón MVC que intenta separa de la UI todo lo demás.
+
+Características:
+
+* Separa el negocio d la vista
+* Falcilita Unit Tests
+
+El View Model construye las vistas
