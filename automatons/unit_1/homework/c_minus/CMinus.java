@@ -102,6 +102,10 @@ public class CMinus implements CMinusConstants {
         jj_consume_token(Decimal);
         break;
         }
+      case Error:{
+        jj_consume_token(Error);
+        break;
+        }
       default:
         jj_la1[0] = jj_gen;
         jj_consume_token(-1);
@@ -130,7 +134,8 @@ public class CMinus implements CMinusConstants {
       case RightBrace:
       case Id:
       case Number:
-      case Decimal:{
+      case Decimal:
+      case Error:{
         ;
         break;
         }
@@ -154,11 +159,16 @@ public class CMinus implements CMinusConstants {
   static private int jj_gen;
   static final private int[] jj_la1 = new int[2];
   static private int[] jj_la1_0;
+  static private int[] jj_la1_1;
   static {
       jj_la1_init_0();
+      jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0xfffffe,0xfffffe,};
+      jj_la1_0 = new int[] {0x7fffff0,0x7fffff0,};
+   }
+   private static void jj_la1_init_1() {
+      jj_la1_1 = new int[] {0x4,0x4,};
    }
 
   /** Constructor with InputStream. */
@@ -296,7 +306,7 @@ public class CMinus implements CMinusConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[32];
+    boolean[] la1tokens = new boolean[35];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -307,10 +317,13 @@ public class CMinus implements CMinusConstants {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
             la1tokens[j] = true;
           }
+          if ((jj_la1_1[i] & (1<<j)) != 0) {
+            la1tokens[32+j] = true;
+          }
         }
       }
     }
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < 35; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

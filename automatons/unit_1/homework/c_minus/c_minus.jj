@@ -9,6 +9,14 @@ public class CMinus{
 
 PARSER_END(CMinus)
 
+/* TOKEN_MGR_DECLS : { Token current_token = new Token();} */
+
+SKIP: { <"/*"> : InsideText }
+
+<InsideText> SKIP :{ "*/" : DEFAULT }
+
+<InsideText> MORE :{ <~[]> {}}
+
 //Keywords
 TOKEN : {
             <Keywords : ("else" | "if" | "int" | "return" | "void" | "while")>
@@ -138,7 +146,7 @@ SKIP : {" " | "\t" | "\n" | "\r"}
 
 //Errors
 SKIP : {
-           < (["0"-"9"])+(["a"-"z", "A"-"Z"])+>
+           <(["0"-"9"])+(["a"-"z", "A"-"Z"])+>
            {System.out.println("Id mal construido: " + image);}
            |
            <"." (["0"-"9"])+>
@@ -149,7 +157,12 @@ SKIP : {
         }
 
 //All other chars
-SKIP : {<~[]>{System.out.println("Símbolo no válido: " + image);}}
+TOKEN : {
+            <Error : ~[]>
+            {
+                System.out.println("Símbolo no válido: " + image + ". Error en la línea: " + matchedToken.beginLine);
+            }
+        }
 
 void Start() : {}
 {
@@ -162,7 +175,9 @@ void Start() : {}
     | <Semicolon> | <Comma> | <LeftParen> | <RightParen> | <LeftSquareBracket>
     | <RightSquareBracket> | <LeftBrace> | <RightBrace>
 
-    |<Id> | <Number> | <Decimal>// | <BadDecimal>
+    |<Id> | <Number> | <Decimal>
+
+    | <Error>
 
     )+<EOF>
 }

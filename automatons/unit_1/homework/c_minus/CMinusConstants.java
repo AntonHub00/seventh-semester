@@ -9,58 +9,65 @@ public interface CMinusConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int Keywords = 1;
+  int Keywords = 4;
   /** RegularExpression Id. */
-  int Plus = 2;
+  int Plus = 5;
   /** RegularExpression Id. */
-  int Minus = 3;
+  int Minus = 6;
   /** RegularExpression Id. */
-  int Multiplier = 4;
+  int Multiplier = 7;
   /** RegularExpression Id. */
-  int Slash = 5;
+  int Slash = 8;
   /** RegularExpression Id. */
-  int OpenLeftAngularBracket = 6;
+  int OpenLeftAngularBracket = 9;
   /** RegularExpression Id. */
-  int OpenRightAngularBracket = 7;
+  int OpenRightAngularBracket = 10;
   /** RegularExpression Id. */
-  int Equal = 8;
+  int Equal = 11;
   /** RegularExpression Id. */
-  int LeftAngularEqual = 9;
+  int LeftAngularEqual = 12;
   /** RegularExpression Id. */
-  int RightAngularEqual = 10;
+  int RightAngularEqual = 13;
   /** RegularExpression Id. */
-  int EqualEqual = 11;
+  int EqualEqual = 14;
   /** RegularExpression Id. */
-  int Different = 12;
+  int Different = 15;
   /** RegularExpression Id. */
-  int Semicolon = 13;
+  int Semicolon = 16;
   /** RegularExpression Id. */
-  int Comma = 14;
+  int Comma = 17;
   /** RegularExpression Id. */
-  int LeftParen = 15;
+  int LeftParen = 18;
   /** RegularExpression Id. */
-  int RightParen = 16;
+  int RightParen = 19;
   /** RegularExpression Id. */
-  int LeftSquareBracket = 17;
+  int LeftSquareBracket = 20;
   /** RegularExpression Id. */
-  int RightSquareBracket = 18;
+  int RightSquareBracket = 21;
   /** RegularExpression Id. */
-  int LeftBrace = 19;
+  int LeftBrace = 22;
   /** RegularExpression Id. */
-  int RightBrace = 20;
+  int RightBrace = 23;
   /** RegularExpression Id. */
-  int Id = 21;
+  int Id = 24;
   /** RegularExpression Id. */
-  int Number = 22;
+  int Number = 25;
   /** RegularExpression Id. */
-  int Decimal = 23;
+  int Decimal = 26;
+  /** RegularExpression Id. */
+  int Error = 34;
 
   /** Lexical state. */
   int DEFAULT = 0;
+  /** Lexical state. */
+  int InsideText = 1;
 
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
+    "\"/*\"",
+    "\"*/\"",
+    "<token of kind 3>",
     "<Keywords>",
     "\"+\"",
     "\"-\"",
@@ -88,10 +95,10 @@ public interface CMinusConstants {
     "\"\\t\"",
     "\"\\n\"",
     "\"\\r\"",
-    "<token of kind 28>",
-    "<token of kind 29>",
-    "<token of kind 30>",
     "<token of kind 31>",
+    "<token of kind 32>",
+    "<token of kind 33>",
+    "<Error>",
   };
 
 }
