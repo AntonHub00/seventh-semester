@@ -62,6 +62,10 @@ public class CMinus implements CMinusConstants {
         jj_consume_token(Semicolon);
         break;
         }
+      case Comma:{
+        jj_consume_token(Comma);
+        break;
+        }
       case LeftParen:{
         jj_consume_token(LeftParen);
         break;
@@ -117,6 +121,7 @@ public class CMinus implements CMinusConstants {
       case EqualEqual:
       case Different:
       case Semicolon:
+      case Comma:
       case LeftParen:
       case RightParen:
       case LeftSquareBracket:
@@ -153,7 +158,7 @@ public class CMinus implements CMinusConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0xffbffe,0xffbffe,};
+      jj_la1_0 = new int[] {0xfffffe,0xfffffe,};
    }
 
   /** Constructor with InputStream. */

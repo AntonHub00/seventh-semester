@@ -159,7 +159,7 @@ void Start() : {}
     | <Plus> | <Minus> | <Multiplier> | <Slash>
     | <OpenLeftAngularBracket> | <OpenRightAngularBracket> | <Equal>
     | <LeftAngularEqual> | <RightAngularEqual> | <EqualEqual> | <Different>
-    | <Semicolon> | <LeftParen> | <RightParen> | <LeftSquareBracket>
+    | <Semicolon> | <Comma> | <LeftParen> | <RightParen> | <LeftSquareBracket>
     | <RightSquareBracket> | <LeftBrace> | <RightBrace>
 
     |<Id> | <Number> | <Decimal>// | <BadDecimal>
