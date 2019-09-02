@@ -281,3 +281,19 @@ CAMP (Técnica para tomar cursos)
 ## Examen
 
 Viernes 30 de agosto
+
+---
+
+## Calidad de software
+
+* Definición
+* Factores (Qué implica)
+    * Seguridad
+* Importancia
+
+1.- ¿Cómo evaluar la calidad en el SW?
+
+2.- ¿En qué consiste el aseguramiento de la calidad en SW?
+Cuando se cumplen los objetivos
+
+3.- ¿En qué consiste un modelo de madurez?
