@@ -171,3 +171,35 @@ Clasficicacón de la investigador (aplicada o pura(básica))
 * Ventajas/desventajas
 * Identificar tipo de investigación de las publicaciones técnico-científico
 relacionadas con nuestro tema de interés de investigación.
+
+## Tarea
+
+* Naturaleza: Básica o aplicada
+* OSOs
+* (De cada artículo encontrado) Fichas de trabajo importantes
+(con referencia en APA 6th), parafraseado o cita(conceptos, ejemplos,
+conlusión, etc.). "Investigación Orientada a Objetos"
+
+Líneas de gestión y áreas de conocimiento
+
+* Ingeriería de software e infraestructura técnica - Noel Pintor
+* Aplicaciones y serivicos sobre internet - Adrián Vieyra
+* Desarrollo de sistemas learning - Octavio Ortiz
+* Tópicos avanzados de ingeriería de software
+* Seguridad y administración de la información - Juan Manuel
+
+Justificar el contexto
+
+LGAC
+
+* Seguridad y administración de la información - Juan Manuel (Nuestros)
+
+## Tarea (30 de agosto 2019)
+
+C.V datos básicos
+Hacer cuenta en OCC para realizar psicométrico para incluir en el C.V
+Test de actitudes y emprendimiento(Preguntas y respuestas)
+
+## Tarea (5 de septiembre de 2019)
+
+Práctica de selección de tema
