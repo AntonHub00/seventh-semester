@@ -306,6 +306,44 @@ Registro de direccionamiento de red (documentación)
 |      R1      |   Fa0/0  |   192.168.1.1   |   255.255.255.0   |          N/D           |
 
 
-## Examen (Jueves 5 de septiembre)
+## Examen (Lunes 9 de septiembre)
 
 Teórico
+
+
+## Examen (Jueves 5 de septiembre)
+
+Práctico
+
+
+## Implementación del routing estático
+
+En general, hay 2 tipos de ruteos:
+
+* Manual
+* Dinámica
+
+### Ruta completamente especificada
+
+Interfaz de salida (del router ) y dirección del siguente salto.
+
+Problemas comunes por las que puede no haber comunicación:
+
+* Firewall
+* Clock rates
+* Máscaras
+* Que la ip de pc no coincida
+* Que falten rutas de aprender para los routers.
+
+### Prática (Miércoles 4 de Septiembre)
+
+Equipo: May, Julia, Ángel, Josué y Antonio
+
+Material: 7 directos y 4 cruzados
+
+### Ruta estática predeterminada
+
+La ruta estática predeterminada sirve (a mi entender) para cuando el router a
+configurar solo tiene un único puerto de salida. Este al no encontrar una dirección
+para mandarlo, lo manda por el único puerto de salida que tiene y le delega el
+envío de paquete al router que sigue.
