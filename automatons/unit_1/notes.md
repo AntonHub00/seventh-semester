@@ -118,3 +118,38 @@ Acción léxica: Lo que se ejecutará cuando encuentre un lexema.
 * Decimales mal construidos (Con número de línea)
 
 Equipos de 3: Ángel, Antonio y Julia
+
+
+## Análisis sintáctico
+
+En esta fase se necesita las gramáticas libres de contexto.
+
+Una gramática libre de contexto (GlC) se componen de 4 cosas:
+
+* Terminal Épsilont = \{a, b\}
+* No terminal
+* Axioma
+* Reglas
+
+LL(1): Derivación por la izquierda de un caracter a la vez: Derivación por la
+izquierda de un caracter a la vez.
+
+void Start():{
+    (D())+<EOF>;
+}
+
+void D():{
+    T() L()
+}
+
+void T():{
+    <Boolean> | <Char>
+}
+
+void L():{
+    <Id> | Lp()
+}
+
+void Lp():{
+    (<Coma> <Id> Lp())*
+}
