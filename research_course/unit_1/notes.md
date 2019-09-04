@@ -1,4 +1,4 @@
-# Requerimientos para una investigación
+# Requerimientos para una investigación (Tipos de investigación)
 
 * Área de conocimientos (Saber saber y saber hacer) (Qué?)
 * Contexto (lugar, tiempo, actores (shareholders y stakeholder)) (Dónde? (en tiempo y espacio))
@@ -203,3 +203,23 @@ Test de actitudes y emprendimiento(Preguntas y respuestas)
 ## Tarea (5 de septiembre de 2019)
 
 Práctica de selección de tema
+
+## Fecha límite de prácticas
+
+Son Son 7 prácticas
+
+Del 7 al 11 de Octubre de 2019
+
+## Capítulos de Dawson
+
+* 3: Choosing a project
+* 4: Project planning - risk management
+
+---
+
+* Naturaleza ()
+* Propósito (Para qué)
+* Alcance ()
+* Atributos ()
+* Técnicas de recopilación de datos (obtener datos de campo o de documentos)
+* Instrumentos de recopilación de datos (una encuesta el instrumento)
