@@ -292,8 +292,16 @@ Viernes 30 de agosto
 * Importancia
 
 1.- ¿Cómo evaluar la calidad en el SW?
+Con estándares
 
 2.- ¿En qué consiste el aseguramiento de la calidad en SW?
 Cuando se cumplen los objetivos
 
 3.- ¿En qué consiste un modelo de madurez?
+Métricas. Hay medidas de precaución y medidas para emergencias.
+
+---
+
+El aseguramiento de la calidad es como "auditoría" para generar reportes, etc.
+
+Métricas: ?
