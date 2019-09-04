@@ -1,0 +1,270 @@
+PARSER_BEGIN(CMinus)
+
+public class CMinus{
+    public static void main(String args[]) throws ParseException{
+        CMinus parser = new CMinus(System.in);
+        parser.Start();
+    }
+}
+
+PARSER_END(CMinus)
+
+TOKEN_MGR_DECLS : {
+    static int line_counter = 1;
+    static int column_counter = 0;
+}
+
+//Keywords
+TOKEN : {
+            <Keywords : ("else" | "if" | "int" | "return" | "void" | "while")>
+            {
+                column_counter += image.toString().length();
+                System.out.println("Palabra reservada \"" + image + "\" encontrada en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+        }
+
+//Symbols
+TOKEN : {
+            <Plus : "+">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Minus : "-">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Multiplier : "*">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Slash : "/">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <OpenLeftAngularBracket : "<">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <OpenRightAngularBracket : ">">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Equal : "=">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <LeftAngularEqual : <OpenLeftAngularBracket><Equal>>
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <RightAngularEqual : <OpenRightAngularBracket><Equal>>
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <EqualEqual : <Equal><Equal>>
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Different : ["!"]<Equal>>
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Semicolon : ";">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Comma : ",">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <LeftParen : "(">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <RightParen : ")">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <LeftSquareBracket : "[">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <RightSquareBracket : "]">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <LeftBrace : "{">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <RightBrace : "}">
+            {
+                column_counter += image.toString().length();
+                System.out.println("\"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+        }
+
+//Id, Number and float
+TOKEN : {
+            <Id : ["a"-"z", "A"-"Z"]((["a"-"z", "A"-"Z", "0"-"9"])*)>
+            {
+                column_counter += image.toString().length();
+                System.out.println("Identificador \"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Number : (["0"-"9"])+>
+            {
+                column_counter += image.toString().length();
+                System.out.println("Número \"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+            |
+            <Decimal : ((["0"-"9"])+ "." (["0"-"9"])+)>
+            {
+                column_counter += image.toString().length();
+                System.out.println("Decimal \"" + image + "\" encontrado en la línea "
+                        + matchedToken.beginLine + ", columna " + matchedToken.beginColumn);
+            }
+        }
+
+//Comment
+SKIP : { <"/*"> : InsideText }
+
+<InsideText> SKIP : { "*/" : DEFAULT }
+
+<InsideText> MORE : { <"\n">
+    {
+        column_counter = 0;
+        line_counter ++;
+    }
+}
+
+<InsideText> MORE : { <~[]> {column_counter += image.toString().length();}}
+
+//White spaces
+SKIP : {
+           <" ">
+           {
+               column_counter += image.toString().length();
+           }
+           |
+           <"\t">
+           {
+               column_counter += 8;
+           }
+           |
+           <"\r">
+           {
+               column_counter += image.toString().length();
+           }
+           |
+           <"\n">
+           {
+               column_counter = 0;
+               line_counter ++;
+           }
+       }
+
+//Incorrectly built (error)
+SKIP : {
+           <(["0"-"9"])+(["a"-"z", "A"-"Z"])+>
+           {
+               column_counter += image.toString().length();
+               System.out.println("Identificador mal construido \"" + image + "\" encontrado en la línea " + line_counter + ", columna " + column_counter);
+           }
+           |
+           <"." (["0"-"9"])+>
+           {
+               column_counter += image.toString().length();
+               System.out.println("Decimal mal construido \"" + image + "\" encontrado en la línea " + line_counter + ", columna " + column_counter);
+           }
+           |
+           <(["0"-"9"])+ ".">
+           {
+               column_counter += image.toString().length();
+               System.out.println("Decimal mal construido \"" + image + "\" encontrado en la línea " + line_counter + ", columna " + column_counter);
+           }
+        }
+
+//All other chars
+SKIP : {
+            <~[]>
+            {
+                column_counter += image.toString().length();
+                System.out.println("Símbolo no válido \"" + image + "\" en la línea " + line_counter + ", columna " + column_counter);
+            }
+        }
+
+void Start() : {}
+{
+    (
+
+    <Keywords>
+
+    | <Plus> | <Minus> | <Multiplier> | <Slash>
+    | <OpenLeftAngularBracket> | <OpenRightAngularBracket> | <Equal>
+    | <LeftAngularEqual> | <RightAngularEqual> | <EqualEqual> | <Different>
+    | <Semicolon> | <Comma> | <LeftParen> | <RightParen> | <LeftSquareBracket>
+    | <RightSquareBracket> | <LeftBrace> | <RightBrace>
+
+    |<Id> | <Number> | <Decimal>
+
+    )+<EOF>
+}

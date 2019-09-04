@@ -7,9 +7,8 @@ public class CMinus{
     }
 }
 
-PARSER_END(CMinus)
 
-/* TOKEN_MGR_DECLS : { Token current_token = new Token();} */
+PARSER_END(CMinus)
 
 SKIP: { <"/*"> : InsideText }
 
@@ -21,7 +20,8 @@ SKIP: { <"/*"> : InsideText }
 TOKEN : {
             <Keywords : ("else" | "if" | "int" | "return" | "void" | "while")>
             {
-                System.out.println("Palabra reservada: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
             }
         }
 
@@ -29,97 +29,116 @@ TOKEN : {
 TOKEN : {
             <Plus : "+">
             {
-                System.out.println("Símbolo \"mas\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"más\" (" + image + ") encontrado");
             }
             |
             <Minus : "-">
             {
-                System.out.println("Símbolo \"menos\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"menos\" (" + image + ") encontrado");
             }
             |
             <Multiplier : "*">
             {
-                System.out.println("Símbolo \"por\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"por\" (" + image + ") encontrado");
             }
             |
             <Slash : "/">
             {
-                System.out.println("Símbolo \"diagonal\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"diagonal\" (" + image + ") encontrado");
             }
             |
             <OpenLeftAngularBracket : "<">
             {
-                System.out.println("Símbolo \"menor que\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"menor que\" (" + image + ") encontrado");
             }
             |
             <OpenRightAngularBracket : ">">
             {
-                System.out.println("Símbolo \"mayor que\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"mayor que\" (" + image + ") encontrado");
             }
             |
             <Equal : "=">
             {
-                System.out.println("Símbolo \"igual que\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"asignación\" (" + image + ") encontrado");
             }
             |
             <LeftAngularEqual : <OpenLeftAngularBracket><Equal>>
             {
-                System.out.println("Símbolo \"menor igual que\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"menor o igual que\" (" + image + ") encontrado");
             }
             |
             <RightAngularEqual : <OpenRightAngularBracket><Equal>>
             {
-                System.out.println("Símbolo \"mayor igual que\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"mayor o igual que\" (" + image + ") encontrado");
             }
             |
             <EqualEqual : <Equal><Equal>>
             {
-                System.out.println("Símbolo \"Doble igual que\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"igual que\" (" + image + ") encontrado");
             }
             |
             <Different : ["!"]<Equal>>
             {
-                System.out.println("Símbolo \"Diferente que\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"diferente de\" (" + image + ") encontrado");
             }
             |
             <Semicolon : ";">
             {
-                System.out.println("Símbolo \"fin de instrucción\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"fin de instrucción\" (" + image + ") encontrado");
             }
             |
             <Comma : ",">
             {
-                System.out.println("Símbolo \"coma\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"coma\" (" + image + ") encontrado");
             }
             |
             <LeftParen : "(">
             {
-                System.out.println("Símbolo \"paréntesis izquierdo\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"paréntesis de apertura\" (" + image + ") encontrado");
             }
             |
             <RightParen : ")">
             {
-                System.out.println("Símbolo \"paréntesis derecho\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"paréntesis de cierre\" (" + image + ") encontrado");
             }
             |
             <LeftSquareBracket : "[">
             {
-                System.out.println("Símbolo \"corchete izquierdo\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"corchete de apertura\" (" + image + ") encontrado");
             }
             |
             <RightSquareBracket : "]">
             {
-                System.out.println("Símbolo \"corchete derecho\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"corchete de cierre\" (" + image + ") encontrado");
             }
             |
             <LeftBrace : "{">
             {
-                System.out.println("Símbolo \"llave izquierda\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"llave de apertura\" (" + image + ") encontrado");
             }
             |
             <RightBrace : "}">
             {
-                System.out.println("Símbolo \"llave derecho\": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"llave de cierre\" (" + image + ") encontrado");
             }
         }
 
@@ -127,17 +146,20 @@ TOKEN : {
 TOKEN : {
             <Id : ["a"-"z", "A"-"Z"]((["a"-"z", "A"-"Z", "0"-"9"])*)>
             {
-                System.out.println("Id: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Identificador \"" + image + "\" encontrado");
             }
             |
             <Number : (["0"-"9"])+>
             {
-                System.out.println("Número: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Número \"" + image + "\" encontrado");
             }
             |
             <Decimal : ((["0"-"9"])+ "." (["0"-"9"])+)>
             {
-                System.out.println("Decimal: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal \"" + image + "\" encontrado");
             }
         }
 
@@ -145,22 +167,35 @@ TOKEN : {
 SKIP : {" " | "\t" | "\n" | "\r"}
 
 //Errors
-SKIP : {
-           <(["0"-"9"])+(["a"-"z", "A"-"Z"])+>
-           {System.out.println("Id mal construido: " + image);}
+SPECIAL_TOKEN : {
+           <BadId : (["0"-"9"])+(["a"-"z", "A"-"Z"])+>
+           {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Indentificador mal construido \"" +
+                        image + "\" encontrado");
+           }
            |
-           <"." (["0"-"9"])+>
-           {System.out.println("Decimal mal construido: " + image);}
+           <BadFloat1 : "." (["0"-"9"])+>
+           {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal mal construido \"" +
+                        image + "\" encontrado");
+           }
            |
-           <(["0"-"9"])+ ".">
-           {System.out.println("Decimal mal construido: " + image);}
+           <BadFloat2 : (["0"-"9"])+ ".">
+           {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal mal construido \"" +
+                        image + "\" encontrado");
+           }
         }
 
 //All other chars
-TOKEN : {
+SPECIAL_TOKEN : {
             <Error : ~[]>
             {
-                System.out.println("Símbolo no válido: " + image + ". Error en la línea: " + matchedToken.beginLine);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo no válido \"" + image + "\" encontrado");
             }
         }
 
@@ -176,8 +211,6 @@ void Start() : {}
     | <RightSquareBracket> | <LeftBrace> | <RightBrace>
 
     |<Id> | <Number> | <Decimal>
-
-    | <Error>
 
     )+<EOF>
 }

@@ -447,6 +447,7 @@ static int jjmatchedKind;
 /** Get the next Token. */
 public static Token getNextToken() 
 {
+  Token specialToken = null;
   Token matchedToken;
   int curPos = 0;
 
@@ -462,6 +463,7 @@ public static Token getNextToken()
       jjmatchedKind = 0;
       jjmatchedPos = -1;
       matchedToken = jjFillToken();
+      matchedToken.specialToken = specialToken;
       return matchedToken;
    }
    image = jjimage;
@@ -503,6 +505,7 @@ public static Token getNextToken()
         if ((jjtoToken[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)
         {
            matchedToken = jjFillToken();
+           matchedToken.specialToken = specialToken;
            TokenLexicalActions(matchedToken);
        if (jjnewLexState[jjmatchedKind] != -1)
          curLexState = jjnewLexState[jjmatchedKind];
@@ -510,7 +513,20 @@ public static Token getNextToken()
         }
         else if ((jjtoSkip[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)
         {
-           SkipLexicalActions(null);
+           if ((jjtoSpecial[jjmatchedKind >> 6] & (1L << (jjmatchedKind & 077))) != 0L)
+           {
+              matchedToken = jjFillToken();
+              if (specialToken == null)
+                 specialToken = matchedToken;
+              else
+              {
+                 matchedToken.specialToken = specialToken;
+                 specialToken = (specialToken.next = matchedToken);
+              }
+              SkipLexicalActions(matchedToken);
+           }
+           else
+              SkipLexicalActions(null);
          if (jjnewLexState[jjmatchedKind] != -1)
            curLexState = jjnewLexState[jjmatchedKind];
            continue EOFLoop;
@@ -556,15 +572,26 @@ static void SkipLexicalActions(Token matchedToken)
    {
       case 31 :
          image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-            System.out.println("Id mal construido: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Indentificador mal construido \u005c"" +
+                        image + "\u005c" encontrado");
          break;
       case 32 :
          image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-            System.out.println("Decimal mal construido: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal mal construido \u005c"" +
+                        image + "\u005c" encontrado");
          break;
       case 33 :
          image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-            System.out.println("Decimal mal construido: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal mal construido \u005c"" +
+                        image + "\u005c" encontrado");
+         break;
+      case 34 :
+         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo no v\u00e1lido \u005c"" + image + "\u005c" encontrado");
          break;
       default :
          break;
@@ -576,114 +603,133 @@ static void TokenLexicalActions(Token matchedToken)
    {
       case 4 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("Palabra reservada: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \u005c"" + image + "\u005c" encontrada");
          break;
       case 5 :
         image.append(jjstrLiteralImages[5]);
         lengthOfMatch = jjstrLiteralImages[5].length();
-                System.out.println("S\u00edmbolo \u005c"mas\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"m\u00e1s\u005c" (" + image + ") encontrado");
          break;
       case 6 :
         image.append(jjstrLiteralImages[6]);
         lengthOfMatch = jjstrLiteralImages[6].length();
-                System.out.println("S\u00edmbolo \u005c"menos\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"menos\u005c" (" + image + ") encontrado");
          break;
       case 7 :
         image.append(jjstrLiteralImages[7]);
         lengthOfMatch = jjstrLiteralImages[7].length();
-                System.out.println("S\u00edmbolo \u005c"por\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"por\u005c" (" + image + ") encontrado");
          break;
       case 8 :
         image.append(jjstrLiteralImages[8]);
         lengthOfMatch = jjstrLiteralImages[8].length();
-                System.out.println("S\u00edmbolo \u005c"diagonal\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"diagonal\u005c" (" + image + ") encontrado");
          break;
       case 9 :
         image.append(jjstrLiteralImages[9]);
         lengthOfMatch = jjstrLiteralImages[9].length();
-                System.out.println("S\u00edmbolo \u005c"menor que\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"menor que\u005c" (" + image + ") encontrado");
          break;
       case 10 :
         image.append(jjstrLiteralImages[10]);
         lengthOfMatch = jjstrLiteralImages[10].length();
-                System.out.println("S\u00edmbolo \u005c"mayor que\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"mayor que\u005c" (" + image + ") encontrado");
          break;
       case 11 :
         image.append(jjstrLiteralImages[11]);
         lengthOfMatch = jjstrLiteralImages[11].length();
-                System.out.println("S\u00edmbolo \u005c"igual que\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"asignaci\u00f3n\u005c" (" + image + ") encontrado");
          break;
       case 12 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("S\u00edmbolo \u005c"menor igual que\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"menor o igual que\u005c" (" + image + ") encontrado");
          break;
       case 13 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("S\u00edmbolo \u005c"mayor igual que\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"mayor o igual que\u005c" (" + image + ") encontrado");
          break;
       case 14 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("S\u00edmbolo \u005c"Doble igual que\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"igual que\u005c" (" + image + ") encontrado");
          break;
       case 15 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("S\u00edmbolo \u005c"Diferente que\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"diferente de\u005c" (" + image + ") encontrado");
          break;
       case 16 :
         image.append(jjstrLiteralImages[16]);
         lengthOfMatch = jjstrLiteralImages[16].length();
-                System.out.println("S\u00edmbolo \u005c"fin de instrucci\u00f3n\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"fin de instrucci\u00f3n\u005c" (" + image + ") encontrado");
          break;
       case 17 :
         image.append(jjstrLiteralImages[17]);
         lengthOfMatch = jjstrLiteralImages[17].length();
-                System.out.println("S\u00edmbolo \u005c"coma\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"coma\u005c" (" + image + ") encontrado");
          break;
       case 18 :
         image.append(jjstrLiteralImages[18]);
         lengthOfMatch = jjstrLiteralImages[18].length();
-                System.out.println("S\u00edmbolo \u005c"par\u00e9ntesis izquierdo\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"par\u00e9ntesis de apertura\u005c" (" + image + ") encontrado");
          break;
       case 19 :
         image.append(jjstrLiteralImages[19]);
         lengthOfMatch = jjstrLiteralImages[19].length();
-                System.out.println("S\u00edmbolo \u005c"par\u00e9ntesis derecho\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"par\u00e9ntesis de cierre\u005c" (" + image + ") encontrado");
          break;
       case 20 :
         image.append(jjstrLiteralImages[20]);
         lengthOfMatch = jjstrLiteralImages[20].length();
-                System.out.println("S\u00edmbolo \u005c"corchete izquierdo\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"corchete de apertura\u005c" (" + image + ") encontrado");
          break;
       case 21 :
         image.append(jjstrLiteralImages[21]);
         lengthOfMatch = jjstrLiteralImages[21].length();
-                System.out.println("S\u00edmbolo \u005c"corchete derecho\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"corchete de cierre\u005c" (" + image + ") encontrado");
          break;
       case 22 :
         image.append(jjstrLiteralImages[22]);
         lengthOfMatch = jjstrLiteralImages[22].length();
-                System.out.println("S\u00edmbolo \u005c"llave izquierda\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"llave de apertura\u005c" (" + image + ") encontrado");
          break;
       case 23 :
         image.append(jjstrLiteralImages[23]);
         lengthOfMatch = jjstrLiteralImages[23].length();
-                System.out.println("S\u00edmbolo \u005c"llave derecho\u005c": " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": S\u00edmbolo \u005c"llave de cierre\u005c" (" + image + ") encontrado");
          break;
       case 24 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("Id: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Identificador \u005c"" + image + "\u005c" encontrado");
          break;
       case 25 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("N\u00famero: " + image);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": N\u00famero \u005c"" + image + "\u005c" encontrado");
          break;
       case 26 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("Decimal: " + image);
-         break;
-      case 34 :
-        image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("S\u00edmbolo no v\u00e1lido: " + image + ". Error en la l\u00ednea: " + matchedToken.beginLine);
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal \u005c"" + image + "\u005c" encontrado");
          break;
       default :
          break;
@@ -776,10 +822,13 @@ public static final int[] jjnewLexState = {
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
 };
 static final long[] jjtoToken = {
-   0x407fffff1L, 
+   0x7fffff1L, 
 };
 static final long[] jjtoSkip = {
-   0x3f8000006L, 
+   0x7f8000006L, 
+};
+static final long[] jjtoSpecial = {
+   0x780000000L, 
 };
 static final long[] jjtoMore = {
    0x8L, 

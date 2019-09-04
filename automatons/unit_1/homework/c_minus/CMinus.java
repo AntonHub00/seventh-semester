@@ -102,10 +102,6 @@ public class CMinus implements CMinusConstants {
         jj_consume_token(Decimal);
         break;
         }
-      case Error:{
-        jj_consume_token(Error);
-        break;
-        }
       default:
         jj_la1[0] = jj_gen;
         jj_consume_token(-1);
@@ -134,8 +130,7 @@ public class CMinus implements CMinusConstants {
       case RightBrace:
       case Id:
       case Number:
-      case Decimal:
-      case Error:{
+      case Decimal:{
         ;
         break;
         }
@@ -168,7 +163,7 @@ public class CMinus implements CMinusConstants {
       jj_la1_0 = new int[] {0x7fffff0,0x7fffff0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x4,0x4,};
+      jj_la1_1 = new int[] {0x0,0x0,};
    }
 
   /** Constructor with InputStream. */

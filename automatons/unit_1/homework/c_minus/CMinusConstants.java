@@ -55,6 +55,12 @@ public interface CMinusConstants {
   /** RegularExpression Id. */
   int Decimal = 26;
   /** RegularExpression Id. */
+  int BadId = 31;
+  /** RegularExpression Id. */
+  int BadFloat1 = 32;
+  /** RegularExpression Id. */
+  int BadFloat2 = 33;
+  /** RegularExpression Id. */
   int Error = 34;
 
   /** Lexical state. */
@@ -95,9 +101,9 @@ public interface CMinusConstants {
     "\"\\t\"",
     "\"\\n\"",
     "\"\\r\"",
-    "<token of kind 31>",
-    "<token of kind 32>",
-    "<token of kind 33>",
+    "<BadId>",
+    "<BadFloat1>",
+    "<BadFloat2>",
     "<Error>",
   };
 
