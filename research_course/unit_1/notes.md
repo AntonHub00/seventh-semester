@@ -223,3 +223,67 @@ Del 7 al 11 de Octubre de 2019
 * Atributos ()
 * Técnicas de recopilación de datos (obtener datos de campo o de documentos)
 * Instrumentos de recopilación de datos (una encuesta el instrumento)
+
+## Selección de un proyecto
+
+Ámbito: socioecológico y administrativo. (debemos elegirlo).
+
+Por la academia participante. (debemos elegirlo).
+
+Tipos e investigación según su naturaleza. (contestar eso para nuestro proyecto).
+
+Manipulación de las variables (experimental y no experimental. mi proyecto lo tiene?).
+
+Tipo de inferencia.
+
+Considerando el tiempo en que se efectua (syncrono o asíncrono).
+
+Invervalo de tiempo.
+
+Por su profundidad (explicativa, descriptiva, etc).
+
+Por su propósito (Aplicada o pura).
+
+Por los medios para obtener datos (de campo, documental o laboratorio).
+
+---
+
+Es mejor apostar por un tema de nuestro interés que solo por cumplir con los requisitos.
+
+### Aspectos a considerar
+
+Tiempo disponible:
+
+* Proyecto no demasiado ambicioso
+
+Escoger un proyecto de acuerdo a mis metas personales.
+
+Nuestro proyecto debe tener un propósito de un producto.
+
+Pensar que es un cliente real (se tiene más interés en el proyecto).
+
+Que los recursos estén disponibles.
+
+Explora repositorio nacional.
+
+### Clustering (Formació de estructuras/organizadores gráficas)
+
+Diagramas de araña, diagrama jerárquico.
+
+Son construcciones personales. Son mi propia interpretación de los artículos investigados
+
+### Chapter breakdown
+
+### Preparando la prepuesta
+
+Revisar los requisitos
+
+## Contenido implícito y contenido explícito
+
+Se calificará con el contenido explícito.
+
+### Anteproyecto vs informe fina
+
+---
+
+Timeless research
