@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>5 HTML5 sections</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+  </head>
+  <body>
+    <main>
+      <header>5 HTML5 sections</header>
+      <nav>
+        <ul>
+          <li><a href="#id-section-1">Section 1 (A dummy audio)</a></li>
+          <li><a href="#id-section-2">Section 2 (A dummy video)</a></li>
+          <li><a href="#id-section-3">Section 3 (Process bar)</a></li>
+          <li><a href="#id-section-4">Section 4 (Time)</a></li>
+          <li><a href="#id-section-5">Section 5 (Output)</a></li>
+        </ul>
+      </nav>
+      <section id="id-section-1" class="section-1">
+        <article>
+          Section 1 (A dummy audio)
+          <br>
+          <br>
+          <audio controls>
+              <source src="5_seconds_countdown.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag.
+          </audio>
+        </article>
+      </section>
+      <section  id="id-section-2" class="section-2">
+        <article>
+          Section 2 (A dummy video)
+          <br>
+          <video width="320" height="240" controls>
+            <source src="5_seconds_countdown.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+        </article>
+      </section>
+      <section id="id-section-3" class="section-3">
+        <article>
+          Section 3 (Process bar)
+          <br>
+          <br>
+          Loading progress:
+          <progress value="80" max="100"></progress>
+        </article>
+      </section>
+      <section id="id-section-4" class="section-4">
+        <article>
+          Section 4 (Time)
+          <br>
+          <br>
+          <p><time datetime="12-25">Christmas is an excelent date</time>.</p>
+        </article>
+      </section>
+      <section id="id-section-5" class="section-5">
+        <article>
+          Section 5 (Output)
+          <br>
+          <br>
+          <form oninput="x.value=parseInt(a.value)+parseInt(b.value)">0
+            <input type="range" id="a" value="50">100
+            +<input type="number" id="b" value="50">
+            =<output name="x" for="a b"></output>
+          </form>
+        </article>
+      </section>
+      <aside>
+        This is the aside
+      </aside>
+      <footer>
+        This is the footer
+      </footer>
+    </main>
+  </body>
+</html>
