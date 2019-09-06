@@ -18,8 +18,8 @@ SKIP: { <"/*"> : InsideText }
 
 //Keywords
 TOKEN : {
-            <Keywords : ("else" | "if" | "int" | "return" | "void" | "while")>
-            {
+            <Keywords : ("else" | "if" | "int" | "return" | "void" | "while" | "real" | "input" | "output")>{
+            
                 System.out.println(matchedToken.beginLine + "," +
                         matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
             }

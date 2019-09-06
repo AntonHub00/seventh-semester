@@ -1,0 +1,13 @@
+//Programa para probar numeros decimales :)
+
+void main(void)
+{
+    3velocidad i;
+@
+    i = 0.;
+    while (i < 10)
+    {
+	i = i + 0.2; &
+	output(i);
+    }
+ }
