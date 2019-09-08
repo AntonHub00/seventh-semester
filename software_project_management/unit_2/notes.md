@@ -112,3 +112,92 @@ Se debe:
 * Diagrama de pareto
 * Diagramas de control
 * Diagrama de dispersión
+
+---
+
+#### Herramientas para planificar la calidad
+
+* Análisis costo-beneficio: Permite comprara el costo de nivel de calidad con el
+beneficio esperado
+* Costo de calidad: Prevenir incumplimiento de requisitos
+* Costos de conformidad
+    * Costos de prevención
+    * Costos de evaluación
+* Costos de NO conformidad
+    * Costos inernos por fallas
+    * Costos externos por fallas
+* Estudios comparativos: Generar ideas de mejora y proporcionar una base para medi
+el desempeño
+* Diseño de Experimentos (DOE)
+* Muestreo estadísticos: Productos
+* Reuniones: Involucrados
+
+#### Salidas para planificar la calidad
+
+* Plan de gestión de calidad
+* Métricas de calidad
+    * Una medida es un valor real
+* Listas de verificación de calidad
+* Plan de mejoras del proceso
+    * Límites del proceso
+    * Configuración del proceso
+    * Métricas del proceso
+    * Objetivos de mejora del desempeño
+* Actualizaciones a los documentos del proyecto
+
+### Aseguramiento de la calidad
+
+Es una "auditoría" de los requisitos de calidad.
+
+Verificar que sí se están utilizando las normas de calidad que yo decidí para
+el proyecto.
+
+Verificarque todos lor procesos y normas definidas se están aplicando en el
+plan de calidad.
+
+Aseguramiento de calidad = mejora continua.
+
+#### Herramientas
+
+* Auditorías de calidad
+    * Las auditorías pueden ser programadas
+    * Las auditorías pueden conformidad la implementación de solicitudes de cambio
+    aprobadas
+* Análisis de procesos
+
+Existen 2 grados de enfoque para la meora continua:
+
+* Mejoramiento o Kaizen: mucha pequeñas mejoras
+* Inovación o Kayro: una gran mejora
+
+### Control de calidad
+
+El que monitorea o registra todas las actividades de control el fin de evaluar
+el desempeño y recomendar cambios necesarios.
+
+* Beneficios clave de este proceso:
+
+
+El control de calidad se lleva a cabo durante todo el proyecto.
+
+---
+__Importante__
+
+* El aseguramiento de la calidad se hace durante la planifiación y ejecución del
+proyecto
+* Control de calidad se hace en ejecución y en cierre
+
+Lo más importante en el control de calidad son las medidas de control de calidad
+(pregunta de examen).
+
+---
+
+#### Diferencias entre aseguramiento de la calidad y el control de calidad
+
+Control de calida mide cosas muy específicasdel proyecto.
+
+El aseguramiento de la calidad verifica que se estén realizando las tareas
+adecuadas.
+
+El diagrama (ver diapos) contiene toda la información resumida: "descripción
+general de la gestión'de la calidad del proyecto".
