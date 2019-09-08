@@ -1,0 +1,84 @@
+PARSER_BEGIN(SimpleGrammar)
+
+public class SimpleGrammar{
+    public static void main(String args[]) throws ParseException{
+        SimpleGrammar parser = new SimpleGrammar(System.in);
+        parser.Start();
+    }
+}
+
+
+PARSER_END(SimpleGrammar)
+
+TOKEN : {
+            <Comma : ",">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"coma\" (" + image + ") encontrado");
+            }
+            |
+           <Boolean : "boolean">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Booleano \"" + image + "\" encontrado");
+            }
+            |
+            <Char : "char">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Char \"" + image + "\" encontrado");
+            }
+            |
+            <Id : ["a"-"z", "A"-"Z"]((["a"-"z", "A"-"Z", "0"-"9"])*)>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Identificador \"" + image + "\" encontrado");
+            }
+        }
+
+//White spaces
+SKIP : {" " | "\t" | "\n" | "\r"}
+
+//Errors
+SPECIAL_TOKEN : {
+           <BadId : (["0"-"9"])+(["a"-"z", "A"-"Z"])+>
+           {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Indentificador mal construido \"" +
+                        image + "\" encontrado");
+           }
+        }
+
+//All other chars
+SPECIAL_TOKEN : {
+            <Error : ~[]>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo no válido \"" + image + "\" encontrado");
+            }
+        }
+
+void Start() : {}
+{
+    (D())+<EOF>
+}
+
+void D() : {}
+{
+    T() L()
+}
+
+void T() : {}
+{
+    <Boolean> | <Char>
+}
+
+void L() : {}
+{
+    <Id> Lp()
+}
+
+void Lp() : {}
+{
+    (<Comma> <Id> Lp())*
+}
