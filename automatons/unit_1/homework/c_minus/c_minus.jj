@@ -18,8 +18,47 @@ SKIP: { <"/*"> : InsideText }
 
 //Keywords
 TOKEN : {
-            <Keywords : ("else" | "if" | "int" | "return" | "void" | "while" | "real" | "input" | "output")>{
-            
+            <Else : "else">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <If : "if">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Int : "int">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Return : "return">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Void : "void">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <While : "while">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Real : "real">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Input : "input">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Output : "output">{
                 System.out.println(matchedToken.beginLine + "," +
                         matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
             }
@@ -202,7 +241,8 @@ SPECIAL_TOKEN : {
 void Start() : {}
 {
     (
-    <Keywords>
+    <Else> | <If> | <Int> | <Return> | <Void> | <While> | <Real> | <Input> |
+    <Output>
 
     | <Plus> | <Minus> | <Multiplier> | <Slash>
     | <OpenLeftAngularBracket> | <OpenRightAngularBracket> | <Equal>

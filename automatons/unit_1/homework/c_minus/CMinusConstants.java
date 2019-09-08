@@ -9,59 +9,75 @@ public interface CMinusConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int Keywords = 4;
+  int Else = 4;
   /** RegularExpression Id. */
-  int Plus = 5;
+  int If = 5;
   /** RegularExpression Id. */
-  int Minus = 6;
+  int Int = 6;
   /** RegularExpression Id. */
-  int Multiplier = 7;
+  int Return = 7;
   /** RegularExpression Id. */
-  int Slash = 8;
+  int Void = 8;
   /** RegularExpression Id. */
-  int OpenLeftAngularBracket = 9;
+  int While = 9;
   /** RegularExpression Id. */
-  int OpenRightAngularBracket = 10;
+  int Real = 10;
   /** RegularExpression Id. */
-  int Equal = 11;
+  int Input = 11;
   /** RegularExpression Id. */
-  int LeftAngularEqual = 12;
+  int Output = 12;
   /** RegularExpression Id. */
-  int RightAngularEqual = 13;
+  int Plus = 13;
   /** RegularExpression Id. */
-  int EqualEqual = 14;
+  int Minus = 14;
   /** RegularExpression Id. */
-  int Different = 15;
+  int Multiplier = 15;
   /** RegularExpression Id. */
-  int Semicolon = 16;
+  int Slash = 16;
   /** RegularExpression Id. */
-  int Comma = 17;
+  int OpenLeftAngularBracket = 17;
   /** RegularExpression Id. */
-  int LeftParen = 18;
+  int OpenRightAngularBracket = 18;
   /** RegularExpression Id. */
-  int RightParen = 19;
+  int Equal = 19;
   /** RegularExpression Id. */
-  int LeftSquareBracket = 20;
+  int LeftAngularEqual = 20;
   /** RegularExpression Id. */
-  int RightSquareBracket = 21;
+  int RightAngularEqual = 21;
   /** RegularExpression Id. */
-  int LeftBrace = 22;
+  int EqualEqual = 22;
   /** RegularExpression Id. */
-  int RightBrace = 23;
+  int Different = 23;
   /** RegularExpression Id. */
-  int Id = 24;
+  int Semicolon = 24;
   /** RegularExpression Id. */
-  int Number = 25;
+  int Comma = 25;
   /** RegularExpression Id. */
-  int Decimal = 26;
+  int LeftParen = 26;
   /** RegularExpression Id. */
-  int BadId = 31;
+  int RightParen = 27;
   /** RegularExpression Id. */
-  int BadFloat1 = 32;
+  int LeftSquareBracket = 28;
   /** RegularExpression Id. */
-  int BadFloat2 = 33;
+  int RightSquareBracket = 29;
   /** RegularExpression Id. */
-  int Error = 34;
+  int LeftBrace = 30;
+  /** RegularExpression Id. */
+  int RightBrace = 31;
+  /** RegularExpression Id. */
+  int Id = 32;
+  /** RegularExpression Id. */
+  int Number = 33;
+  /** RegularExpression Id. */
+  int Decimal = 34;
+  /** RegularExpression Id. */
+  int BadId = 39;
+  /** RegularExpression Id. */
+  int BadFloat1 = 40;
+  /** RegularExpression Id. */
+  int BadFloat2 = 41;
+  /** RegularExpression Id. */
+  int Error = 42;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -74,7 +90,15 @@ public interface CMinusConstants {
     "\"/*\"",
     "\"*/\"",
     "<token of kind 3>",
-    "<Keywords>",
+    "\"else\"",
+    "\"if\"",
+    "\"int\"",
+    "\"return\"",
+    "\"void\"",
+    "\"while\"",
+    "\"real\"",
+    "\"input\"",
+    "\"output\"",
     "\"+\"",
     "\"-\"",
     "\"*\"",

@@ -10,8 +10,40 @@ public class CMinus implements CMinusConstants {
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case Keywords:{
-        jj_consume_token(Keywords);
+      case Else:{
+        jj_consume_token(Else);
+        break;
+        }
+      case If:{
+        jj_consume_token(If);
+        break;
+        }
+      case Int:{
+        jj_consume_token(Int);
+        break;
+        }
+      case Return:{
+        jj_consume_token(Return);
+        break;
+        }
+      case Void:{
+        jj_consume_token(Void);
+        break;
+        }
+      case While:{
+        jj_consume_token(While);
+        break;
+        }
+      case Real:{
+        jj_consume_token(Real);
+        break;
+        }
+      case Input:{
+        jj_consume_token(Input);
+        break;
+        }
+      case Output:{
+        jj_consume_token(Output);
         break;
         }
       case Plus:{
@@ -108,7 +140,15 @@ public class CMinus implements CMinusConstants {
         throw new ParseException();
       }
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case Keywords:
+      case Else:
+      case If:
+      case Int:
+      case Return:
+      case Void:
+      case While:
+      case Real:
+      case Input:
+      case Output:
       case Plus:
       case Minus:
       case Multiplier:
@@ -160,10 +200,10 @@ public class CMinus implements CMinusConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x7fffff0,0x7fffff0,};
+      jj_la1_0 = new int[] {0xfffffff0,0xfffffff0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,};
+      jj_la1_1 = new int[] {0x7,0x7,};
    }
 
   /** Constructor with InputStream. */
@@ -301,7 +341,7 @@ public class CMinus implements CMinusConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[35];
+    boolean[] la1tokens = new boolean[43];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -318,7 +358,7 @@ public class CMinus implements CMinusConstants {
         }
       }
     }
-    for (int i = 0; i < 35; i++) {
+    for (int i = 0; i < 43; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
