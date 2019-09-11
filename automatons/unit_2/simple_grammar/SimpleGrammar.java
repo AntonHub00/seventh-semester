@@ -3,6 +3,7 @@
 public class SimpleGrammar implements SimpleGrammarConstants {
     public static void main(String args[]) throws ParseException{
         SimpleGrammar parser = new SimpleGrammar(System.in);
+        int count = 0;
         parser.Start();
     }
 
@@ -22,6 +23,10 @@ public class SimpleGrammar implements SimpleGrammarConstants {
       }
     }
     jj_consume_token(0);
+System.out.println(" \u005cnCantidad de indentificadores encontrados: " + (token_source.id_index) + "\u005cn");
+        for(int i=0; i<token_source.id_index; i++){
+            System.out.println("Id n\u00famero " + (i+1) + ": " + token_source.ids[i]);
+        }
   }
 
   static final public void D() throws ParseException {

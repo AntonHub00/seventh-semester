@@ -3,12 +3,17 @@ PARSER_BEGIN(SimpleGrammar)
 public class SimpleGrammar{
     public static void main(String args[]) throws ParseException{
         SimpleGrammar parser = new SimpleGrammar(System.in);
+        int count = 0;
         parser.Start();
     }
 }
 
-
 PARSER_END(SimpleGrammar)
+
+TOKEN_MGR_DECLS : {
+    static int id_index = 0;
+    static String[] ids = new String[100];
+}
 
 TOKEN : {
             <Comma : ",">
@@ -20,19 +25,21 @@ TOKEN : {
            <Boolean : "boolean">
             {
                 System.out.println(matchedToken.beginLine + "," +
-                        matchedToken.beginColumn + ": Booleano \"" + image + "\" encontrado");
+                        matchedToken.beginColumn + ": Palabra reservada \"boolean\" encontrada");
             }
             |
             <Char : "char">
             {
                 System.out.println(matchedToken.beginLine + "," +
-                        matchedToken.beginColumn + ": Char \"" + image + "\" encontrado");
+                        matchedToken.beginColumn + ": Palabra reservada \"char\" encontrada");
             }
             |
             <Id : ["a"-"z", "A"-"Z"]((["a"-"z", "A"-"Z", "0"-"9"])*)>
             {
                 System.out.println(matchedToken.beginLine + "," +
                         matchedToken.beginColumn + ": Identificador \"" + image + "\" encontrado");
+                ids[id_index] = image.toString();
+                id_index++;
             }
         }
 
@@ -60,7 +67,12 @@ SPECIAL_TOKEN : {
 
 void Start() : {}
 {
-    (D())+<EOF>
+    (D())+<EOF> {
+        System.out.println(" \nCantidad de indentificadores encontrados: " + (token_source.id_index) + "\n");
+        for(int i=0; i<token_source.id_index; i++){
+            System.out.println("Id número " + (i+1) + ": " + token_source.ids[i]);
+        }
+        }
 }
 
 void D() : {}

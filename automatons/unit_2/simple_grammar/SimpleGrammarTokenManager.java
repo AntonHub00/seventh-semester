@@ -3,6 +3,8 @@
 
 /** Token Manager. */
 @SuppressWarnings("unused")public class SimpleGrammarTokenManager implements SimpleGrammarConstants {
+    static int id_index = 0;
+    static String[] ids = new String[100];
 
   /** Debug output. */
   public static  java.io.PrintStream debugStream = System.out;
@@ -451,18 +453,20 @@ static void TokenLexicalActions(Token matchedToken)
         image.append(jjstrLiteralImages[2]);
         lengthOfMatch = jjstrLiteralImages[2].length();
                 System.out.println(matchedToken.beginLine + "," +
-                        matchedToken.beginColumn + ": Booleano \u005c"" + image + "\u005c" encontrado");
+                        matchedToken.beginColumn + ": Palabra reservada \u005c"boolean\u005c" encontrada");
          break;
       case 3 :
         image.append(jjstrLiteralImages[3]);
         lengthOfMatch = jjstrLiteralImages[3].length();
                 System.out.println(matchedToken.beginLine + "," +
-                        matchedToken.beginColumn + ": Char \u005c"" + image + "\u005c" encontrado");
+                        matchedToken.beginColumn + ": Palabra reservada \u005c"char\u005c" encontrada");
          break;
       case 4 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
                 System.out.println(matchedToken.beginLine + "," +
                         matchedToken.beginColumn + ": Identificador \u005c"" + image + "\u005c" encontrado");
+                ids[id_index] = image.toString();
+                id_index++;
          break;
       default :
          break;
