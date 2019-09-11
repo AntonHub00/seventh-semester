@@ -282,8 +282,22 @@ Revisar los requisitos
 
 Se calificará con el contenido explícito.
 
-### Anteproyecto vs informe fina
+### Anteproyecto vs informe final
 
 ---
 
 Timeless research
+
+---
+
+Justificar un contexto.
+
+1.- Investigar mucho sobre un tema (ecoger top 15 artículos)
+
+Cuando se plantea el **protocolo** es porque ya sabemos mucho del tema.
+
+2.- ?
+
+3.- Protocolo != proyecto final (artículo científico)
+
+### Tarea (Capítulo de 4 de Dawson)
