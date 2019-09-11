@@ -164,3 +164,78 @@ IPC (Inter Process Comunication). Controla a los hilos a nivel de kernel.
 ### Desventaja
 
 * Complejidad de programación
+
+## Concurrencia
+
+Concepto lógico de la existencia de varias actividades ejecutpandose
+simultáneamente, gracias a la habilidad de distintas partes de un programa de
+ser ejecutado en desorden o en orden parcial sin afctar el resultado final. (
+síncrono o asíncrono)
+
+**Contextos**:
+
+- Varias aplicaciones
+- Aplicaciones estructuradas (Una aplicación se divide en varias y converge)
+- Estructura del sistema operativo (servicios (Windows), Daemons (Linux))
+
+**Modelos de computadora**:
+
+- Multiprogramación con un único procesador (No al mismo tiempo; "paralelos")
+- Multiprocesador (varios procesos al mismo tiempo)
+- Multicomputadora
+
+**Libro**: Daemon de Daniel Suarez
+
+**Motivaciones**:
+
+- Compartir recursos lógicos (archivos/servicios)
+- Compartir recursos físicos
+- Acelerar cálculos (hilos y convergen)
+- Modularidad (Una entidad gigante se puede dividir en partes pequeñas)
+- Comodidad (Ya no se hace monotarea: nos permite ejecutar varias apps al mismo
+tiempo)
+
+**Problema de concurrencia**:
+
+- Carrera o competencia (compiten por recursos)
+- Postergación o aplazamiento (se bloquean porque bandera no se desactiva)
+- Espera circular (Se cicla; A requiere a B y B requiere a A)
+- No apropiación (Un proceso no puede apropiarse de un recurso. Tiene que ver la
+razón por la cual no puede apropiarse del recurso)
+- Espera ocupada (Un proceso espera un recurso en su tiempo porque otro proceso
+tiene ocupado un recurso aunque este esté suspendido)
+- Ocupar y esperar (Ejemplo: Un proceso A ocupa recurso A y un recurso B, pero un
+proceso B está ocupando el recurso B, por lo tanto el recurso A no está siendo
+utilizado por nadie porque el proceso A lo apartó porque requiere el proceso B
+para poder continuar)
+
+### Mutex (Mutual Exclusion)
+
+Evitar que entre más de un proceso a la vez a la sección crítica.
+
+En microkernel: Una parte de un programa se ejecuta en modo usuario y otra en
+modo privilegiado; la parte ejecutada en motod privilegiado es la **sección crítica**.
+
+
+Una llamada al sistema es cuando pedimos:
+
+- Solicitar dispositivo
+- Solicitar dispositivo
+- Solicitar archivos
+- Solicitar servicio/daemon
+- Comunicación
+
+#### Mecanismo de Mutex
+
+- Candados o cierre de Mutex
+- Algoritmo de Dekker
+- Algoritmo de Peterson
+- Semáforos
+- Monitores
+- Paso de mensajes
+
+#### Tarea (11 de septiembre de 2019)
+
+Con mi equipo
+
+Tema: Algoritmo de Peterson
