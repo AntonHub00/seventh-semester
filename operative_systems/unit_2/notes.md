@@ -239,3 +239,39 @@ Una llamada al sistema es cuando pedimos:
 Con mi equipo
 
 Tema: Algoritmo de Peterson
+
+#### Paso de mensaje Mutex
+#### Candados
+
+Limita el acceso por hilo
+
+#### Candados en DBs
+
+#### Semáforos
+
+#### Monitores
+
+Son estructuras abstractas para se usadas por un hilo de ejecución.
+
+(Parecidos a los semaforos pero mejor)
+
+**Componentes**
+
+- Inicialización
+- Datos privados
+- Métodos del monitor
+- Cola de entrada
+
+Ejemplo del baño
+
+### Tarea
+
+Programa
+
+Crear archivo vacío
+
+Hilo por cada caracter de la cadena
+
+Escribir en un archivo los caracteres
+
+Manejar concurrencia con algún método visto en clase
