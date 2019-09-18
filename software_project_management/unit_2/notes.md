@@ -255,3 +255,133 @@ requisitos de lista de habilidades del docente
 positivas en encuesta a alumnos
 - Retroalimentación de evaluación docente: 80% en  promedio de críticas
 positivas en encuesta a alumnos
+
+---
+
+#### Estándares de calidad de software
+
+- Permiten la innovación constante de procesos en el desarrollo de software
+- Procesos sencillos y eficientes
+- Comprendr que el proceso de desarrolo de SW es complejo (evitar aparición de
+defecto)
+- Procesos estandarizados basados en buenas prácticas
+- Posicionamiento
+
+Posicionamiento de estándares:
+
+1. ISO
+2. CMMI
+3. Moprosoft (surgió como necesidad de secretaría de economía)
+
+Si una norma se utiliza en muchos lados, se convierte en un estándar.
+
+##### Moprosoft(Modelo de procesos para la industria de software)
+
+Evalúa calidad de PROCESOS
+
+Surge en 2005.
+
+Categorías:
+
+- Alta dirección
+- Gerencia
+- Operación
+
+###### Alta dirección
+
+Proveer un buen funcionamiento total de la organización, evalúa y mejora el negocio.
+
+###### Proceso: Gestión de negocio
+
+- Establecer la razón de la organización, sus objetivos, etc.
+- Considerar necesidades de los clientes, así como evaluar resultaos...
+- Habilita a la organización para responder a un ambiente de cambio
+
+###### Gerencia
+
+- Gestión de procesos
+- Gestión de poryectos
+- Gestión de recursos
+
+###### Gestión de procesos
+
+Establecer los procesos de la organización en función de los procesos requeridos e
+identificados en el plan estratégicos así como definir, planificar e implementar
+las actividades de mejora
+
+###### Gestión de proyectos
+
+Asegura que los proyectos estan contribuyendo a los objetivos y estrategias de la
+organización
+
+###### Gestión de recursos
+
+Recursos humanos, ambiente de trabajo, bienes, proveedores, etc.
+
+**Subprocesos**
+
+- Recursos humanos y ambiente de trabajo
+- Bienes, servicios e infraestructura: proveer proveedores
+- Conocimiento de la organización: mantener disponible y actualizada la base de
+conocimiento de la organización
+
+###### Operación
+
+- Administración de proyects específicos
+- Desarrollo y mantenimiento de software
+
+#### NMX-1-059/02-NYCE-2016 (MOPROSOFT)
+
+NYCE evaluar calidad.
+
+Para poder expandir empresa (o a llevarla a otro lugar) debe estar bajo un estándar:
+CMMI, MOPROSOFT, etc.
+
+Nivel de madurez según NYCE:
+
+- Nivel 0: Incompleto
+- Nivel 1: Realizado
+- Nivel 2: Gestionado
+- Nivel 3: Establecido
+- Nivel 4: Predecible
+- Nivel 5: Optimizado
+
+#### NMX-J-9126
+
+NMX-I-9126-2-NYCE-2011-Tecnología de la información
+
+- Exactitud
+- Capacidad de mantenimiento
+- Integridad
+- Usabilidad
+- Rendimiento
+- Eficiencia
+- Configuración
+
+Se usan métricas para medir lo anterior
+
+De la norma:
+
+- Adecuación
+- Exactitud
+- Interoperable
+- Seguridad de acceso
+- Cumplimiento funcional
+
+##### Trabajo en equipo (métricas de software)
+
+- Rendimiento
+
+3 métricas por cada punto anterior
+
+Definir rendimiento y 3 métricas para ese punto.
+
+Se puede untilizar una prueba de rendimiento:
+
+- De carga
+- De estrés
+- De estabilidad
+
+**Rendimiento (performance)**: Es el comportamiento general del software. Se
+necesitan probar todas las características el software individualmente y en
+conjunto.
