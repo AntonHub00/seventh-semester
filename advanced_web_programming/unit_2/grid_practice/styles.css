@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 1px black solid;
+}
+
+ul li{
+    list-style: none;
+}
+
+#top-navbar{
+    display: grid;
+    padding: 2em;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#top-nav-links{
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+#top-nav-social-icons{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.top-icon-items{
+    grid-column: 4 / 5;
+    display: grid;
+    justify-items: right;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+
+#main-image{
+    width: 100%;
+    height: 40em;
+}
+
+
+main{
+    display: grid;
+    row-gap: 2em;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+
+#contact-card{
+    grid-column: 2 / 5;
+}
+
+
+#contact-form{
+    grid-column: 2 / 5;
+    display: grid;
+    gap: 2em;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#form-name{
+    grid-column: 1 / 2;
+}
+
+#form-email{
+    grid-column: 1 / 2;
+}
+
+#form-subject{
+    grid-column: 1 / 2;
+}
+
+#form-message{
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+}
+
+#form-submit{
+    grid-column: 1 / 3;
+    justify-self: center;
+}
+
+
+#collage{
+    grid-column: 2 / 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.collage-item{
+    background-image: url('yellow_square.jpeg');
+    height: 18em;
+}
+
+#collage-description{
+    grid-column: 2 / 5;
+}
+
+
+#bottom-navbar{
+    grid-column: 2 / 5;
+}
+
+#bottom-navbar{
+    display: grid;
+    row-gap: 1em;
+    padding: 2em;
+}
+
+#bottom-nav-links{
+    /* grid-column: 3 / 6; */
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+#bottom-links-items{
+    grid-column: 3 / 8;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+#bottom-nav-social-icons{
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+}
+
+#bottom-icon-items{
+    grid-column: 7 / 10;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+footer{
+    grid-column: 2 / 5;
+    display: grid;
+    justify-content: center;
+    /* justify-items: center; */
+}
