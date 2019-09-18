@@ -1,0 +1,4 @@
+char algo, otrCosa
+boolean isTrue, isFalse
+boolean otroBoolean
+char algo

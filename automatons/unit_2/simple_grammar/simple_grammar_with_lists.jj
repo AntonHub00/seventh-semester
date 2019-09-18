@@ -1,5 +1,8 @@
 PARSER_BEGIN(SimpleGrammar)
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class SimpleGrammar{
     public static void main(String args[]) throws ParseException{
         SimpleGrammar parser = new SimpleGrammar(System.in);
@@ -10,8 +13,7 @@ public class SimpleGrammar{
 PARSER_END(SimpleGrammar)
 
 TOKEN_MGR_DECLS : {
-    static int id_index = 0;
-    static String[] ids = new String[100];
+    static List<String> my_ids = new ArrayList<String>();
 }
 
 TOKEN : {
@@ -37,8 +39,10 @@ TOKEN : {
             {
                 System.out.println(matchedToken.beginLine + "," +
                         matchedToken.beginColumn + ": Identificador \"" + image + "\" encontrado");
-                ids[id_index] = image.toString();
-                id_index++;
+
+                if(!(my_ids.contains(image.toString()))){
+                    my_ids.add(image.toString());
+                }
             }
         }
 
@@ -66,12 +70,7 @@ SPECIAL_TOKEN : {
 
 void Start() : {}
 {
-    (D())+<EOF> {
-        System.out.println(" \nCantidad de indentificadores encontrados: " + (token_source.id_index) + "\n");
-        for(int i=0; i<token_source.id_index; i++){
-            System.out.println("Id número " + (i+1) + ": " + token_source.ids[i]);
-        }
-        }
+    (D())+<EOF> {System.out.println("Ids: " + token_source.my_ids.toString());}
 }
 
 void D() : {}
