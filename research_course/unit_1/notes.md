@@ -301,3 +301,94 @@ Cuando se plantea el **protocolo** es porque ya sabemos mucho del tema.
 3.- Protocolo != proyecto final (artículo científico)
 
 ### Tarea (Capítulo de 4 de Dawson)
+
+### Something
+
+Technology push vs Market pull
+
+Voy a satisfacer una necesidad o crearé una nueva?
+
+Cómo llega esa solución a la gente?
+
+El efecto de las actividades que agregan valor es una smiling curve
+
+Ingeniería: resultado = proyecto, método = técnicas, carácter de conocimiento =
+privado/público
+
+Creatividad es importante a la hora de desarrollar un proyecto.
+
+Divorsio entre humanidades y ciencia exactas (es ridículo).
+
+Es importante el estudio de la literatura.
+
+Estudiante de informática sale de carrera para hacer magia; ok... pero cómo
+se justificar (buen ejemplo).
+
+Estudio de la literatura:
+
+- Búsqueda
+- Revisión
+
+**Poner el contexto**
+
+A nivel licenciatura se habla tan solo un 10% del conocimiento existente sobre
+un tema.
+
+---
+
+La evaluación crítica es requisito para la revisión de literatura.
+
+**La búsqueda de literatura** se empieza una vez elegido el tema de investigación
+y el objetivo de la investigación.
+
+El 20% de la solución del proyecto es el planteamiento.
+El 10% es para la planeación.
+
+---
+
+**Rastrear información**
+
+- Mendeley (correo de equipo)
+
+**6 Cosas de la unidad 2**
+
+Introducción:
+
+- Planeteamiento
+- Definición
+- Delimitación
+- Hipótesis
+- Justificación
+- Objetivo
+- Pregunta de investigación
+
+Tips paa hacer la búsqueda de literatura:
+
+- Siempre leer resúmenes de artículos
+- Refereciar correctamente desde el principio
+- Saber cuando terminar la búsqueda (Si se encuentra tema y objetivo de nuestra
+investigación en un artículo, es bueno quedarse con él: es "el artículo")
+- Tener un sistema de de organización y clasificación de la información del proyecto
+- Leer a los autores originales de la información en el campo (en lugar de leer
+a las personales que hablan de los líderes del campo interesado)
+- Empezar con una búsqueda amplia
+
+### Evaluación crítica (al elegir un artículo para nuestra investigación)
+
+- ¿Qué tipo de artículo es?
+- ¿Qué puedes obtener del artículo?
+- ¿El autor es bien reconocido en el campo?
+- ¿Qué contribución nos puede hacer ese artículo para la investigación?
+
+### Consejo
+
+Terminar proyecto si la idea es muy buena o hay mucho interés personal en el
+proyecto. No exponer más el tema, HACERLO realidad.
+
+Buscar intersecciones de conocimiento (es un concepto nuevo).
+
+### Tarea (18 de septiembre de 2019)
+
+- Investigar foro real para difusión
+- Instalar Mendeley
+- Checklist (buscar protocolo para complementar (puede ser Dawson u otros autores))
