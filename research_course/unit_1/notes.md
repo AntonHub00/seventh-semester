@@ -392,3 +392,30 @@ Buscar intersecciones de conocimiento (es un concepto nuevo).
 - Investigar foro real para difusión
 - Instalar Mendeley
 - Checklist (buscar protocolo para complementar (puede ser Dawson u otros autores))
+
+### Tarea (11 de octubre 2019)
+
+Búsqueda y revisión de de literatura terminada.
+
+### Tarea (25 de octubre 2019)
+
+- 15 artículos/referentes (revisados)
+- 150 OSOs (lleva fuente)
+
+---
+
+Grandes referentes de la investigación:
+
+- Corina Schemelkes
+- Boom
+- Ruiz Perez Tamayo
+
+Pioneros de paradigmas: Buscar en youtube.
+
+---
+
+### Tarea (Lunes 23 de sepiembre)
+
+- Práctica 1 y 2
+- Checklist
+- OSO
