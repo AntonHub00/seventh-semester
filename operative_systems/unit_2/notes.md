@@ -15,7 +15,7 @@ El SO se encarga del IPC (Inter-Process Comuncation).
 ### Crear un proceso
 
 * Arranque del sistema
-* Desde un proceso, por una lamda al sistema
+* Desde un proceso, por una llamada al sistema
 * Petición deliverada del usuario
 * Inicio trabajo por lotes
 
@@ -28,11 +28,12 @@ El SO se encarga del IPC (Inter-Process Comuncation).
 
 ### Estados
 
+* Nuevo
 * En ejecución
 * Listo/preparado (Está esperando un intervalo de tiempo para que pueda usar el
 * procesador)
 * Bloqueado
-
+* Terminado
 
 Listo/preparado: Está esperando un intervalo de tiempo para que pueda usar el
 procesador
@@ -122,6 +123,8 @@ siguentes cosas en su estructura:
 >|----<---<----(E/S resulve)-<--(device queue)-<-()|
 > Missing info
 
+Cada dispositivo tiene su propia device queue.
+
 #### Cambio de contexto (Cambio de un proceso por otro)
 
 * Salvar el "estado" del proceso a su PCB (cambiar estado). Su "estado" en
@@ -138,9 +141,9 @@ tipo de estado (Bloqueado o Listo)
 ¿Cómo se crea un proceso?
 ¿Cómo se crea un hilo?
 
-## Thread (hilo o proceso ligero): Unidad básica de uso e CPU
+## Thread (hilo o proceso ligero): Unidad básica de uso de CPU
 
-* Juego de registros, pila, PC y prioridad (asignado por el SO o Usuario)
+* Tiene su propio uego de registros, pila, PC y prioridad (asignado por el SO o Usuario)
 * Comparten código, datos y recursos
 * Un hilo puede pertenecer a una sola tarea (proceso pesado)
 
@@ -171,6 +174,10 @@ Concepto lógico de la existencia de varias actividades ejecutpandose
 simultáneamente, gracias a la habilidad de distintas partes de un programa de
 ser ejecutado en desorden o en orden parcial sin afctar el resultado final. (
 síncrono o asíncrono)
+
+Algunos autores dicen que para que haya concurrencia los procesos debe compartir
+recursos o que son síncronos (que un proceso tenga que esperar a otro para que
+pueda realizar otra tarea).
 
 **Contextos**:
 
@@ -216,10 +223,8 @@ Evitar que entre más de un proceso a la vez a la sección crítica.
 En microkernel: Una parte de un programa se ejecuta en modo usuario y otra en
 modo privilegiado; la parte ejecutada en motod privilegiado es la **sección crítica**.
 
-
 Una llamada al sistema es cuando pedimos:
 
-- Solicitar dispositivo
 - Solicitar dispositivo
 - Solicitar archivos
 - Solicitar servicio/daemon
@@ -275,3 +280,59 @@ Hilo por cada caracter de la cadena
 Escribir en un archivo los caracteres
 
 Manejar concurrencia con algún método visto en clase
+
+### Planificador (Scheduler)
+
+Componente funcional muy importante de los sistemas operativos multitarea el
+cuya función consiste en repartir el tiempo disponible de un microprocesador
+entre todos los procesos que están disponibles para su ejecución.
+
+#### Niveles
+
+- Planificador a corto plazo (dispatcher): Aquel que asgina el pedacito de tiempo
+a los procesos
+- Planificador a mediano plazo (swapping): Aquel que hace el intercambio entre la memorias
+- Planificador a largo plazo: Aquel que crea y destruye PCBs
+
+#### Objetivos
+
+- Justicia: Asignar a los procesos un tiempo justo
+- Optimización de recursos o de su acceso
+- Máxima capacidad de distribución
+- Seguridad de prioridades
+- Predictivilidad: Predecible siguiente proceso a ejecutarse
+- Minimizar sobrecarga (saturación de CPU)
+
+Para manejar los procesos se basa en ciertos criterios.
+
+#### Criterios
+
+- Equidad
+- Eficacia: Mientras más tiempo funcione el CPU, mejor
+- Tiempo de respuesta: (tiene que ver con si es por lotes o interactivo) Debe
+se rápido para proceso de tipo interctivo
+- Rendimiento: Mientras más proceso por hora, mejor
+- Limitar peticiones E/S: Manejar si un proceso tarda mucho esperando dispositivos E/S
+- Si es por lotes o interactivo
+
+#### Tipos
+
+- Expropiativos: Cuando asignamos tiempo a cada proceso
+- No expropiativos: Ejecutamos un proceso y se espera a que termine para poder
+empezar otro
+
+#### Técnicas
+
+- A plazo fijo: Viene de la mano con no expropiativos. Tienen mucha prioridad
+y poca duración
+- FIFO (First In First Out): No muy dependiente del plazo
+- SJF (Short Job First)
+- SRTF (Short Remaining Time First): El que tiene un menor tiempo de espera a
+ejecutarse el prioridad. Al que le queda poco por terminar
+- HRN (Highest Response Ratio): "El más justo". Usa una fórmula $P = (w + t)\/3$
+- RR (Round Robin): Cola para multiprocesos. Si no alcanza a terminar el proceso
+en un plazo predeterminado, entonce el proceso regresa la cola.
+- Colas Multi-Nivel: Es como RR pero con 3 colas: alta prioridad, media prioridad,
+baja prioridad.
+
+Un planificador puede utilizar técnicas mixtas, no solo una.
