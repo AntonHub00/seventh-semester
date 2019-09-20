@@ -332,6 +332,7 @@ conocimiento de la organización
 
 #### NMX-1-059/02-NYCE-2016 (MOPROSOFT)
 
+Son 9 niveles para alcanzar la madurez, según moprosoft.
 NYCE evaluar calidad.
 
 Para poder expandir empresa (o a llevarla a otro lugar) debe estar bajo un estándar:
@@ -385,3 +386,114 @@ Se puede untilizar una prueba de rendimiento:
 **Rendimiento (performance)**: Es el comportamiento general del software. Se
 necesitan probar todas las características el software individualmente y en
 conjunto.
+
+#### CMMI (Capability Maturity Model Integration)
+
+Se generó en el departamento de defensa de EU.
+
+Nacido en Carnegie Mellon (CMU).
+
+Para checar procesos de desarrollo, mejorar rendimiento, capacidad y procesos
+críticos del desarrollo de software.
+
+Versión pasada 1.2.
+
+Versión actual 2.0 (2018).
+
+El nivel de madurez va del 1 al 5.
+
+Unifica las 3 constelaciones en una sola:
+
+- Desarrollo
+- Servicios
+- Suministros
+- Administración de personas (recursos humanos)
+
+Alinear procesos que ya se tengan con lo que dice CMMI para madurez. Esto evita
+que se rehacen los procesos.
+
+Buen proceso de gestión de cambios.
+
+## Control de cambio
+
+Los cambios son inevitables, con lo cual se debe tener algún tipo de proceso de
+control de cambios.
+
+En un proyecto, lo único que con toda seguridad ocurrirá es el cambio, el cual
+puede ser:
+
+- Iniciados por el cliente o patrocinador
+- Iniciados por el equipo de proyecto
+- ??
+- ??
+
+Es indispensable administrar y controlar los cambios y así reducir al mínimo el efecto
+negativo en el cumplimiento exitoso del objeto del proyecto.
+
+Un cambio al inicio es más fácil al inicio que al final.
+
+Algunos cambio son triviales y no suelen impacta al proyecto de forma negativa.
+
+Se necestia un sistema de control de cambios, documentarlos, como autorizar un
+cambio y que se comunique (todos los involucrados deben saber acerca del cambio)
+y este cambia impacta en muchoa aspectos.
+
+Para hacer el cambio se debe llevar a un acuerdo con el cliente.
+
+El lider del proyecto comunica a todo el equipo.
+
+Todos los cambios se hacen por escrito (se debe documentar).
+
+Cuando hacemos un cambio tenemos que modificar el plan del proyecto.
+
+El plan del proyecto es dinámico; se tiene que revisar continuamente. Esto ayuda
+a ajustar el plan de acuerdo a los avances y resultados.
+
+Ejemplos de cosas que pueden cambiar en el plan del proyecto cuando se hace un
+cambio en el proyecto:
+
+Se puede agregar o eliminar actividades, que cambie el orden de actividades,
+se puede modificar la fecha de entrega, la duración del proyecto, etc.
+
+Comunicar el costo del cambio en el proyecto (costo, tiempo, etc.). Si el cliente
+acepta (está conforme) entonces se puede proceder con el cambio. El cliente debe
+estar siempre conciente de lo que implica el cambio.
+
+Un sistema de control de cambios debe llevar una bitácora para llevar registro de:
+
+- Cambios pendientes
+- Cambios autorizados
+- Cambios rechazados
+
+La bitácora sirve también para comprobar legalmente el control de los cambios;
+evitar problemas leales y/o mal entendidos.
+
+Un control de cambios evitar **corrupción del alcance**:
+
+- El gerente del equipo debe estar seguro que los miembros del equipo no acepten
+solicitudes de cambios infomales.
+- El equipo no debe hacer cambios en su trabajo que generen un incremento de
+presupuesto, retrasen el programa o que produzcan un cambio que no cumplan con las
+expectativas del cliente.
+
+El cambio más mínimo debe estar informado y registrado.
+
+A veces es necesario realizar cambios cuando hay riesgos identificados o imprevistos.
+
+Cuando sucede algo fuera de nuestro control, es mejor cancelar el proyecto en
+cuanto antes; cuando la probabilidad de éxito es muy baja.
+
+El cambio más difícil de administrar es el requerido a lo usuarios de los
+entregables finales. Cómo solucionar esto?:
+
+- Comunicación abierta (hacer saber que el cambio en el sistema es necesario)
+- Mostrar empatía
+- Juntas y charlas
+- Involucrar a las usuarios en la planeación
+- Ofrecer a los usuarios la capacitación adecuada
+- ?+
+
+Agregar una pequeña leyenda significativa del cambio realizado en la página de
+la documentación para posteriormente documentar el cambio de manera breve.
+
+## Examen (Viernes 27 de septiembre de 2019)
