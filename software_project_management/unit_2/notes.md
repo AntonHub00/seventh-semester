@@ -497,3 +497,97 @@ Agregar una pequeña leyenda significativa del cambio realizado en la página de
 la documentación para posteriormente documentar el cambio de manera breve.
 
 ## Examen (Viernes 27 de septiembre de 2019)
+
+## Práctica
+
+- Cliente o patrocinador
+    - Cambio de color principal del proyecto
+    - Una funcionalidad extra para mostrar estadísticas
+- Equipo del proyecto, subcontratistas, consultores o proveedores
+    - Cambio de uso de framework debido a limitaciones de software
+    - Adición de algún factor de seguridad de datos
+- Usuarios finales sobre el resultado entregado
+    - Cambio de interfaz para un manejo más fácil
+    - Añadir recuperación de contraseña por correo
+- Hechos inesperados o sucesos imprevistos
+    - Error de legacy code de software utilizado para el proyecto
+    - Cambio por políticas de uso de un país determinado
+
+## Equipo de proyecto
+
+- Aldo Hassan
+- Antonio Ochoa
+- José Ángel
+- Ulises Rizo
+- Luis Eduardo
+
+## Proyecto
+
+### Inicio
+
+- Elegir jefe de proyecto
+
+- ¿Porqué se está iniciando el proyecto?
+    - Los interesados del proyecto deben discutir y acordar la respuestaa esta
+    pregunta. Los interesados somos nostros.
+- ¿Para quién se está haciendo el proyecto?¿Quiénes son los patrocinadores?
+- ¿Qué vamos a entregar?¿Qué trabajo necesitamos completar?
+- ¿Cuándo vamos a producir esos entregables?
+
+En resumen (preguntas para cualquier proyecto):
+
+- Porqué
+- Quién
+- Qué
+- Cuándo
+- Dónde
+- Cómo
+
+### Actividad ("picnic")
+
+¿Porqué?
+
+Para integrar a los alumnos en un ámbito social más allá del estudiantil y además
+para isentivar la convivencia de los compañeros.
+
+¿Quién?
+
+Los alumnos del grupo B de la materia Gestión de Proyectos de software del Instituto
+Tecnológico de Morelia y su respectiva maestra.
+
+¿Qué?
+
+Convivencia con alimentos, juegos y actividades.
+
+¿Dónde?
+
+En el salón K7 del Instituto Tecnológico de Morelia.
+
+¿Cómo?
+
+Se realizará una cooperación de $25 para comprar 10 pizzas de peperoni de Little Caesars a
+través de Uber Eats.
+
+Cada quién deberá traer su propia bebida.
+
+Área de videojuegos: Se conectará una computadora al proyector con 4 controles
+para que los alumnos puedan jugar. . Los juegos disponibles son los siguientes:
+
+- Mario Party 7
+- Mario Kart
+
+Área de juegos de mesa: Habrán 2 áreas de juegos de mesa para que varios alumnos
+puedan jugar. Juegos de mesa disponibles:
+
+- UNO
+-
+
+Cantidad de participantes: 4 para UNO
+
+Área de BeerPong: Habrán 2 áreas para poder jugar BeerPong utilizando agua o alguna
+otra bebida sin alcohol (reglamente de la escuela :c). Cantidad de participantes:
+4 por mesa.
+
+¿Cuándo?
+
+Viernes 27 de Septiembre a las 2:00 pm.
