@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /** Token Manager. */
 @SuppressWarnings("unused")public class SimpleGrammarTokenManager implements SimpleGrammarConstants {
+    static List<String> my_ids = new ArrayList<String>();
 
   /** Debug output. */
   public static  java.io.PrintStream debugStream = System.out;
@@ -465,6 +466,10 @@ static void TokenLexicalActions(Token matchedToken)
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
                 System.out.println(matchedToken.beginLine + "," +
                         matchedToken.beginColumn + ": Identificador \u005c"" + image + "\u005c" encontrado");
+
+                if(!(my_ids.contains(image.toString()))){
+                    my_ids.add(image.toString());
+                }
          break;
       default :
          break;

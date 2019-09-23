@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class SimpleGrammar implements SimpleGrammarConstants {
-
-    static List<String> my_ids = new ArrayList<String>();
-
     public static void main(String args[]) throws ParseException{
         SimpleGrammar parser = new SimpleGrammar(System.in);
         parser.Start();
@@ -28,7 +25,7 @@ public class SimpleGrammar implements SimpleGrammarConstants {
       }
     }
     jj_consume_token(0);
-System.out.println("Ids: " + my_ids.toString());
+System.out.println("Ids: " + token_source.my_ids.toString());
   }
 
   static final public void D() throws ParseException {
@@ -55,9 +52,6 @@ System.out.println("Ids: " + my_ids.toString());
 
   static final public void L() throws ParseException {
     jj_consume_token(Id);
-if(!(my_ids.contains(token.image.toString()))){
-            my_ids.add(token.image.toString());
-        }
     Lp();
   }
 
@@ -75,9 +69,6 @@ if(!(my_ids.contains(token.image.toString()))){
       }
       jj_consume_token(Comma);
       jj_consume_token(Id);
-if(!(my_ids.contains(token.image.toString()))){
-                my_ids.add(token.image.toString());
-            }
       Lp();
     }
   }

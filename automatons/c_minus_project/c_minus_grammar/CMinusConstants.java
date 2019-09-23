@@ -35,9 +35,9 @@ public interface CMinusConstants {
   /** RegularExpression Id. */
   int Slash = 16;
   /** RegularExpression Id. */
-  int OpenLeftAngularBracket = 17;
+  int LeftAngularBracket = 17;
   /** RegularExpression Id. */
-  int OpenRightAngularBracket = 18;
+  int RightAngularBracket = 18;
   /** RegularExpression Id. */
   int Equal = 19;
   /** RegularExpression Id. */
@@ -47,7 +47,7 @@ public interface CMinusConstants {
   /** RegularExpression Id. */
   int EqualEqual = 22;
   /** RegularExpression Id. */
-  int Different = 23;
+  int BangEqual = 23;
   /** RegularExpression Id. */
   int Semicolon = 24;
   /** RegularExpression Id. */
@@ -109,7 +109,7 @@ public interface CMinusConstants {
     "<LeftAngularEqual>",
     "<RightAngularEqual>",
     "<EqualEqual>",
-    "<Different>",
+    "<BangEqual>",
     "\";\"",
     "\",\"",
     "\"(\"",

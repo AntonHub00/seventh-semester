@@ -43,7 +43,7 @@ void Lp():{
 
 $A \rightarrow A \alpha | \beta$
 
-Reescribir estas reglas de tal manera que
+Reescribir estas reglas de tal manera que:
 
 $A \rightarrow \beta A'$
 
