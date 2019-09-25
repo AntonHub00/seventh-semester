@@ -2,12 +2,12 @@
 
 void main(void)
 {
-    3velocidad i;
-@
-    i = 0.;
+    real i;
+
+    i = 0.5;
     while (i < 10)
     {
-	i = i + 0.2; &
+	i = i + 0.2;
 	output(i);
     }
  }

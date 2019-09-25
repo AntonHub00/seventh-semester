@@ -1,3 +1,4 @@
+
 PARSER_BEGIN(CMinus)
 
 import java.util.List;
@@ -21,6 +22,12 @@ SKIP: { <"/*"> : InsideText }
 <InsideText> SKIP :{ "*/" : DEFAULT }
 
 <InsideText> MORE :{ <~[]> {}}
+
+SKIP: { <"//"> : AnotherInsideText }
+
+<AnotherInsideText> SKIP :{ "\n" : DEFAULT }
+
+<AnotherInsideText> MORE :{ <~[]> {}}
 
 //Keywords
 TOKEN : {
@@ -55,16 +62,6 @@ TOKEN : {
             }
             |
             <Real : "real">{
-                System.out.println(matchedToken.beginLine + "," +
-                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
-            }
-            |
-            <Input : "input">{
-                System.out.println(matchedToken.beginLine + "," +
-                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
-            }
-            |
-            <Output : "output">{
                 System.out.println(matchedToken.beginLine + "," +
                         matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
             }
@@ -247,23 +244,7 @@ SPECIAL_TOKEN : {
 void Start() : {}
 {
 
-    (program()) + <EOF> { System.out.println("Finished"); }
-    // (
-    // <Else> | <If> | <Int> | <Return> | <Void> | <While> | <Real> | <Input> |
-    // <Output>
-
-    // | <Plus> | <Minus> | <Multiplier> | <Slash>
-    // | <LeftAngularBracket> | <RightAngularBracket> | <Equal>
-    // | <LeftAngularEqual> | <RightAngularEqual> | <EqualEqual> | <BangEqual>
-    // | <Semicolon> | <Comma> | <LeftParen> | <RightParen> | <LeftSquareBracket>
-    // | <RightSquareBracket> | <LeftBrace> | <RightBrace>
-
-    // |<Id> | <Number> | <Decimal>
-
-    // )+<EOF>
-
-
-    //--------------------------------------------------------------------------
+    (program())+ <EOF> { System.out.println("Finished"); }
 
     //To print
     // (D())+<EOF> {System.out.println("Ids: " + my_ids.toString());}
@@ -299,27 +280,34 @@ void declaration_list_prime() : {}
 
 void declaration() : {}
 {
-    type_specifier() <Id> (var_declaration() | func_declaration())
-}
-
-void var_declaration() : {}
-{
-    <Semicolon> | <LeftSquareBracket> (<Number> | <Decimal>) <RightSquareBracket>
+    LOOKAHEAD(3)
+    var_declaration() | func_declaration()
 }
 
 void type_specifier() : {}
 {
-    <Int> | <Void>
+    <Int> | <Void> | <Real>
 }
 
-void func_declaration(): {}
+void var_declaration() : {}
 {
-    <LeftParen> params() <RightParen> compound_stmt()
+    type_specifier() <Id> var_declaration_prime()
+}
+
+void var_declaration_prime() : {}
+{
+    (<LeftSquareBracket> <Number> <RightSquareBracket> | empty()) <Semicolon>
+}
+
+void func_declaration() : {}
+{
+    type_specifier() <Id> <LeftParen> params() <RightParen> compound_stmt()
 }
 
 void params() : {}
 {
-    <Int> param_list() | <Void> (param_list())?
+    LOOKAHEAD(2)
+    param_list() | <Void>
 }
 
 void param_list() : {}
@@ -327,14 +315,14 @@ void param_list() : {}
     param() param_list_prime()
 }
 
-void param_list_prime(): {}
+void param_list_prime() : {}
 {
-    <Comma> type_specifier() param() param_list_prime() | empty()
+    <Comma> param() param_list_prime() | empty()
 }
 
 void param() : {}
 {
-    <Id> param_prime()
+    type_specifier() <Id> param_prime()
 }
 
 void param_prime() : {}
@@ -344,7 +332,7 @@ void param_prime() : {}
 
 void compound_stmt() : {}
 {
-    <LeftBrace> local_declarations()  statement_list() <RightBrace>
+    <LeftBrace> local_declarations() statement_list() <RightBrace>
 }
 
 void local_declarations() : {}
@@ -369,12 +357,7 @@ void expression_stmt() : {}
 
 void selection_stmt() : {}
 {
-    <If> <LeftParen> expression() <RightParen> statement() selection_stmt_prime()
-}
-
-void selection_stmt_prime() : {}
-{
-    <Else> statement() | empty()
+    <If> <LeftParen> expression() <RightParen> statement() (<Else> statement() | empty())
 }
 
 void iteration_stmt() : {}
@@ -384,49 +367,33 @@ void iteration_stmt() : {}
 
 void return_stmt() : {}
 {
-    <Return> return_stmt_prime()
-}
-
-void return_stmt_prime() : {}
-{
-    <Semicolon> | expression() <Semicolon>
+    <Return> (<Semicolon> | expression() <Semicolon>)
 }
 
 void expression() : {}
 {
-    //  var() <Equal> expression() | simple_expression()
-    LOOKAHEAD(2)
-     var() (<Equal> expression() | simple_expression_with_var())| simple_expression()
+    LOOKAHEAD(5)
+    var() <Equal> expression() | simple_expression()
 }
 
 void var() : {}
 {
-    <Id> var_prime()
-}
-
-void var_prime() : {}
-{
-    <LeftSquareBracket> expression() <RightSquareBracket> | empty()
+    <Id> (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
 }
 
 void simple_expression() : {}
 {
-    additive_expression() simple_expression_prime()
+    additive_expression() (relation_operator() additive_expression() | empty())
 }
 
-void simple_expression_with_var() : {}
+void relation_operator() : {}
 {
-    additive_expression_with_var() simple_expression_prime()
-}
-
-void simple_expression_prime() : {}
-{
-    relational_operator() additive_expression() | empty()
-}
-
-void relational_operator() : {}
-{
-    <LeftAngularEqual> | <LeftAngularBracket> | <RightAngularBracket> | <RightAngularEqual> | <EqualEqual> | <BangEqual>
+    <LeftAngularEqual>
+    | <RightAngularEqual>
+    | <LeftAngularBracket>
+    | <RightAngularBracket>
+    | <EqualEqual>
+    | <BangEqual>
 }
 
 void additive_expression() : {}
@@ -434,14 +401,9 @@ void additive_expression() : {}
     term() additive_expression_prime()
 }
 
-void additive_expression_with_var() : {}
-{
-    term_prime() additive_expression_prime()
-}
-
 void additive_expression_prime() : {}
 {
-    <Plus> term() | <Minus> term() | empty()
+    (<Plus> | <Minus>) term() additive_expression_prime() | empty()
 }
 
 void term() : {}
@@ -451,12 +413,12 @@ void term() : {}
 
 void term_prime() : {}
 {
-    <Multiplier> factor() term_prime() | <Slash> factor() term_prime() | empty()
+    (<Multiplier> | <Slash>) factor() term_prime() | empty()
 }
 
 void factor() : {}
 {
-    <LeftParen> expression() <RightParen> |  call() | <Number> | <Decimal>
+    <LeftParen> expression() <RightParen> | LOOKAHEAD(2) call() |  LOOKAHEAD(2) var() | <Number> | <Decimal>
 }
 
 void call() : {}

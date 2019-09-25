@@ -30,4 +30,10 @@ Dependiendo de lenguje (análisis semántico):
 
 Se corre una rutina semántica a la vez que se corre en análisis sintáctico.
 
-Propagación de atributos
+Propagación de atributos.
+
+## Práctica de propagación de atributos
+
+Número 2:
+
+Número binarios.
