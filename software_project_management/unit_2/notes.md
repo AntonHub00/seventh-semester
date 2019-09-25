@@ -591,3 +591,5 @@ otra bebida sin alcohol (reglamente de la escuela :c). Cantidad de participantes
 ¿Cuándo?
 
 Viernes 27 de Septiembre a las 2:00 pm.
+
+---
