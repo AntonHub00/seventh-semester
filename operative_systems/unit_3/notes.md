@@ -33,3 +33,42 @@ que posee el microprocesador para el direccionamiento de memoria.
 - Caché
 - RAM (Primaria)
 - HDD u otros (Secundaria)
+
+## Asignación de memoria
+
+- Continua (Uno tras otro)
+- No continua (Mitad de RAM en partición grande y la otra mitad espacios pequeños)
+
+## Particiones
+
+- Partición fija: (espacios estrictos definidos se tiene esperar a desocupar espacio si
+no hay espacio suficiente). Se relaciones con la memoria no continua
+- Partión dinámica: Se relaciona con la memoria continua.
+
+## Memoria Virtual
+
+Técnica de la gestión de memoria que se encarga de que el SO disponga de mayor
+cantidad de memoria que esté diponible físicamente.
+
+Espacio más grande (disco duro)
+
+## Paginación de memoria
+
+Dividen los programas en pequeños partes o **páginas**. Del mismo modo, la memoria
+es dividida en trozos de mismo tamaño que las páginas llamadas **marcos de páginas**.
+
+## Tabla de paginación
+
+Son usados ara realizar la traducción de direcciones de memoria virtual (lógica)
+memoria real (física).
+
+## Algoritmos de reemplazo de páginas
+
+- FIFO
+- Segunda oportunidad (Relo)
+- Páginas de reloj (Reloj mejorando)
+- NRU (Not Recently Used)
+- LRU (Less Recetly Used)
+- Aging (Envejecimiento)
+
+Tarea: Investigar el algoritmo de reemplazo "página de reloj" (reloj mejorado)
