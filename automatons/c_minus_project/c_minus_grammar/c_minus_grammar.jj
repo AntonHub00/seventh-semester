@@ -244,10 +244,10 @@ SPECIAL_TOKEN : {
 void Start() : {}
 {
 
-    (program())+ <EOF> { System.out.println("Finished"); }
-
-    //To print
-    // (D())+<EOF> {System.out.println("Ids: " + my_ids.toString());}
+    (program())+ <EOF> {
+        System.out.println("\n####Finished####\n");
+        System.out.println("Ids: " + my_ids.toString());
+    }
 
     // To add
     // {
@@ -291,7 +291,13 @@ void type_specifier() : {}
 
 void var_declaration() : {}
 {
-    type_specifier() <Id> var_declaration_prime()
+    type_specifier() <Id>
+    {
+        if(!(my_ids.contains(token.image.toString()))){
+            my_ids.add(token.image.toString());
+        }
+    }
+    var_declaration_prime()
 }
 
 void var_declaration_prime() : {}
@@ -301,7 +307,13 @@ void var_declaration_prime() : {}
 
 void func_declaration() : {}
 {
-    type_specifier() <Id> <LeftParen> params() <RightParen> compound_stmt()
+    type_specifier() <Id>
+    {
+        if(!(my_ids.contains(token.image.toString()))){
+            my_ids.add(token.image.toString());
+        }
+    }
+    <LeftParen> params() <RightParen> compound_stmt()
 }
 
 void params() : {}
@@ -322,7 +334,13 @@ void param_list_prime() : {}
 
 void param() : {}
 {
-    type_specifier() <Id> param_prime()
+    type_specifier() <Id>
+    {
+        if(!(my_ids.contains(token.image.toString()))){
+            my_ids.add(token.image.toString());
+        }
+    }
+    param_prime()
 }
 
 void param_prime() : {}
@@ -378,7 +396,13 @@ void expression() : {}
 
 void var() : {}
 {
-    <Id> (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
+    <Id>
+    {
+        if(!(my_ids.contains(token.image.toString()))){
+            my_ids.add(token.image.toString());
+        }
+    }
+    (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
 }
 
 void simple_expression() : {}
@@ -423,7 +447,13 @@ void factor() : {}
 
 void call() : {}
 {
-    <Id> <LeftParen> args() <RightParen>
+    <Id>
+    {
+        if(!(my_ids.contains(token.image.toString()))){
+            my_ids.add(token.image.toString());
+        }
+    }
+    <LeftParen> args() <RightParen>
 }
 
 void args() : {}
