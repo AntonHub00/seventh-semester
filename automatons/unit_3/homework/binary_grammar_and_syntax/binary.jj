@@ -1,0 +1,57 @@
+PARSER_BEGIN(Binary)
+
+public class Binary{
+    public static void main(String args[]) throws ParseException{
+        Binary parser = new Binary(System.in);
+        parser.Start();
+    }
+}
+
+PARSER_END(Binary)
+
+SKIP : {" " | "\t" | "\r"}
+
+TOKEN : {
+            <Zero : "0">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Symbol \"zero\" (" + image + ") found");
+            }
+            |
+            <One : "1">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Symbol \"one\" (" + image + ") found");
+            }
+}
+
+void Start() : {int number;}
+{
+
+    (number=binary_number() "\n"
+    {
+        System.out.println("\nBinary number found: " + number + "\n");
+    })+ <EOF> {
+        System.out.println("\n####Finished####\n");
+    }
+}
+
+int binary_number() : {int digit, result;}
+{
+    digit=digit() result=binary_number_prime(digit) { return result; }
+}
+
+int binary_number_prime(int fathersDigit) : {int digit, result;}
+{
+    digit=digit() result=binary_number_prime(2*fathersDigit+digit) {return result;} | empty() {return fathersDigit;}
+}
+
+int digit() : {}
+{
+    <Zero> {return 0;} | <One> {return 1;}
+}
+
+void empty() : {}
+{
+    {return;}
+}
