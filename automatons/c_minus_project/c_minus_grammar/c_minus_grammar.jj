@@ -1,12 +1,15 @@
 
 PARSER_BEGIN(CMinus)
 
-import java.util.List;
-import java.util.ArrayList;
+// import java.util.List;
+// import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Enumeration;
 
 public class CMinus{
 
-    static List<String> my_ids = new ArrayList<String>();
+    // static List<String> my_ids = new ArrayList<String>();
+    static Hashtable symbols_table = new Hashtable();
 
     public static void main(String args[]) throws ParseException{
         CMinus parser = new CMinus(System.in);
@@ -246,15 +249,28 @@ void Start() : {}
 
     (program())+ <EOF> {
         System.out.println("\n####Finished####\n");
-        System.out.println("Ids: " + my_ids.toString());
+
+        // System.out.println("Ids: " + my_ids.toString());
+
+        System.out.println("Symbols table:\n");
+
+        Enumeration symbols_table_keys = symbols_table.keys();
+
+        while(symbols_table_keys.hasMoreElements()) {
+            String key = (String) symbols_table_keys.nextElement();
+            System.out.println(symbols_table.get(key));
+        }
     }
 
-    // To add
+    // Adding to list
     // {
     //     if(!(my_ids.contains(token.image.toString()))){
     //         my_ids.add(token.image.toString());
     //     }
     // }
+
+    // Adding to hash table
+    // symbols_table.put("x", new Id("x", "int", "var", 0));
 }
 
 // Emulates epsilon
@@ -293,9 +309,9 @@ void var_declaration() : {}
 {
     type_specifier() <Id>
     {
-        if(!(my_ids.contains(token.image.toString()))){
-            my_ids.add(token.image.toString());
-        }
+        String lexem = token.image.toString();
+        if(symbols_table.containsKey(lexem)) System.out.println("ERROR: \"" + lexem + "\" is already in the symbols table (no aware of scope yet)");
+        else symbols_table.put(lexem, new Id(lexem, "", "", 0));
     }
     var_declaration_prime()
 }
@@ -309,9 +325,9 @@ void func_declaration() : {}
 {
     type_specifier() <Id>
     {
-        if(!(my_ids.contains(token.image.toString()))){
-            my_ids.add(token.image.toString());
-        }
+        String lexem = token.image.toString();
+        if(symbols_table.containsKey(lexem)) System.out.println("ERROR: \"" + lexem + "\" is already in the symbols table (no aware of scope yet)");
+        else symbols_table.put(lexem, new Id(lexem, "", "", 0));
     }
     <LeftParen> params() <RightParen> compound_stmt()
 }
@@ -336,9 +352,9 @@ void param() : {}
 {
     type_specifier() <Id>
     {
-        if(!(my_ids.contains(token.image.toString()))){
-            my_ids.add(token.image.toString());
-        }
+        String lexem = token.image.toString();
+        if(symbols_table.containsKey(lexem)) System.out.println("ERROR: \"" + lexem + "\" is already in the symbols table (no aware of scope yet)");
+        else symbols_table.put(lexem, new Id(lexem, "", "", 0));
     }
     param_prime()
 }
@@ -396,13 +412,7 @@ void expression() : {}
 
 void var() : {}
 {
-    <Id>
-    {
-        if(!(my_ids.contains(token.image.toString()))){
-            my_ids.add(token.image.toString());
-        }
-    }
-    (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
+    <Id> (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
 }
 
 void simple_expression() : {}
@@ -447,13 +457,7 @@ void factor() : {}
 
 void call() : {}
 {
-    <Id>
-    {
-        if(!(my_ids.contains(token.image.toString()))){
-            my_ids.add(token.image.toString());
-        }
-    }
-    <LeftParen> args() <RightParen>
+    <Id> <LeftParen> args() <RightParen>
 }
 
 void args() : {}
