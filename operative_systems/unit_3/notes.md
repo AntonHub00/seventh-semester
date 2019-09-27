@@ -65,7 +65,7 @@ memoria real (física).
 ## Algoritmos de reemplazo de páginas
 
 - FIFO
-- Segunda oportunidad (Relo)
+- Segunda oportunidad (Reloj)
 - Páginas de reloj (Reloj mejorando)
 - NRU (Not Recently Used)
 - LRU (Less Recetly Used)
