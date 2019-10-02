@@ -1,0 +1,493 @@
+PARSER_BEGIN(CMinus)
+
+import java.util.Hashtable;
+import java.util.Enumeration;
+
+public class CMinus{
+
+    static Hashtable <String, Id>symbols_table = new Hashtable();
+
+    public static void main(String args[]) throws ParseException{
+        CMinus parser = new CMinus(System.in);
+        parser.Start();
+    }
+}
+
+
+PARSER_END(CMinus)
+
+SKIP: { <"/*"> : InsideText }
+
+<InsideText> SKIP :{ "*/" : DEFAULT }
+
+<InsideText> MORE :{ <~[]> {}}
+
+SKIP: { <"//"> : AnotherInsideText }
+
+<AnotherInsideText> SKIP :{ "\n" : DEFAULT }
+
+<AnotherInsideText> MORE :{ <~[]> {}}
+
+//Keywords
+TOKEN : {
+            <Else : "else">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <If : "if">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Int : "int">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Return : "return">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Void : "void">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <While : "while">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+            |
+            <Real : "real">{
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Palabra reservada \"" + image + "\" encontrada");
+            }
+        }
+
+//Symbols
+TOKEN : {
+            <Plus : "+">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"más\" (" + image + ") encontrado");
+            }
+            |
+            <Minus : "-">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"menos\" (" + image + ") encontrado");
+            }
+            |
+            <Multiplier : "*">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"por\" (" + image + ") encontrado");
+            }
+            |
+            <Slash : "/">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"diagonal\" (" + image + ") encontrado");
+            }
+            |
+            <LeftAngularBracket : "<">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"menor que\" (" + image + ") encontrado");
+            }
+            |
+            <RightAngularBracket : ">">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"mayor que\" (" + image + ") encontrado");
+            }
+            |
+            <Equal : "=">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"asignación\" (" + image + ") encontrado");
+            }
+            |
+            <LeftAngularEqual : <LeftAngularBracket><Equal>>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"menor o igual que\" (" + image + ") encontrado");
+            }
+            |
+            <RightAngularEqual : <RightAngularBracket><Equal>>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"mayor o igual que\" (" + image + ") encontrado");
+            }
+            |
+            <EqualEqual : <Equal><Equal>>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"igual que\" (" + image + ") encontrado");
+            }
+            |
+            <BangEqual : ["!"]<Equal>>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"diferente de\" (" + image + ") encontrado");
+            }
+            |
+            <Semicolon : ";">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"fin de instrucción\" (" + image + ") encontrado");
+            }
+            |
+            <Comma : ",">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"coma\" (" + image + ") encontrado");
+            }
+            |
+            <LeftParen : "(">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"paréntesis de apertura\" (" + image + ") encontrado");
+            }
+            |
+            <RightParen : ")">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"paréntesis de cierre\" (" + image + ") encontrado");
+            }
+            |
+            <LeftSquareBracket : "[">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"corchete de apertura\" (" + image + ") encontrado");
+            }
+            |
+            <RightSquareBracket : "]">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"corchete de cierre\" (" + image + ") encontrado");
+            }
+            |
+            <LeftBrace : "{">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"llave de apertura\" (" + image + ") encontrado");
+            }
+            |
+            <RightBrace : "}">
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo \"llave de cierre\" (" + image + ") encontrado");
+            }
+        }
+
+//Others
+TOKEN : {
+            <Id : ["a"-"z", "A"-"Z"]((["a"-"z", "A"-"Z", "0"-"9"])*)>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Identificador \"" + image + "\" encontrado");
+            }
+            |
+            <Number : (["0"-"9"])+>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Número \"" + image + "\" encontrado");
+            }
+            |
+            <Decimal : ((["0"-"9"])+ "." (["0"-"9"])+)>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal \"" + image + "\" encontrado");
+            }
+        }
+
+//White spaces
+SKIP : {" " | "\t" | "\n" | "\r"}
+
+//Errors
+SPECIAL_TOKEN : {
+           <BadId : (["0"-"9"])+(["a"-"z", "A"-"Z"])+>
+           {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Indentificador mal construido \"" +
+                        image + "\" encontrado");
+           }
+           |
+           <BadFloat1 : "." (["0"-"9"])+>
+           {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal mal construido \"" +
+                        image + "\" encontrado");
+           }
+           |
+           <BadFloat2 : (["0"-"9"])+ ".">
+           {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Decimal mal construido \"" +
+                        image + "\" encontrado");
+           }
+        }
+
+//All other chars
+SPECIAL_TOKEN : {
+            <Error : ~[]>
+            {
+                System.out.println(matchedToken.beginLine + "," +
+                        matchedToken.beginColumn + ": Símbolo no válido \"" + image + "\" encontrado");
+            }
+        }
+
+void Start() : {}
+{
+
+    (program())+ <EOF> {
+        System.out.println("\n####Finished####\n");
+
+        System.out.println("Symbols table:\n");
+
+        Enumeration symbols_table_keys = symbols_table.keys();
+
+        System.out.format("%20s%20s%20s%20s\n\n", "Name", "Type", "Category", "Size");
+
+        while(symbols_table_keys.hasMoreElements()) {
+            String key = (String) symbols_table_keys.nextElement();
+            System.out.println(symbols_table.get(key));
+        }
+    }
+}
+
+// Emulates epsilon
+void empty() : {}
+{
+    {return;}
+}
+
+void program() : {}
+{
+    declaration_list()
+}
+
+void declaration_list() : {}
+{
+    declaration() declaration_list_prime()
+}
+
+void declaration_list_prime() : {}
+{
+    declaration() declaration_list_prime() | empty()
+}
+
+void declaration() : {}
+{
+    LOOKAHEAD(3)
+    var_declaration() | func_declaration()
+}
+
+String type_specifier() : {}
+{
+    <Int> {return "int";} | <Void> {return "void";} | <Real> {return "real";}
+}
+
+void var_declaration() : {String lexem, type; String[] category_and_size=new String[2];}
+{
+    type=type_specifier() <Id>
+    {
+        lexem = token.image.toString();
+        if(symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
+        "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+        "\" ya se encuentra en la tabla de símbolos");
+        else symbols_table.put(lexem, new Id(lexem, type, "", 0));
+    }
+    category_and_size=var_declaration_prime()
+    {
+        symbols_table.get(lexem).category=category_and_size[0];
+        symbols_table.get(lexem).size=Integer.parseInt(category_and_size[1]);
+    }
+}
+
+String[] var_declaration_prime() : {String category_and_size[]=new String[2];}
+{
+    <LeftSquareBracket> <Number>
+    {
+        category_and_size[1] = token.image.toString();
+    }
+    <RightSquareBracket> <Semicolon>
+    {
+        category_and_size[0]= "array";
+        return category_and_size;
+    }
+    | empty() <Semicolon>
+    {
+        category_and_size[0]="variable";
+        category_and_size[1]="0";
+        return category_and_size;
+    }
+}
+
+void func_declaration() : {String lexem, type, category; int size;}
+{
+    type=type_specifier() <Id>
+    {
+        lexem = token.image.toString();
+        if(symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
+        "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+        "\" ya se encuentra en la tabla de símbolos");
+        else symbols_table.put(lexem, new Id(lexem, type, "", 0));
+    }
+    <LeftParen> size=params()
+    {
+        symbols_table.get(lexem).size=size;
+    }
+    <RightParen> compound_stmt()
+    {
+        symbols_table.get(lexem).category="function";
+    }
+}
+
+int params() : {int counter;}
+{
+    LOOKAHEAD(2)
+    counter=param_list() {return counter;}| <Void> {return 0;}
+}
+
+int param_list() : {int counter;}
+{
+    param() counter=param_list_prime() {return counter+1;}
+}
+
+int param_list_prime() : {int counter;}
+{
+    <Comma> param() counter=param_list_prime() {return counter+1;} | empty() {return 0;}
+}
+
+void param() : {String lexem, type, category;}
+{
+    type=type_specifier() <Id>
+    {
+        lexem = token.image.toString();
+        if(symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
+        "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+        "\" ya se encuentra en la tabla de símbolos");
+        else symbols_table.put(lexem, new Id(lexem, type, "", 0));
+    }
+    category=param_prime() {symbols_table.get(lexem).category=category;}
+}
+
+String param_prime() : {}
+{
+    <LeftSquareBracket> <RightSquareBracket> {return "array";} | empty() {return "variable";}
+}
+
+void compound_stmt() : {}
+{
+    <LeftBrace> local_declarations() statement_list() <RightBrace>
+}
+
+void local_declarations() : {}
+{
+    var_declaration() local_declarations() | empty()
+}
+
+void statement_list() : {}
+{
+    statement() statement_list() | empty()
+}
+
+void statement() : {}
+{
+    expression_stmt() | compound_stmt() | selection_stmt() | iteration_stmt() | return_stmt()
+}
+
+void expression_stmt() : {}
+{
+    expression() <Semicolon> | <Semicolon>
+}
+
+void selection_stmt() : {}
+{
+    <If> <LeftParen> expression() <RightParen> statement() (<Else> statement() | empty())
+}
+
+void iteration_stmt() : {}
+{
+    <While> <LeftParen> expression() <RightParen> statement()
+}
+
+void return_stmt() : {}
+{
+    <Return> (<Semicolon> | expression() <Semicolon>)
+}
+
+void expression() : {}
+{
+    LOOKAHEAD(5)
+    var() <Equal> expression() | simple_expression()
+}
+
+void var() : {}
+{
+    <Id> (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
+}
+
+void simple_expression() : {}
+{
+    additive_expression() (relation_operator() additive_expression() | empty())
+}
+
+void relation_operator() : {}
+{
+    <LeftAngularEqual>
+    | <RightAngularEqual>
+    | <LeftAngularBracket>
+    | <RightAngularBracket>
+    | <EqualEqual>
+    | <BangEqual>
+}
+
+void additive_expression() : {}
+{
+    term() additive_expression_prime()
+}
+
+void additive_expression_prime() : {}
+{
+    (<Plus> | <Minus>) term() additive_expression_prime() | empty()
+}
+
+void term() : {}
+{
+    factor() term_prime()
+}
+
+void term_prime() : {}
+{
+    (<Multiplier> | <Slash>) factor() term_prime() | empty()
+}
+
+void factor() : {}
+{
+    <LeftParen> expression() <RightParen> | LOOKAHEAD(2) call() |  LOOKAHEAD(2) var() | <Number> | <Decimal>
+}
+
+void call() : {}
+{
+    <Id> <LeftParen> args() <RightParen>
+}
+
+void args() : {}
+{
+    arg_list() | empty()
+}
+
+void arg_list() : {}
+{
+    expression() arg_list_prime()
+}
+
+void arg_list_prime() : {}
+{
+    <Comma> expression() arg_list_prime() | empty()
+}
