@@ -305,3 +305,34 @@ Ruta primaria de nivel 2: Son las rutas que son contenidas en una dirección.
 ---
 
 De V2 a V1 se autosumarizan las clases para que funcione.
+
+## EIGRP
+
+DUAL: paquetes.
+RTP va vinculado con TCP y UDP.
+
+PDM:
+
+forma interna del EIGRP.
+
+router eigrp AS-#
+router eigrp #
+
+Los ids en los routers puede ser manual o automática:
+
+Manual:
+
+eigrp router-id *dirección-ipv4*
+
+Checar condicioes de asignación de id.
+
+router eigrp 1
+network 172.16.0.0
+network 192.168.10.0
+router eigrp neighbors (bueno para saber los routers vecinos)
+passive-?
+bandwith num (dentro de la interfaz, así se configura la velocidad de esa intefaz)
+
+Máscara comodin: 255.255.255.255 - máscarade subred.
+
+show ip eigrp neighbors
