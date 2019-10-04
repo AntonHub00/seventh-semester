@@ -1,4 +1,4 @@
-/* 
+/*
 * A program to perform Euclid's algorithm to computer
 * the greates common denominator (GCD) of a pair of integers.
 */

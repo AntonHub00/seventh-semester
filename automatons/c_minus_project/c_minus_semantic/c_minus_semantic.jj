@@ -429,7 +429,14 @@ void expression() : {}
 
 void var() : {}
 {
-    <Id> (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
+    <Id>
+    {
+        String lexem = token.image.toString();
+        if(!symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
+        "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+        "\" you need to declare a variable before use it");
+    }
+    (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
 }
 
 void simple_expression() : {}

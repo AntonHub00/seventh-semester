@@ -14,7 +14,6 @@ public class Id{
 
     @Override
     public String toString(){
-        // return "Id: " + name + "\tType: " + type + "\tCategory: " + category + "\tSize: " + size;
         return String.format("%20s%20s%20s%20s", name, type, category, size);
     }
 }
