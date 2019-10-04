@@ -120,3 +120,80 @@ parte del CPU.
 - Protección de memoria
 - Manejo de caché
 - Bank switching (ir de una memoria a otra: los puertos donde se conectan las memorias RAM)
+
+## Buffer
+
+Espacio de memoria en el que se almacenan datos de manera temporal, para evitar
+que el programa o recurso que los requiere se queda sin datos.
+
+## Memoria caché
+
+Buffer especial de memoria, que funciona de manera semejante a la memoria principal,
+pero es de menor tamaño y de acceso más rápido.
+
+- Cálculos anteriores
+- Duplicado de memoria
+
+## Translation Lookaside Buffer (TLB)
+
+"Memoria chaché especializada para guardar páginas de procesos".
+
+El TLB guarda la páginas más solicitadas para que no se tengan que ir a buscar
+hasta la RAM.
+
+Memoria virtual -> TLB -> RAM
+
+Memoria caché administrada por el MMU, que contiene partes de la tabla de paginación,
+la cual relaciona las direcciones lógicas con las físicas.
+
+Ejemplo:
+
+Memoria real: 4GB.
+Memoria virtual: 4GB.
+Número de segmento: 16b.
+
+2^{32} direcciones de Memoria de real.
+2^{32} direcciones de Memoria de virtual.
+
+0000:0000 Número de segmento: 2^{16Kb} segmentos (64KB).
+FFFF:FFFF Número de desplazamiento: 2^{16Kb} espacio de segmentos (64KB).
+
+Base: 32b, Límite 32b.
+
+
+INSERART IMAGEN DEL EJERCICIO/EJEMPLO
+
+EL offset es la cantidad.
+El límite es la cantidad
+La base es una dirección de memoria.
+
+El offset debe ser menor al límite o se produce error.
+El segmento al que se quiere acceder debe existir o se rpoduce error.
+
+## Paginación de memoria
+
+Memoria real: 256 MB
+Memoria virtual: 4GB
+Número de desplazamiento: 12 b (se usa para sacar páginas y/o marcos (restando))
+
+2^{28} de memoria real (256MB = 2^{28})
+2^{32} de memoria virtual (4GB = 2^{32})
+
+Memoria real(28b-12b):
+
+2^{16} (64Kb) marcos
+2^{12} (4KB) dezplazamiento
+
+Memoria virtual(32b-12b):
+
+2^{20} (1MB) páginas
+2^{12} (4KB) dezplazamiento
+
+F = 4 bits
+
+---
+
+INSERTAR IMAGEN DE EJEMPLO
+
+Proceso 1
+Proceso 2
