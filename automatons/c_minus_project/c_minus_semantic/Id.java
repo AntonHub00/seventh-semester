@@ -1,9 +1,9 @@
 public class Id{
 
-    public String name; //lexem
+    public String name; //the lexem
     public String type; //int, real, void
-    public String category; //var, array, function
-    public int size; //array size or or amount of parameters
+    public String category; //variable, array, function
+    public int size; //array size or amount of parameters
 
     public Id(String name, String type, String category, int size){
         this.name = name;

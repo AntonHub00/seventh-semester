@@ -6,13 +6,19 @@
 int gcd(int u, int v)
 {
 	if(v==0) return u;
-	else return gcd(v,u-u/v*v);
+	else return gcd(v,u-u/v*v, v+v, u*u);
 	/* u-u/v*v == u mod v */
 }
 
 void main(void)
 {
-	int x; int y;
+	real x; real y; void hi;
+	int myArray[2];
 	x=input();y=input();
 	output(gcd(x,y));
+	// x=y=hi;
+	// x=10*14/14+10;
+	x = 10.12+10.6+1.0;
+	myArray[0]=1000.0;
+	return 10;
 }

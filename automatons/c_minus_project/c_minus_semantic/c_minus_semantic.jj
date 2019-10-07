@@ -310,6 +310,7 @@ void var_declaration() : {String lexem, type; String[] category_and_size=new Str
 
 String[] var_declaration_prime() : {String category_and_size[]=new String[2];}
 {
+    //Index 0 = category, Index 1 = size
     <LeftSquareBracket> <Number>
     {
         category_and_size[1] = token.image.toString();
@@ -341,7 +342,7 @@ void func_declaration() : {String lexem, type, category; int size;}
     {
         symbols_table.get(lexem).size=size;
     }
-    <RightParen> compound_stmt()
+    <RightParen> compound_stmt(lexem)
     {
         symbols_table.get(lexem).category="function";
     }
@@ -369,8 +370,8 @@ void param() : {String lexem, type, category;}
     {
         lexem = token.image.toString();
         if(symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
-        "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
-        "\" ya se encuentra en la tabla de símbolos");
+            "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+            "\" ya se encuentra en la tabla de símbolos");
         else symbols_table.put(lexem, new Id(lexem, type, "", 0));
     }
     category=param_prime() {symbols_table.get(lexem).category=category;}
@@ -381,9 +382,9 @@ String param_prime() : {}
     <LeftSquareBracket> <RightSquareBracket> {return "array";} | empty() {return "variable";}
 }
 
-void compound_stmt() : {}
+void compound_stmt(String param_id) : {}
 {
-    <LeftBrace> local_declarations() statement_list() <RightBrace>
+    <LeftBrace> local_declarations() statement_list(param_id) <RightBrace>
 }
 
 void local_declarations() : {}
@@ -391,57 +392,100 @@ void local_declarations() : {}
     var_declaration() local_declarations() | empty()
 }
 
-void statement_list() : {}
+void statement_list(String param_id) : {}
 {
-    statement() statement_list() | empty()
+    statement(param_id) statement_list(param_id) | empty()
 }
 
-void statement() : {}
+void statement(String param_id) : {}
 {
-    expression_stmt() | compound_stmt() | selection_stmt() | iteration_stmt() | return_stmt()
+    expression_stmt() | compound_stmt(param_id) | selection_stmt(param_id) | iteration_stmt(param_id) | return_stmt(param_id)
 }
 
 void expression_stmt() : {}
 {
-    expression() <Semicolon> | <Semicolon>
+    expression(null) <Semicolon> | <Semicolon>
 }
 
-void selection_stmt() : {}
+void selection_stmt(String param_id) : {}
 {
-    <If> <LeftParen> expression() <RightParen> statement() (<Else> statement() | empty())
+    <If> <LeftParen> expression(null) <RightParen> statement(param_id) (<Else> statement(param_id) | empty())
 }
 
-void iteration_stmt() : {}
+void iteration_stmt(String param_id) : {}
 {
-    <While> <LeftParen> expression() <RightParen> statement()
+    <While> <LeftParen> expression(null) <RightParen> statement(param_id)
 }
 
-void return_stmt() : {}
+void return_stmt(String param_id) : {}
 {
-    <Return> (<Semicolon> | expression() <Semicolon>)
+    <Return> (<Semicolon>
+    {
+        String param_type = symbols_table.get(param_id).type;
+        String this_type = "void";
+
+        if(param_type != this_type)
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \"" + param_id +
+            "\" has a different type. Given type: " + this_type + " Expected type: "+
+            param_type);
+    }
+    | expression(param_id) <Semicolon>)
 }
 
-void expression() : {}
+void expression(String param_id) : {String var_id;}
 {
-    LOOKAHEAD(5)
-    var() <Equal> expression() | simple_expression()
+    LOOKAHEAD(5)  var_id=var(null)
+
+    {
+
+        if(param_id != null){
+            String param_type = symbols_table.get(param_id).type;
+            String this_type = symbols_table.get(var_id).type;
+
+            if(this_type != this_type){
+                System.out.println(getToken(0).beginLine +
+                "," + getToken(0).beginColumn + ": ERROR. \"" + var_id +
+                "\" has a different type. Given type: " + this_type + " Expected type: "+
+                param_type);
+            }
+        }
+    }
+
+    <Equal> expression(var_id) | simple_expression(param_id)
 }
 
-void var() : {}
+String var(String param_id) : {String lexem;}
 {
     <Id>
     {
-        String lexem = token.image.toString();
-        if(!symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
-        "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
-        "\" you need to declare a variable before use it");
+        lexem = token.image.toString();
+
+        if(!symbols_table.containsKey(lexem)){
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+            "\" you need to declare a variable before use it");
+        }else{
+            if(param_id != null){
+                String param_type = symbols_table.get(param_id).type;
+                String this_type = symbols_table.get(lexem).type;
+
+                if(param_type != this_type){
+                    System.out.println(getToken(0).beginLine +
+                    "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+                    "\" has a different type. Given type: " + this_type + " Expected type: "+
+                    param_type);
+                }
+            }
+        }
     }
-    (<LeftSquareBracket> expression() <RightSquareBracket> | empty())
+    (<LeftSquareBracket> expression(param_id) <RightSquareBracket> | empty())
+    {return lexem;}
 }
 
-void simple_expression() : {}
+void simple_expression(String param_id) : {}
 {
-    additive_expression() (relation_operator() additive_expression() | empty())
+    additive_expression(param_id) (relation_operator() additive_expression(param_id) | empty())
 }
 
 void relation_operator() : {}
@@ -454,47 +498,111 @@ void relation_operator() : {}
     | <BangEqual>
 }
 
-void additive_expression() : {}
+void additive_expression(String param_id) : {}
 {
-    term() additive_expression_prime()
+    term(param_id) additive_expression_prime(param_id)
 }
 
-void additive_expression_prime() : {}
+void additive_expression_prime(String param_id) : {}
 {
-    (<Plus> | <Minus>) term() additive_expression_prime() | empty()
+    (<Plus> | <Minus>) term(param_id) additive_expression_prime(param_id) | empty()
 }
 
-void term() : {}
+void term(String param_id) : {}
 {
-    factor() term_prime()
+    factor(param_id) term_prime(param_id)
 }
 
-void term_prime() : {}
+void term_prime(String param_id) : {}
 {
-    (<Multiplier> | <Slash>) factor() term_prime() | empty()
+    (<Multiplier> | <Slash>) factor(param_id) term_prime(param_id) | empty()
 }
 
-void factor() : {}
+void factor(String param_id) : {}
 {
-    <LeftParen> expression() <RightParen> | LOOKAHEAD(2) call() |  LOOKAHEAD(2) var() | <Number> | <Decimal>
+    <LeftParen> expression(param_id) <RightParen>
+    | LOOKAHEAD(2) call(param_id)
+    |  LOOKAHEAD(2) var(param_id)
+    | <Number>
+    {
+        if(param_id != null){
+            String param_type = symbols_table.get(param_id).type;
+            String this_type = "int";
+
+            if(param_type != this_type)
+                System.out.println(getToken(0).beginLine +
+                "," + getToken(0).beginColumn + ": ERROR. " +
+                token.image.toString() +
+                " has a different type. Given type: " + this_type + " Expected type: "+
+                param_type);
+        }
+    }
+    | <Decimal>
+    {
+        if(param_id != null){
+            String param_type = symbols_table.get(param_id).type;
+            String this_type = "real";
+
+            if(param_type != this_type)
+                System.out.println(getToken(0).beginLine +
+                "," + getToken(0).beginColumn + ": ERROR. " +
+                token.image.toString() +
+                " has a different type. Given type: " + this_type + " Expected type: "+
+                param_type);
+        }
+    }
 }
 
-void call() : {}
+void call(String param_id) : {String lexem; int counter;}
 {
-    <Id> <LeftParen> args() <RightParen>
+    <Id>
+
+    {
+        lexem = token.image.toString();
+
+        if(!symbols_table.containsKey(lexem)){
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+            "\" you need to declare a function before use it");
+        }else{
+            if(param_id != null){
+                String param_type = symbols_table.get(param_id).type;
+                String this_type = symbols_table.get(param_id).type;
+
+                if(param_type != this_type){
+                    System.out.println(getToken(0).beginLine +
+                    "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+                    "\" has a different type. Given type: " + this_type +
+                    " Expected type: "+ param_type);
+                }
+            }
+        }
+    }
+
+    <LeftParen> counter=args()
+    {
+        int this_size = symbols_table.get(lexem).size;
+
+        if(counter != this_size)
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
+            "\" has incorrect amount of arguments. Given arguments: " + counter +
+            " Expected arguments: "+ this_size);
+    }
+    <RightParen>
 }
 
-void args() : {}
+int args() : {int counter;}
 {
-    arg_list() | empty()
+    counter=arg_list() {return counter;} | empty() {return 0;}
 }
 
-void arg_list() : {}
+int arg_list() : {int counter;}
 {
-    expression() arg_list_prime()
+    expression(null) counter=arg_list_prime() {return counter+1;}
 }
 
-void arg_list_prime() : {}
+int arg_list_prime() : {int counter;}
 {
-    <Comma> expression() arg_list_prime() | empty()
+    <Comma> expression(null) counter=arg_list_prime() {return counter+1;} | empty() {return 0;}
 }

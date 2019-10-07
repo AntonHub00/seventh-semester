@@ -169,7 +169,7 @@ lexem = token.image.toString();
     size = params();
 symbols_table.get(lexem).size=size;
     jj_consume_token(RightParen);
-    compound_stmt();
+    compound_stmt(lexem);
 symbols_table.get(lexem).category="function";
   }
 
@@ -222,8 +222,8 @@ symbols_table.get(lexem).category="function";
     jj_consume_token(Id);
 lexem = token.image.toString();
         if(symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
-        "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
-        "\u005c" ya se encuentra en la tabla de s\u00edmbolos");
+            "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
+            "\u005c" ya se encuentra en la tabla de s\u00edmbolos");
         else symbols_table.put(lexem, new Id(lexem, type, "", 0));
     category = param_prime();
 symbols_table.get(lexem).category=category;
@@ -245,10 +245,10 @@ symbols_table.get(lexem).category=category;
     throw new Error("Missing return statement in function");
   }
 
-  static final public void compound_stmt() throws ParseException {
+  static final public void compound_stmt(String param_id) throws ParseException {
     jj_consume_token(LeftBrace);
     local_declarations();
-    statement_list();
+    statement_list(param_id);
     jj_consume_token(RightBrace);
   }
 
@@ -267,7 +267,7 @@ symbols_table.get(lexem).category=category;
     }
   }
 
-  static final public void statement_list() throws ParseException {
+  static final public void statement_list(String param_id) throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case If:
     case Return:
@@ -278,8 +278,8 @@ symbols_table.get(lexem).category=category;
     case Id:
     case Number:
     case Decimal:{
-      statement();
-      statement_list();
+      statement(param_id);
+      statement_list(param_id);
       break;
       }
     default:
@@ -288,7 +288,7 @@ symbols_table.get(lexem).category=category;
     }
   }
 
-  static final public void statement() throws ParseException {
+  static final public void statement(String param_id) throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case Semicolon:
     case LeftParen:
@@ -299,19 +299,19 @@ symbols_table.get(lexem).category=category;
       break;
       }
     case LeftBrace:{
-      compound_stmt();
+      compound_stmt(param_id);
       break;
       }
     case If:{
-      selection_stmt();
+      selection_stmt(param_id);
       break;
       }
     case While:{
-      iteration_stmt();
+      iteration_stmt(param_id);
       break;
       }
     case Return:{
-      return_stmt();
+      return_stmt(param_id);
       break;
       }
     default:
@@ -327,7 +327,7 @@ symbols_table.get(lexem).category=category;
     case Id:
     case Number:
     case Decimal:{
-      expression();
+      expression(null);
       jj_consume_token(Semicolon);
       break;
       }
@@ -342,16 +342,16 @@ symbols_table.get(lexem).category=category;
     }
   }
 
-  static final public void selection_stmt() throws ParseException {
+  static final public void selection_stmt(String param_id) throws ParseException {
     jj_consume_token(If);
     jj_consume_token(LeftParen);
-    expression();
+    expression(null);
     jj_consume_token(RightParen);
-    statement();
+    statement(param_id);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case Else:{
       jj_consume_token(Else);
-      statement();
+      statement(param_id);
       break;
       }
     default:
@@ -360,26 +360,34 @@ symbols_table.get(lexem).category=category;
     }
   }
 
-  static final public void iteration_stmt() throws ParseException {
+  static final public void iteration_stmt(String param_id) throws ParseException {
     jj_consume_token(While);
     jj_consume_token(LeftParen);
-    expression();
+    expression(null);
     jj_consume_token(RightParen);
-    statement();
+    statement(param_id);
   }
 
-  static final public void return_stmt() throws ParseException {
+  static final public void return_stmt(String param_id) throws ParseException {
     jj_consume_token(Return);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case Semicolon:{
       jj_consume_token(Semicolon);
+String param_type = symbols_table.get(param_id).type;
+        String this_type = "void";
+
+        if(param_type != this_type)
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \u005c"" + param_id +
+            "\u005c" has a different type. Given type: " + this_type + " Expected type: "+
+            param_type);
       break;
       }
     case LeftParen:
     case Id:
     case Number:
     case Decimal:{
-      expression();
+      expression(param_id);
       jj_consume_token(Semicolon);
       break;
       }
@@ -390,18 +398,29 @@ symbols_table.get(lexem).category=category;
     }
   }
 
-  static final public void expression() throws ParseException {
+  static final public void expression(String param_id) throws ParseException {String var_id;
     if (jj_2_3(5)) {
-      var();
+      var_id = var(null);
+if(param_id != null){
+            String param_type = symbols_table.get(param_id).type;
+            String this_type = symbols_table.get(var_id).type;
+
+            if(this_type != this_type){
+                System.out.println(getToken(0).beginLine +
+                "," + getToken(0).beginColumn + ": ERROR. \u005c"" + var_id +
+                "\u005c" has a different type. Given type: " + this_type + " Expected type: "+
+                param_type);
+            }
+        }
       jj_consume_token(Equal);
-      expression();
+      expression(var_id);
     } else {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case LeftParen:
       case Id:
       case Number:
       case Decimal:{
-        simple_expression();
+        simple_expression(param_id);
         break;
         }
       default:
@@ -412,16 +431,31 @@ symbols_table.get(lexem).category=category;
     }
   }
 
-  static final public void var() throws ParseException {
+  static final public String var(String param_id) throws ParseException {String lexem;
     jj_consume_token(Id);
-String lexem = token.image.toString();
-        if(!symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
-        "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
-        "\u005c" you need to declare a variable before use it");
+lexem = token.image.toString();
+
+        if(!symbols_table.containsKey(lexem)){
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
+            "\u005c" you need to declare a variable before use it");
+        }else{
+            if(param_id != null){
+                String param_type = symbols_table.get(param_id).type;
+                String this_type = symbols_table.get(lexem).type;
+
+                if(param_type != this_type){
+                    System.out.println(getToken(0).beginLine +
+                    "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
+                    "\u005c" has a different type. Given type: " + this_type + " Expected type: "+
+                    param_type);
+                }
+            }
+        }
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case LeftSquareBracket:{
       jj_consume_token(LeftSquareBracket);
-      expression();
+      expression(param_id);
       jj_consume_token(RightSquareBracket);
       break;
       }
@@ -429,10 +463,12 @@ String lexem = token.image.toString();
       jj_la1[15] = jj_gen;
       empty();
     }
+{if ("" != null) return lexem;}
+    throw new Error("Missing return statement in function");
   }
 
-  static final public void simple_expression() throws ParseException {
-    additive_expression();
+  static final public void simple_expression(String param_id) throws ParseException {
+    additive_expression(param_id);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case LeftAngularBracket:
     case RightAngularBracket:
@@ -441,7 +477,7 @@ String lexem = token.image.toString();
     case EqualEqual:
     case BangEqual:{
       relation_operator();
-      additive_expression();
+      additive_expression(param_id);
       break;
       }
     default:
@@ -483,12 +519,12 @@ String lexem = token.image.toString();
     }
   }
 
-  static final public void additive_expression() throws ParseException {
-    term();
-    additive_expression_prime();
+  static final public void additive_expression(String param_id) throws ParseException {
+    term(param_id);
+    additive_expression_prime(param_id);
   }
 
-  static final public void additive_expression_prime() throws ParseException {
+  static final public void additive_expression_prime(String param_id) throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case Plus:
     case Minus:{
@@ -506,8 +542,8 @@ String lexem = token.image.toString();
         jj_consume_token(-1);
         throw new ParseException();
       }
-      term();
-      additive_expression_prime();
+      term(param_id);
+      additive_expression_prime(param_id);
       break;
       }
     default:
@@ -516,12 +552,12 @@ String lexem = token.image.toString();
     }
   }
 
-  static final public void term() throws ParseException {
-    factor();
-    term_prime();
+  static final public void term(String param_id) throws ParseException {
+    factor(param_id);
+    term_prime(param_id);
   }
 
-  static final public void term_prime() throws ParseException {
+  static final public void term_prime(String param_id) throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case Multiplier:
     case Slash:{
@@ -539,8 +575,8 @@ String lexem = token.image.toString();
         jj_consume_token(-1);
         throw new ParseException();
       }
-      factor();
-      term_prime();
+      factor(param_id);
+      term_prime(param_id);
       break;
       }
     default:
@@ -549,28 +585,50 @@ String lexem = token.image.toString();
     }
   }
 
-  static final public void factor() throws ParseException {
+  static final public void factor(String param_id) throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case LeftParen:{
       jj_consume_token(LeftParen);
-      expression();
+      expression(param_id);
       jj_consume_token(RightParen);
       break;
       }
     default:
       jj_la1[22] = jj_gen;
       if (jj_2_4(2)) {
-        call();
+        call(param_id);
       } else if (jj_2_5(2)) {
-        var();
+        var(param_id);
       } else {
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
         case Number:{
           jj_consume_token(Number);
+if(param_id != null){
+            String param_type = symbols_table.get(param_id).type;
+            String this_type = "int";
+
+            if(param_type != this_type)
+                System.out.println(getToken(0).beginLine +
+                "," + getToken(0).beginColumn + ": ERROR. " +
+                token.image.toString() +
+                " has a different type. Given type: " + this_type + " Expected type: "+
+                param_type);
+        }
           break;
           }
         case Decimal:{
           jj_consume_token(Decimal);
+if(param_id != null){
+            String param_type = symbols_table.get(param_id).type;
+            String this_type = "real";
+
+            if(param_type != this_type)
+                System.out.println(getToken(0).beginLine +
+                "," + getToken(0).beginColumn + ": ERROR. " +
+                token.image.toString() +
+                " has a different type. Given type: " + this_type + " Expected type: "+
+                param_type);
+        }
           break;
           }
         default:
@@ -582,45 +640,79 @@ String lexem = token.image.toString();
     }
   }
 
-  static final public void call() throws ParseException {
+  static final public void call(String param_id) throws ParseException {String lexem; int counter;
     jj_consume_token(Id);
+lexem = token.image.toString();
+
+        if(!symbols_table.containsKey(lexem)){
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
+            "\u005c" you need to declare a function before use it");
+        }else{
+            if(param_id != null){
+                String param_type = symbols_table.get(param_id).type;
+                String this_type = symbols_table.get(param_id).type;
+
+                if(param_type != this_type){
+                    System.out.println(getToken(0).beginLine +
+                    "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
+                    "\u005c" has a different type. Given type: " + this_type +
+                    " Expected type: "+ param_type);
+                }
+            }
+        }
     jj_consume_token(LeftParen);
-    args();
+    counter = args();
+int this_size = symbols_table.get(lexem).size;
+
+        if(counter != this_size)
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. \u005c"" + lexem +
+            "\u005c" has incorrect amount of arguments. Given arguments: " + counter +
+            " Expected arguments: "+ this_size);
     jj_consume_token(RightParen);
   }
 
-  static final public void args() throws ParseException {
+  static final public int args() throws ParseException {int counter;
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case LeftParen:
     case Id:
     case Number:
     case Decimal:{
-      arg_list();
+      counter = arg_list();
+{if ("" != null) return counter;}
       break;
       }
     default:
       jj_la1[24] = jj_gen;
       empty();
+{if ("" != null) return 0;}
     }
+    throw new Error("Missing return statement in function");
   }
 
-  static final public void arg_list() throws ParseException {
-    expression();
-    arg_list_prime();
+  static final public int arg_list() throws ParseException {int counter;
+    expression(null);
+    counter = arg_list_prime();
+{if ("" != null) return counter+1;}
+    throw new Error("Missing return statement in function");
   }
 
-  static final public void arg_list_prime() throws ParseException {
+  static final public int arg_list_prime() throws ParseException {int counter;
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case Comma:{
       jj_consume_token(Comma);
-      expression();
-      arg_list_prime();
+      expression(null);
+      counter = arg_list_prime();
+{if ("" != null) return counter+1;}
       break;
       }
     default:
       jj_la1[25] = jj_gen;
       empty();
+{if ("" != null) return 0;}
     }
+    throw new Error("Missing return statement in function");
   }
 
   static private boolean jj_2_1(int xla)
@@ -663,10 +755,136 @@ String lexem = token.image.toString();
     finally { jj_save(4, xla); }
   }
 
-  static private boolean jj_3R_23()
+  static private boolean jj_3R_9()
  {
-    if (jj_3R_26()) return true;
-    if (jj_3R_27()) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(Id)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_6()
+ {
+    if (jj_scan_token(Id)) return true;
+    if (jj_scan_token(LeftParen)) return true;
+    if (jj_3R_35()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_4()
+ {
+    if (jj_scan_token(Id)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_10()) {
+    jj_scanpos = xsp;
+    if (jj_3R_11()) return true;
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_18()
+ {
+    return false;
+  }
+
+  static private boolean jj_3R_3()
+ {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_11()
+ {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_2()
+ {
+    if (jj_3R_3()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_32()
+ {
+    if (jj_scan_token(Decimal)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_37()
+ {
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_5()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_3()) {
+    jj_scanpos = xsp;
+    if (jj_3R_12()) return true;
+    }
+    return false;
+  }
+
+  static private boolean jj_3_3()
+ {
+    if (jj_3R_4()) return true;
+    if (jj_scan_token(Equal)) return true;
+    if (jj_3R_5()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_15()
+ {
+    if (jj_scan_token(Real)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_5()
+ {
+    if (jj_3R_4()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_31()
+ {
+    if (jj_scan_token(Number)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_4()
+ {
+    if (jj_3R_6()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_26()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_30()) {
+    jj_scanpos = xsp;
+    if (jj_3_4()) {
+    jj_scanpos = xsp;
+    if (jj_3_5()) {
+    jj_scanpos = xsp;
+    if (jj_3R_31()) {
+    jj_scanpos = xsp;
+    if (jj_3R_32()) return true;
+    }
+    }
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_30()
+ {
+    if (jj_scan_token(LeftParen)) return true;
+    if (jj_3R_5()) return true;
+    if (jj_scan_token(RightParen)) return true;
     return false;
   }
 
@@ -674,6 +892,43 @@ String lexem = token.image.toString();
  {
     if (jj_3R_25()) return true;
     if (jj_3R_20()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_33()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(16)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(17)) return true;
+    }
+    if (jj_3R_26()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_27()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_33()) {
+    jj_scanpos = xsp;
+    if (jj_3R_34()) return true;
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_17()
+ {
+    if (jj_3R_18()) return true;
+    if (jj_scan_token(Semicolon)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_23()
+ {
+    if (jj_3R_26()) return true;
+    if (jj_3R_27()) return true;
     return false;
   }
 
@@ -700,157 +955,9 @@ String lexem = token.image.toString();
     return false;
   }
 
-  static private boolean jj_3R_9()
+  static private boolean jj_3R_38()
  {
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(Id)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_20()
- {
-    if (jj_3R_23()) return true;
-    if (jj_3R_24()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_12()
- {
-    if (jj_3R_19()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_18()
- {
-    return false;
-  }
-
-  static private boolean jj_3R_3()
- {
-    if (jj_3R_9()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_25()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(21)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(22)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(18)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(19)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(23)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(24)) return true;
-    }
-    }
-    }
-    }
-    }
-    return false;
-  }
-
-  static private boolean jj_3_2()
- {
-    if (jj_3R_3()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_5()
- {
-    if (jj_3R_4()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_19()
- {
-    if (jj_3R_20()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_21()) {
-    jj_scanpos = xsp;
-    if (jj_3R_22()) return true;
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_10()
- {
-    if (jj_scan_token(LeftSquareBracket)) return true;
     if (jj_3R_5()) return true;
-    if (jj_scan_token(RightSquareBracket)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_15()
- {
-    if (jj_scan_token(Real)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_4()
- {
-    if (jj_scan_token(Id)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_10()) {
-    jj_scanpos = xsp;
-    if (jj_3R_11()) return true;
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_32()
- {
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_5()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3_3()) {
-    jj_scanpos = xsp;
-    if (jj_3R_12()) return true;
-    }
-    return false;
-  }
-
-  static private boolean jj_3_3()
- {
-    if (jj_3R_4()) return true;
-    if (jj_scan_token(Equal)) return true;
-    if (jj_3R_5()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_29()
- {
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_4()
- {
-    if (jj_3R_6()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_17()
- {
-    if (jj_3R_18()) return true;
-    if (jj_scan_token(Semicolon)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_22()
- {
-    if (jj_3R_18()) return true;
     return false;
   }
 
@@ -877,37 +984,67 @@ String lexem = token.image.toString();
     return false;
   }
 
-  static private boolean jj_3R_35()
+  static private boolean jj_3R_20()
  {
-    if (jj_3R_18()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_11()
- {
-    if (jj_3R_18()) return true;
+    if (jj_3R_23()) return true;
+    if (jj_3R_24()) return true;
     return false;
   }
 
   static private boolean jj_3R_36()
  {
-    if (jj_3R_5()) return true;
+    if (jj_3R_38()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_35()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_36()) {
+    jj_scanpos = xsp;
+    if (jj_3R_37()) return true;
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_25()
+ {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(21)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(22)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(18)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(19)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(23)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(24)) return true;
+    }
+    }
+    }
+    }
+    }
     return false;
   }
 
   static private boolean jj_3R_34()
  {
-    if (jj_3R_36()) return true;
+    if (jj_3R_18()) return true;
     return false;
   }
 
-  static private boolean jj_3R_33()
+  static private boolean jj_3R_19()
  {
+    if (jj_3R_20()) return true;
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_34()) {
+    if (jj_3R_21()) {
     jj_scanpos = xsp;
-    if (jj_3R_35()) return true;
+    if (jj_3R_22()) return true;
     }
     return false;
   }
@@ -920,11 +1057,23 @@ String lexem = token.image.toString();
     return false;
   }
 
-  static private boolean jj_3R_6()
+  static private boolean jj_3R_29()
  {
-    if (jj_scan_token(Id)) return true;
-    if (jj_scan_token(LeftParen)) return true;
-    if (jj_3R_33()) return true;
+    if (jj_3R_18()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_12()
+ {
+    if (jj_3R_19()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_10()
+ {
+    if (jj_scan_token(LeftSquareBracket)) return true;
+    if (jj_3R_5()) return true;
+    if (jj_scan_token(RightSquareBracket)) return true;
     return false;
   }
 
@@ -948,60 +1097,15 @@ String lexem = token.image.toString();
     return false;
   }
 
-  static private boolean jj_3R_26()
+  static private boolean jj_3R_22()
  {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_30()) {
-    jj_scanpos = xsp;
-    if (jj_3_4()) {
-    jj_scanpos = xsp;
-    if (jj_3_5()) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(34)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(35)) return true;
-    }
-    }
-    }
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_30()
- {
-    if (jj_scan_token(LeftParen)) return true;
-    if (jj_3R_5()) return true;
-    if (jj_scan_token(RightParen)) return true;
+    if (jj_3R_18()) return true;
     return false;
   }
 
   static private boolean jj_3_1()
  {
     if (jj_3R_2()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_27()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_31()) {
-    jj_scanpos = xsp;
-    if (jj_3R_32()) return true;
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_31()
- {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(16)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(17)) return true;
-    }
-    if (jj_3R_26()) return true;
     return false;
   }
 
