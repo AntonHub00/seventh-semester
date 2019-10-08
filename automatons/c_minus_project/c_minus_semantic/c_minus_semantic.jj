@@ -333,6 +333,7 @@ void func_declaration() : {String lexem, type, category; int size;}
     type=type_specifier() <Id>
     {
         lexem = token.image.toString();
+
         if(symbols_table.containsKey(lexem)) System.out.println(getToken(0).beginLine +
         "," + getToken(0).beginColumn + ": ERROR. \"" + lexem +
         "\" ya se encuentra en la tabla de símbolos");
@@ -433,12 +434,11 @@ void return_stmt(String param_id) : {}
     | expression(param_id) <Semicolon>)
 }
 
-void expression(String param_id) : {String var_id;}
+String expression(String param_id) : {String var_id, lexem;}
 {
     LOOKAHEAD(5)  var_id=var(null)
 
     {
-
         if(param_id != null){
             String param_type = symbols_table.get(param_id).type;
             String this_type = symbols_table.get(var_id).type;
@@ -452,10 +452,11 @@ void expression(String param_id) : {String var_id;}
         }
     }
 
-    <Equal> expression(var_id) | simple_expression(param_id)
+    <Equal> lexem=expression(var_id) {return lexem;}
+    | lexem=simple_expression(param_id) {return lexem;}
 }
 
-String var(String param_id) : {String lexem;}
+String var(String param_id) : {String lexem, array_index;}
 {
     <Id>
     {
@@ -479,13 +480,47 @@ String var(String param_id) : {String lexem;}
             }
         }
     }
-    (<LeftSquareBracket> expression(param_id) <RightSquareBracket> | empty())
+
+    // //Modified temporarily ("exprenssion()" must be inside brackets instead "Number" to match the original grammar)
+    // (<LeftSquareBracket> <Number>
+    // {
+    //     int array_index = Integer.parseInt(token.image.toString());
+    //     int array_size = symbols_table.get(lexem).size;
+
+    //     if(array_index < 0 | array_index >= array_size){
+    //         System.out.println(getToken(0).beginLine +
+    //         "," + getToken(0).beginColumn + ": ERROR. Index out of bounds. "+
+    //         "Index must be between 0-" + (array_size-1));
+    //     }
+    // }
+    // <RightSquareBracket> | empty())
+
+    (<LeftSquareBracket> array_index=expression(param_id)
+    {
+        if(array_index==null){
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. Can not determine if array" +
+            " index is valid");
+        }
+        else{
+            int array_index_value = Integer.parseInt(array_index);
+            int array_size = symbols_table.get(lexem).size;
+
+            if(array_index_value < 0 | array_index_value >= array_size){
+                System.out.println(getToken(0).beginLine +
+                "," + getToken(0).beginColumn + ": ERROR. Index out of bounds." +
+                " Array index must be between 0-" + (array_size-1));
+            }
+        }
+    }
+    <RightSquareBracket> | empty())
     {return lexem;}
 }
 
-void simple_expression(String param_id) : {}
+String simple_expression(String param_id) : {String lexem;}
 {
-    additive_expression(param_id) (relation_operator() additive_expression(param_id) | empty())
+    lexem=additive_expression(param_id) (relation_operator() additive_expression(param_id) {return null;}
+    | empty() {return lexem;})
 }
 
 void relation_operator() : {}
@@ -498,31 +533,35 @@ void relation_operator() : {}
     | <BangEqual>
 }
 
-void additive_expression(String param_id) : {}
+String additive_expression(String param_id) : {String lexem, other_additive_ex;}
 {
-    term(param_id) additive_expression_prime(param_id)
+    lexem=term(param_id) other_additive_ex=additive_expression_prime(param_id)
+    {return (other_additive_ex==null)?null:lexem;}
 }
 
-void additive_expression_prime(String param_id) : {}
+String additive_expression_prime(String param_id) : {}
 {
-    (<Plus> | <Minus>) term(param_id) additive_expression_prime(param_id) | empty()
+    (<Plus> | <Minus>) term(param_id) additive_expression_prime(param_id) {return null;}
+    | empty() {return "empty";}
 }
 
-void term(String param_id) : {}
+String term(String param_id) : {String lexem, other_term;}
 {
-    factor(param_id) term_prime(param_id)
+    lexem=factor(param_id) other_term=term_prime(param_id)
+    {return (other_term==null)?null:lexem;}
 }
 
-void term_prime(String param_id) : {}
+String term_prime(String param_id) : {}
 {
-    (<Multiplier> | <Slash>) factor(param_id) term_prime(param_id) | empty()
+    (<Multiplier> | <Slash>) factor(param_id) term_prime(param_id) {return null;}
+    | empty() {return "empty";}
 }
 
-void factor(String param_id) : {}
+String factor(String param_id) : {}
 {
-    <LeftParen> expression(param_id) <RightParen>
-    | LOOKAHEAD(2) call(param_id)
-    |  LOOKAHEAD(2) var(param_id)
+    <LeftParen> expression(param_id) <RightParen> {return null;}
+    | LOOKAHEAD(2) call(param_id) {return null;}
+    |  LOOKAHEAD(2) var(param_id) {return null;}
     | <Number>
     {
         if(param_id != null){
@@ -536,6 +575,7 @@ void factor(String param_id) : {}
                 " has a different type. Given type: " + this_type + " Expected type: "+
                 param_type);
         }
+        return token.image.toString();
     }
     | <Decimal>
     {
@@ -550,6 +590,7 @@ void factor(String param_id) : {}
                 " has a different type. Given type: " + this_type + " Expected type: "+
                 param_type);
         }
+        return null;
     }
 }
 
@@ -567,7 +608,7 @@ void call(String param_id) : {String lexem; int counter;}
         }else{
             if(param_id != null){
                 String param_type = symbols_table.get(param_id).type;
-                String this_type = symbols_table.get(param_id).type;
+                String this_type = symbols_table.get(lexem).type;
 
                 if(param_type != this_type){
                     System.out.println(getToken(0).beginLine +
