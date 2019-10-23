@@ -41,9 +41,9 @@ que posee el microprocesador para el direccionamiento de memoria.
 
 ## Particiones
 
+- Partión dinámica: Se relaciona con la memoria continua.
 - Partición fija: (espacios estrictos definidos se tiene esperar a desocupar espacio si
 no hay espacio suficiente). Se relaciones con la memoria no continua
-- Partión dinámica: Se relaciona con la memoria continua.
 
 ## Memoria Virtual
 
@@ -136,7 +136,7 @@ pero es de menor tamaño y de acceso más rápido.
 
 ## Translation Lookaside Buffer (TLB)
 
-"Memoria chaché especializada para guardar páginas de procesos".
+"Memoria caché especializada para guardar páginas de procesos".
 
 El TLB guarda la páginas más solicitadas para que no se tengan que ir a buscar
 hasta la RAM.
@@ -155,6 +155,8 @@ Número de segmento: 16b.
 2^{32} direcciones de Memoria de real.
 2^{32} direcciones de Memoria de virtual.
 
+32b - segmento(16b) = 16b de desplazamiento
+
 0000:0000 Número de segmento: 2^{16Kb} segmentos (64KB).
 FFFF:FFFF Número de desplazamiento: 2^{16Kb} espacio de segmentos (64KB).
 
@@ -168,16 +170,16 @@ El límite es la cantidad
 La base es una dirección de memoria.
 
 El offset debe ser menor al límite o se produce error.
-El segmento al que se quiere acceder debe existir o se rpoduce error.
+El segmento al que se quiere acceder debe existir o se produce error.
 
 ## Paginación de memoria
 
-Memoria real: 256 MB
-Memoria virtual: 4GB
+Memoria real: 256 MB (256\*1024\*1024=268,435,456 bytes)
+Memoria virtual: 4GB (4\*1024\*1024\*1024= 4,294,967,296 bytes)
 Número de desplazamiento: 12 b (se usa para sacar páginas y/o marcos (restando))
 
-2^{28} de memoria real (256MB = 2^{28})
-2^{32} de memoria virtual (4GB = 2^{32})
+2^{28} (bits) de memoria real (256MB = 2^{28})
+2^{32} (bits) de memoria virtual (4GB = 2^{32})
 
 Memoria real(28b-12b):
 
@@ -197,3 +199,39 @@ INSERTAR IMAGEN DE EJEMPLO
 
 Proceso 1
 Proceso 2
+
+## Tarea
+
+Memoria real: 16 MB (16\*1024\*1024=16,777,216 bytes)
+Memoria virtual: 16 MB (16\*1024\*1024=16,777,216 bytes)
+Número de segmento: 8 b (se usa para sacar páginas y/o marcos (restando))
+
+2^{24} (bits) de memoria real (16MB = 2^{24})
+2^{24} (bits) de memoria virtual (16MB = 2^{24})
+
+24b - segmento(8b) = 16b de desplazamiento
+
+0000:0000 Número de segmento: 2^{8b} segmentos (256b).
+FFFF:FFFF Número de desplazamiento: 2^{16b} espacio de segmentos (64Kb).
+
+Base: 24b 000000(FF), Límite 16b. 0000(FFFF)
+
+segmento      base            Límite
+
+000000 00  00000000 00000000 00000000
+...
+000000 FF  00000000 00000000 00000000
+
+Examen:
+Cocepto de admin de memoria
+filosofía
+Que es memoria real
+tipos de memoria real
+jerarquia de memoria
+tipos de particiones de memoria
+concepto de memoria virtul
+paginacion y tabla de ginacion de memoria
+algoritmos de reemplazo
+concepto de segmentacion de memoria y offset
+que es la MMU
+concepto de buffer, memoria, cache y TLB
