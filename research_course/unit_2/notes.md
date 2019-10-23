@@ -13,3 +13,5 @@ Ejemplo con Ishikawa:
 - Neuroplasticidad
 - Videos de Alejandro Byrd
 - Lara Boyd
+
+## Notas video
