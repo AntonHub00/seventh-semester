@@ -443,7 +443,7 @@ String expression(String param_id) : {String var_id, lexem;}
             String param_type = symbols_table.get(param_id).type;
             String this_type = symbols_table.get(var_id).type;
 
-            if(this_type != this_type){
+            if(param_type != this_type){
                 System.out.println(getToken(0).beginLine +
                 "," + getToken(0).beginColumn + ": ERROR. \"" + var_id +
                 "\" has a different type. Given type: " + this_type + " Expected type: "+
@@ -481,20 +481,6 @@ String var(String param_id) : {String lexem, array_index;}
         }
     }
 
-    // //Modified temporarily ("exprenssion()" must be inside brackets instead "Number" to match the original grammar)
-    // (<LeftSquareBracket> <Number>
-    // {
-    //     int array_index = Integer.parseInt(token.image.toString());
-    //     int array_size = symbols_table.get(lexem).size;
-
-    //     if(array_index < 0 | array_index >= array_size){
-    //         System.out.println(getToken(0).beginLine +
-    //         "," + getToken(0).beginColumn + ": ERROR. Index out of bounds. "+
-    //         "Index must be between 0-" + (array_size-1));
-    //     }
-    // }
-    // <RightSquareBracket> | empty())
-
     (<LeftSquareBracket> array_index=expression(param_id)
     {
         if(array_index==null){
@@ -513,7 +499,24 @@ String var(String param_id) : {String lexem, array_index;}
             }
         }
     }
-    <RightSquareBracket> | empty())
+    <RightSquareBracket>
+    {
+        if(symbols_table.get(lexem).category == "variable"){
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. Incorrect way to asign"+
+            " normal variable");
+        }
+    }
+    | empty()
+    {
+        if(symbols_table.get(lexem).category == "array"){
+            System.out.println(getToken(0).beginLine +
+            "," + getToken(0).beginColumn + ": ERROR. Incorrect way to asign"+
+            " array");
+        }
+    }
+    )
+
     {return lexem;}
 }
 

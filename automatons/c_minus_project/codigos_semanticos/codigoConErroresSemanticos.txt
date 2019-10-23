@@ -1,0 +1,35 @@
+//Codigo con errores semanticos :O
+
+int gcd(int u, int v)
+{
+	//Falta declarar la variable v
+	if(v==0) return u;
+	else return gcd(v,u-u/v*v);
+}
+real suma(real p)
+{
+	if(p==0) return p;
+	else return p+8.5;
+}
+
+void main(void)
+{
+    real i;
+    int h;
+    int x[10];
+
+    i = 5; //i es de tipo real
+    while (i < 10)
+    {
+	i = h + 0.2+3+8.9; //expresion solo debe contener reales
+        h = 9/8.3*i+x[4]; //expresion solo debe contener enteros
+    }
+    x[6] = 8.9; //el arreglo es de tipo entero
+    h=7.9;  //h es de tipo entero
+    i=gcd(5,6);//la funcion regresa un int , i es real
+    h=suma(9.3);//la funcion regresa un real, h es int
+    x[14] = 8; //excede el tamano del arreglo
+
+    h=gcd(5); //la funcion recibe dos parametros
+    i=suma(9.3,5.6); //la funcion recibe un parametro
+ }
