@@ -336,3 +336,11 @@ bandwith num (dentro de la interfaz, así se configura la velocidad de esa intef
 Máscara comodin: 255.255.255.255 - máscarade subred.
 
 show ip eigrp neighbors
+
+## Práctica
+
+Dispositivo: R1
+Problema identificado: PC1 no puede hacer ping con R2 ni R3
+Solución propuesta: Revisar la tabla de routing para comprobar las rutas y checar
+la dirección IP.
+¿Funcionó?:
