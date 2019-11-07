@@ -77,7 +77,6 @@ export default {
 
         e.preventDefault();
 
-
         for(var box in this.boxes){
           if ((this.boxes[box].id) == this.box_id_to_update){
             this.boxes[box].id = this.input_value;
