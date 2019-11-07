@@ -22,11 +22,11 @@ Programa informático que permite al sistema operativo interactuar con un perif�
 - Dispositivos multimedia
 - Dispositivos de almacenamiento
 - Dispositivos de red
+- Dispositivos audio
 - Teclado
 - Display
 - Mouse
 - Impresoras
-- Dispositivos multimedia
 
 ## Puertos de I/O
 
@@ -110,7 +110,7 @@ El CPU y el dispositivo de E/S permanecen ocupados.
 Cuando el CPU esté libre para el siguiente grupo de datos, el dispositivo habrá
 terminao de leerlos.
 
-La CPU podrá empezar el proceso de os últimos datos leídos, mientras el dispositivo
+La CPU podrá empezar el proceso de los últimos datos leídos, mientras el dispositivo
 inicia la lectura de los datos siguientes (spooling).
 
 ## Problemas más frecuentes
@@ -165,3 +165,146 @@ Las peticiones se procesan de forma estructurada en las siguientes capas:
 - Manejadores de dispositivos (drivers)
 - Software de E/S independiente de los dispositvos
 - Interfaz del sistemas operativo
+
+####
+
+Previous class here
+
+####
+
+## Preámbulo
+
+- Tipo deoperación: lectura o escritura
+- Periférico involucrado en la operación
+- Dirección de memoria desd la que se va a leer o escribir directamente el
+controlador
+- Número de bytes a transferir
+
+## Tipo de operación
+
+- Lectura
+- Escritura
+- Control
+- Bifurcación
+
+## Proceso a seguir
+
+1. Programación de las operaciones de E/S
+2. El controlador contesta aceptando la petición E/S
+3. El controlador le ordena al dispositivo que lea una cierta cantidad de datos
+a su memoria interna
+4. El controlador los copia a la posición de memoria que tiene en sus registros
+5. Los pasos 3 y 4 se repiten hasta que no quedan más datos por leer
+6. Cuando el registro contador está en 0, el controlador interrumpe el CPU
+
+## Tipos de transferencias
+
+- Por ráfagas: el DMA toma el control del bus y no lo suelta hasta terminar la
+transferencia
+- Por robo de ciclo: el DMA toma el bus durante un ciclo enviando una palabra
+cada vez
+- Transparente: Se aprovechan los ciclos en que el procesador no usa el bus
+
+##Tarea
+
+La película está excelente a pesar de no terner tanto recursos para efectos
+especiales. Presenta una realidad donde usan a una persona "medio muerta" como
+medio para implantar una memoria de una persona que ya ha muerto siempre y cuando
+se compatible biológica y cuánticamente (algo así). Los viajes al pasado solo
+afectan la línea temporal donde se encuentra, por lo tanto solo afecta el futuro
+de esa línea más no del presente, es decir, no se afecta el pasado de la línea
+temporal desde donde fue enviado al pasado.
+
+Menciones tecnológicas:
+
+- Se usaba el celular para activar la bomba
+- Se comunicaba con el soldado "muerto" a través de una interfaz en computadora
+donde a las personas que se comunicaban les aparecían en forma de mensaje y ellos
+transmitían datos a través de una camara y un micrófono.
+- Se hablan sobre líneas de tiempo a partir de física cuántica
+- En esa realidad, al alterar el pasado solo se puede alterar la línea del tiempo
+de esa realidad, pero no el presente desde donde fue mandado al pasado; al
+estilo de End Game
+
+## Sistemas de archivos
+
+Es el componente del sistema operativo encargado de administrar y facilitar el
+uso de las memeorias periféricas, ya sean secundarias o terciarias. La mayoría
+de los sistemas operativos manejan su propio sistema de archivos.
+
+### Principales funciones
+
+- Asignación de espacio a los archivos
+- Administración de espacio libre
+- Acceso a los datos resguardados
+
+### Exposición
+
+- SOs de Windows
+- SOs de Mac
+- SOs de Linux
+- SOs dedicados a servidores
+- SOs móviles
+
+#### Contenido
+
+- Concepto
+- Origen
+- Evolución
+- Sistemas de archivos
+- ¿Porqué este SO?
+- Datos relevantes
+
+#### Calificar
+
+Personal:
+
+- Formalidad
+- Fluidez
+- Seguridad
+- Dominio del tema
+
+Presentación:
+
+- Calidad del contenido
+- Poco de texto
+- Aspectos visuales
+- Creatividad
+
+45 a 50 minutos
+
+## Archivo virtual
+
+Es un archivo de uso temporal que es utilizado por los procesos del sistema
+durante  su ejecución. Se crean durante la ejecución del sistema, los utiliza
+para almacenamiento, intercambio y organización y comunmente se eliminan al
+terminar la ejecución del sistema.
+
+## Archivo real
+
+Es un objeto que contiene programas, datos o cualquier otro elemento. Se muestra
+de manera real, en la información del espacio que ocupa en el disco, en otras
+palabras, su tamaño en bytes.
+
+## Sistema de Archivos Virtual
+
+Es una capa de abstracción encima de un sistema de archivos más concreto. Su
+propósito es permitir el acceso a diversos tipos de sistemas e archivos de manera
+uniforme.
+
+## Componentes
+
+Lo conforman todas aquellas rutinas encargadas de administrar los aspectos
+relacionados al sistema de archivos.
+
+- Métodos de acceso
+- Administración de archivos
+- Administración de almacenamiento secundario
+- Mecanismos de integridad
+
+## Organización
+
+- Origen conocido como "Raíz"
+- "Directorio Raíz" apunta a los "Directorios de trabajo"
+- "Directorio único" contiene entradas para los archivos del usuario
+- Cada entrada apunta al lugar del disco dnde está almacenado el archivo
