@@ -1,12 +1,12 @@
 <template>
   <div>
-    <p>Hello there</p>
+    <p>Recommendation card</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MainView"
+  name: "RecommendationCard"
 };
 </script>
 

@@ -1,31 +1,40 @@
 <template>
   <div id="app">
-    <main-view />
-    <button v-on:click="do_request">Click me to get recommendations</button>
-    <li v-for="(the_var, index) in a_var" v-bind:key="index" >{{the_var.Recommendation}}</li>
+    <!-- <recommendation-card />
+    <button class="btn btn-primary" v-on:click="do_request">Click me to get recommendations</button>
+    <div v-for="(item, index) in response" v-bind:key="index">
+      <li><b>Recommendation:</b> {{item['Recommendation']}}</li>
+      <li><b>Applicable conditions:</b> {{item['Optional/applicable conditions']}}</li>
+      <li><b>References:</b> {{item['References']}}</li>
+      <br>
+      <hr>
+    </div>
+    <app-form />-->
+    <div class="container">
+      <app-form />
+      <!-- <recommendation-card /> -->
+    </div>
   </div>
 </template>
 
 <script>
-import MainView from "./components/MainView.vue";
+import AppForm from "./components/AppForm.vue";
+// import RecommendationCard from "./components/RecommendationCard.vue";
 
 export default {
   name: "app",
   components: {
-    MainView
+    AppForm,
+    // RecommendationCard
   },
   data() {
     return {
-      a_var: []
+      response: []
     };
   },
   methods: {
     do_request() {
-      // const axios = require("axios");
-      console.log("hey");
-
       this.$axios
-        // .get(this.$BaseUrl+'all', {
         .get(this.$BaseUrl + "all", {
           headers: {
             Authorization:
@@ -36,12 +45,12 @@ export default {
           }
         })
         .then(response => {
-          this.a_var = response.data.data;
-          console.log(this.a_var);
+          this.response = response.data.data;
+          console.log(this.response);
         })
         .catch(error => {
-          this.a_var = error;
-          console.log(this.a_var);
+          this.response = error;
+          console.log(this.response);
         });
     }
   }
