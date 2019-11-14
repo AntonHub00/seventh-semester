@@ -685,7 +685,6 @@
             <label class="form-check-label" for="msm">Men who have sex with men</label>
           </div>
         </div>
-
       </div>
 
       <!-- submit -->
@@ -693,83 +692,6 @@
         <button type="submit" class="btn btn-primary">Get recommendation</button>
       </div>
     </form>
-
-    <div>
-      <p>Test area</p>
-      <hr />
-
-      <p>Request data</p>
-
-      <hr />
-
-      <p>recommendations: {{ recommendations }}</p>
-      <p>
-        sex: {{ sex }}
-        || pregnant: {{ pregnant }}
-        || ethnicity: {{ ethnicity }}
-        || age: {{ age }}
-        || dob: {{ dob }}
-        || ppd: {{ ppd }}
-        || years_smoking: {{ years_smoking }}
-        || bmi: {{ bmi }}
-        || kg: {{ kg }}
-        || m: {{ m }}
-        || lbs: {{ lbs }}
-        || inches: {{ inches }}
-        || tst: {{ tst }}
-        || sbp: {{ sbp }}
-        || dbp: {{ dbp }}
-        || ldl: {{ ldl }}
-        || trigs: {{ trigs }}
-        || cac: {{ cac }}
-        || dm: {{ dm }}
-        || obese: {{ obese }}
-        || hiv: {{ hiv }}
-        || sti: {{ sti }}
-        || postmenopause: {{ postmenopause }}
-        || ivda: {{ ivda }}
-        || msm: {{ msm }}
-        || hca: {{ hca }}
-        || liver: {{ liver }}
-        || prison: {{ prison }}
-        || dialysis: {{ dialysis }}
-        || asplenia: {{ asplenia }}
-        || scd: {{ scd }}
-        || htn: {{ htn }}
-        || heart: {{ heart }}
-        || lung: {{ lung }}
-        || csf: {{ csf }}
-        || cochlear: {{ cochlear }}
-        || ckd: {{ ckd }}
-        || ca: {{ ca }}
-        || smoker: {{ smoker }}
-        || alcohol: {{ alcohol }}
-        || transplant: {{ transplant }}
-        || hypothyroid: {{ hypothyroid }}
-        || chf: {{ chf }}
-      </p>
-
-      <hr />
-
-      <p>Form control specific</p>
-
-      <hr />
-
-      <p>
-        ageOrBirthdayPicked: {{ ageOrBirthdayPicked }}
-        || smokerPicked: {{ smokerPicked }}
-        || bodyMassIndexPicked: {{ bodyMassIndexPicked }}
-        || bmiOrCalculatePicked: {{ bmiOrCalculatePicked }}
-        || unitsSystem: {{ unitsSystem }}
-        || tstPicked: {{ tstPicked }}
-        || sbpPicked: {{ sbpPicked }}
-        || dbpPicked: {{ dbpPicked }}
-        || ldlPicked: {{ ldlPicked }}
-        || trigsPicked: {{ trigsPicked }}
-        || cacPicked: {{ cacPicked }}
-        || conditionsPicked: {{ conditionsPicked }}
-      </p>
-    </div>
   </div>
 </template>
 
@@ -838,13 +760,13 @@ export default {
       ldlPicked: false,
       trigsPicked: false,
       cacPicked: false,
-      conditionsPicked: false,
+      conditionsPicked: false
     };
   },
   methods: {
-    sentData(e){
+    sentData(e) {
       e.preventDefault();
-      this.$emit('receive-data', this)
+      this.$emit("receive-data", this);
     }
   }
 };

@@ -1,74 +1,45 @@
 <template>
   <div id="app">
-    <!-- <recommendation-card /> -->
-    <button class="btn btn-primary" v-on:click="do_request">Click me to get recommendations</button>
-    <div v-for="(item, index) in response" v-bind:key="index">
-      <li>
-        <b>Recommendation:</b>
-        {{item['Recommendation']}}
-      </li>
-      <li>
-        <b>Applicable conditions:</b>
-        {{item['Optional/applicable conditions']}}
-      </li>
-      <li>
-        <b>References:</b>
-        {{item['References']}}
-      </li>
-      <br />
-      <hr />
-    </div>
     <div class="container">
-      <app-form v-on:receive-data="do_request" />
-      <!-- <recommendation-card /> -->
+      <app-form v-on:receive-data="setPayload" />
+      <br />
+      <recommendation-card v-for="(item, index) in response" :key="index" :recommendation="item" />
     </div>
   </div>
 </template>
 
 <script>
 import AppForm from "./components/AppForm.vue";
-// import RecommendationCard from "./components/RecommendationCard.vue";
+import RecommendationCard from "./components/RecommendationCard.vue";
 
 export default {
   name: "app",
   components: {
     AppForm,
-    // RecommendationCard
+    RecommendationCard
   },
   data() {
     return {
       response: [],
-      recommendations: "",
-      test_reponse: ""
+      recommendations: ""
     };
   },
   methods: {
-    do_request() {
+    do_request(payload) {
       this.$axios
         .get(this.$BaseUrl + this.recommendations, {
           headers: {
             Authorization:
               "Bearer 689b0a159879332335d84b6ff4a61a0e6c1619fd8022c39e95ad5d9d3f81",
-              "Content-Type": "application/json"
+            "Content-Type": "application/json"
           },
-          params: {
-            conditions: "dm"
-          }
+          params: payload
         })
         .then(response => {
-          // this.response = response.data.data;
-          // console.log(this.response);
-
-          // console.log(response);
-          console.log(response.data);
-          console.log("success");
-
-          // this.test_reponse = response.data.meta;
-          // console.log(this.test_response);
+          this.response = response.data.data;
         })
         .catch(error => {
-          this.response = error;
-          console.log(this.response);
+          console.log(error);
         });
     },
     setPayload(data) {
@@ -181,6 +152,8 @@ export default {
 
         payload["conditions"] = conditions_string.slice(0, -1);
       }
+
+      this.do_request(payload);
     }
   }
 };
