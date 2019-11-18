@@ -30,4 +30,4 @@ Route::get('user/{id?}', function ($id="INVITADO") {
     return "User:{$id}";
 })->name('usuarios')->where('id', '[0-9]*');
 
-Route::get('contacto', 'TaskController@index');
+Route::get('contacto', 'TaskController@index')->middleware('example');
