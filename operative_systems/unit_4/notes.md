@@ -308,3 +308,30 @@ relacionados al sistema de archivos.
 - "Directorio Raíz" apunta a los "Directorios de trabajo"
 - "Directorio único" contiene entradas para los archivos del usuario
 - Cada entrada apunta al lugar del disco dnde está almacenado el archivo
+
+## Organización lógica y física
+
+El sistema de archivos está relacionado especialmente con la administración del
+espacio de almacenamiento secudnario, fundamentalmente el espacio en disco. La
+representación lógica en la interfaz del S.O difiere a la ubicación física de los
+archivos o directorios en memoria.
+
+### Organización lógica
+
+La mayoría de las computadoras organizan los archivos en jeraquías llamadas
+carpetas, directorios o catálogos. Cada carpeta puede contener un número arbitrario
+de archivos y otras carpetas. Construyéndose una estructura en árbol en la que
+una "carpeta raíz" contiene cualquier número de niveles de otras carpetas y archivos.
+
+- Pilas
+- Archivos secuenciales
+- Archivos secuenciales indexados
+- Archivos indexados
+
+### Organización física
+
+Los datos son arreglados por su adyacencia física, son de tamañ físico o variable
+y puede organizarse de varias formas para construir un archivos físico.
+
+- Cinta magnética
+- Disco magnético
