@@ -1,0 +1,95 @@
+PARSER_BEGIN(SimpleExpression)
+
+    public class SimpleExpression{
+
+        public static void main(String[] args) throws ParseException {
+            SimpleExpression analisis = new SimpleExpression(System.in);
+
+            System.out.println();
+            System.out.println("## Simple expression analizer ##");
+            System.out.println();
+
+            analisis.start();
+        }
+    }
+
+PARSER_END(SimpleExpression)
+
+    SKIP: { " " | "\t" | "\n" | "\r"}
+
+TOKEN:
+{
+    <variable: (["a"-"z"])+>
+        |
+        <constant: (["0"-"9"])+>
+        |
+        <addOperator: "+">
+        |
+        <subOperator: "-">
+        |
+        <mulOperator: "*">
+        |
+        <divOperator: "/">
+        |
+        <leftParen: "(">
+        |
+        <rightParen: ")">
+}
+
+void start() : {} {
+    expression() <EOF>
+    {
+        Postfix.flushStack();
+
+        System.out.println();
+        System.out.println("postfix list: " + Postfix.getPostfixList());
+        System.out.println();
+
+        float postfixEvaluation = Postfix.evaluatePostfix();
+
+        System.out.println("postfix evaluation: " + postfixEvaluation);
+        System.out.println();
+    }
+}
+
+void expression(): {} {
+    /* term() ((<addOperator> | <subOperator>) term())* */
+    term() expression_prime()
+}
+
+void expression_prime(): {} {
+    (<addOperator> {Postfix.shuntingYard(token.image.toString());}
+     |
+     <subOperator> {Postfix.shuntingYard(token.image.toString());}
+    )
+        term() expression_prime() | empty()
+}
+
+void term(): {} {
+    /* factor() ((<mulOperator> | <divOperator>) factor())* */
+    factor() term_prime()
+}
+
+void term_prime(): {} {
+    (<mulOperator> {Postfix.shuntingYard(token.image.toString());}
+     |
+     <divOperator> {Postfix.shuntingYard(token.image.toString());}
+    )
+        factor() term_prime() | empty()
+}
+
+void factor(): {} {
+    <constant> {Postfix.shuntingYard(token.image.toString());}
+    |
+        <variable> {Postfix.shuntingYard(token.image.toString());}
+    |
+        <leftParen> {Postfix.shuntingYard(token.image.toString());}
+    expression()
+        <rightParen> {Postfix.shuntingYard(token.image.toString());}
+}
+
+// Emulates epsilon
+void empty(): {}
+{
+    {return;}
+}
