@@ -3,27 +3,24 @@
     <form @submit="sendFormData">
       <div class="row">
         <div class="form-group col">
-          <select
-            class="form-control"
-            v-model="scope"
-            @change="pl_name = scope == 'all' ? '' : pl_name;
-            paradigm = scope == 'all' ? '' : paradigm;"
-            required
-          >
+          <select class="form-control" v-model="scope" required>
             <option value="all">All</option>
-            <option value="personalized">Personalized</option>
+            <option value="byName">By name</option>
+            <option value="byParadigm">By paradigm</option>
           </select>
         </div>
 
-        <div class="form-group col" v-if="scope == 'personalized'">
-          <input type="text" class="form-control" v-model="pl_name" placeholder="Name (optional)" />
+        <div class="form-group col" v-if="scope == 'byName'">
+          <input type="text" class="form-control" v-model="pl_name" placeholder="Name" />
         </div>
 
-        <div class="form-group col" v-if="scope == 'personalized'">
-          <select class="form-control" v-model="paradigm" required>
-            <option value="oo">Object-oriented</option>
-            <option value="functional">Functional</option>
-            <option value="imperative">Imperative</option>
+        <div class="form-group col" v-if="scope == 'byParadigm'">
+          <select class="form-control" v-model="paradigmPicked" required>
+            <option
+              v-for="(item, index) in paradigms"
+              :key="index"
+              :value="item.value"
+            >{{item.name}}</option>
           </select>
         </div>
 
@@ -42,7 +39,33 @@ export default {
     return {
       scope: "all",
       pl_name: "",
-      paradigm: "oo"
+      paradigms: [
+        {
+          name: "Object-oriented",
+          value: "oo"
+        },
+        {
+          name: "Functional",
+          value: "functional"
+        },
+        {
+          name: "Imperative",
+          value: "imperative"
+        },
+        {
+          name: "Structured",
+          value: "structured"
+        },
+        {
+          name: "Generic",
+          value: "generic"
+        },
+        {
+          name: "Other",
+          value: "other"
+        }
+      ],
+      paradigmPicked: "oo"
     };
   },
   methods: {

@@ -21,13 +21,10 @@
               <router-link to="/" class="nav-link">Home</router-link>
             </li>
             <li class="nav-item active">
-              <router-link to="/create" class="nav-link">Create</router-link>
+              <router-link to="/admin" class="nav-link">Admin</router-link>
             </li>
             <li class="nav-item active">
-              <router-link to="/update" class="nav-link">Update</router-link>
-            </li>
-            <li class="nav-item active">
-              <router-link to="/delete" class="nav-link">Delete</router-link>
+              <router-link to="/get-key" class="nav-link">Get key</router-link>
             </li>
           </ul>
         </div>

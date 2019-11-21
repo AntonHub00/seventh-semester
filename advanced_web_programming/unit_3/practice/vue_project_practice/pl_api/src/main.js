@@ -11,23 +11,21 @@ Vue.prototype.$BaseUrl = "http://localhost:8080/";
 
 // Importing components to use in routes
 import MainView from './components/MainView.vue';
-import CreatePL from './components/CreatePL.vue';
-import UpdatePL from './components/UpdatePL.vue';
-import DeletePL from './components/DeletePL.vue';
+import Admin from './components/Admin.vue';
+import GetKey from './components/GetKey.vue';
 
 // Routes settings
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: MainView },
-  { path: '/create', component: CreatePL },
-  { path: '/update', component: UpdatePL },
-  { path: '/delete', component: DeletePL },
+  { path: '/admin', component: Admin },
+  { path: '/get-key', component: GetKey },
 ]
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  // mode: 'history'
 });
 
 new Vue({
