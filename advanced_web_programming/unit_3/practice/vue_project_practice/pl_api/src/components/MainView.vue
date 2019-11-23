@@ -27,7 +27,7 @@ export default {
           name: "python",
           description:
             "Python is an interpreted, high-level, general-purpose programming language. Created by Guido van Rossum and first released in 1991",
-          paradigm: ["object-oriented", "functional", "imperative"],
+          paradigms: ["object-oriented", "functional", "imperative"],
           firstAppeared: 1990,
           lastVersion: "3.8.0",
           creator: "Guido van Rossum"
@@ -39,7 +39,7 @@ export default {
           name: "c",
           description:
             "C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, while a static type system prevents unintended operations",
-          paradigm: ["imperative", "structured"],
+          paradigms: ["imperative", "structured"],
           firstAppeared: 1972,
           lastVersion: "C18",
           creator: "Dennis Ritchie"
@@ -51,7 +51,7 @@ export default {
           name: "java",
           description:
             "Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.",
-          paradigm: ["generic", "object-oriented"],
+          paradigms: ["generic", "object-oriented"],
           firstAppeared: 1995,
           lastVersion: "Java SE 13",
           creator: "James Gosling"
@@ -61,15 +61,17 @@ export default {
   },
   methods: {
     setPayload(data) {
+      console.log("receiving data");
+
       var payload = {};
 
       // Validate in back-end if all this data is set
       payload["scope"] = data.scope;
       payload["pl_name"] = data.pl_name;
-      payload["paradigm"] = data.paradigm;
+      payload["paradigmPicked"] = data.paradigmPicked;
 
-      console.log(payload);
-      // return payload;
+      // console.log(payload);
+      return payload;
     }
   }
 };

@@ -1,34 +1,29 @@
 <template>
   <div>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="fileError">
-      <strong>File error:</strong> Only jpg, jpeg and png extentions are allowed in the file name
-      and separated with "_".
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
-    <form class="form">
+    <form class="form" @submit.prevent="performFormAction">
+      <!-- name -->
       <div class="row">
         <div class="form-group col">
           <input v-model="plNameInput" type="text" class="form-control" placeholder="Name" required />
         </div>
 
-        <div class="form-group col">
-          <input
-            v-model="plParadigmInput"
-            type="text"
-            class="form-control"
-            placeholder="Paradigm"
-            required
-          />
+        <!-- object-oriented paradigm checkbox -->
+        <div class="form-group col" v-for="(item, index) in $paradigms" :key="index">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :id="item.value"
+              :value="item.value"
+              v-model="plParadigms"
+            />
+            <label class="form-check-label" :for="item.value">{{item.name}}</label>
+          </div>
         </div>
+      </div>
 
+      <div class="row">
+        <!-- first appeared -->
         <div class="form-group col">
           <input
             v-model="plFirstAppearedInput"
@@ -39,6 +34,7 @@
           />
         </div>
 
+        <!-- last version -->
         <div class="form-group col">
           <input
             v-model="plLastVersionInput"
@@ -49,6 +45,7 @@
           />
         </div>
 
+        <!-- creator -->
         <div class="form-group col">
           <input
             v-model="plCreatorInput"
@@ -60,6 +57,7 @@
         </div>
       </div>
 
+      <!-- description -->
       <div class="row">
         <div class="form-group col">
           <textarea
@@ -72,37 +70,57 @@
         </div>
       </div>
 
+      <!-- image -->
       <div class="row">
         <div class="input-group col mb-3">
-          <div class="custom-file" v-if="!image">
+          <div class="custom-file" v-if="!imageToShow">
             <input
               @change="onFileChange"
               type="file"
               class="custom-file-input"
               id="image_file"
-              required
+              accept=".png, .jpg, .jpeg"
             />
             <label
               class="custom-file-label"
               for="image_file"
               aria-describedby="image_file"
-            >Choose image</label>
+            >Choose image (optional)</label>
           </div>
 
+          <!-- remove image button -->
           <div v-else>
-            <img :src="image" style="max-width:400px;" />
+            <img :src="imageToShow" style="max-width:400px;" />
             <button @click="removeImage" class="btn btn-danger mx-4">Remove image</button>
           </div>
         </div>
       </div>
 
+      <!-- form create/update buttons -->
       <div class="row">
         <div class="form-group col text-center">
-          <button type="submit" v-bind:class="[updating ? updatingStyle : creatingSytle]">Create</button>
+          <!-- form create button -->
+          <button
+            @click="createOrUpdate='create'"
+            type="submit"
+            v-if="!updating"
+            class="btn m-2 btn-primary"
+          >{{submitButtonText}}</button>
+
+          <!-- form update button -->
+          <button
+            @click="createOrUpdate='update'"
+            type="submit"
+            v-if="updating"
+            class="btn m-2 btn-success"
+          >Update</button>
+          <!-- cancel update button -->
+          <button @click="cancelUpdate" v-if="updating" class="btn btn-danger">Cancel</button>
         </div>
       </div>
     </form>
 
+    <!-- languages table -->
     <table class="table table-striped text-center">
       <thead>
         <tr>
@@ -117,19 +135,17 @@
           <th scope="row">{{item.id}}</th>
           <td>{{item.name}}</td>
           <td>
-            <form>
-              <button
-                @click="setUpdate(item.id)"
-                :id="item.id"
-                type="button"
-                class="btn btn-warning"
-              >Update</button>
-            </form>
+            <!-- set update button -->
+            <button
+              @click="setUpdate(item.id)"
+              :id="item.id"
+              type="button"
+              class="btn btn-warning"
+            >Update</button>
           </td>
           <td>
-            <form>
-              <button :id="item.id" type="button" class="btn btn-danger">Delete</button>
-            </form>
+            <!-- delete button -->
+            <button @click="deleteLanguage(item.id)" type="button" class="btn btn-danger">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -144,96 +160,105 @@ export default {
     return {
       response: [
         {
-          id: 1,
-          image:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png",
+          id: 11,
+          // image:
+          //   "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png",
           name: "python",
           description:
             "Python is an interpreted, high-level, general-purpose programming language. Created by Guido van Rossum and first released in 1991",
-          paradigm: ["object-oriented", "functional", "imperative"],
+          paradigms: ["object-oriented", "functional", "imperative"],
           firstAppeared: 1990,
           lastVersion: "3.8.0",
           creator: "Guido van Rossum"
         },
         {
-          id: 2,
+          id: 12,
           image:
             "https://www.clker.com/cliparts/d/5/5/3/1242257669472701825NYCS-bull-trans-C.svg.hi.png",
           name: "c",
           description:
             "C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, while a static type system prevents unintended operations",
-          paradigm: ["imperative", "structured"],
+          paradigms: ["imperative", "structured"],
           firstAppeared: 1972,
           lastVersion: "C18",
           creator: "Dennis Ritchie"
         },
         {
-          id: 3,
+          id: 13,
           image:
             "https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-java-software-develop-command-language-512.png",
           name: "java",
           description:
             "Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.",
-          paradigm: ["generic", "object-oriented"],
+          paradigms: ["generic", "object-oriented"],
           firstAppeared: 1995,
           lastVersion: "Java SE 13",
           creator: "James Gosling"
         }
       ],
-      image: "",
-      fileError: false,
+      imageToShow: "",
       updating: false,
+      createOrUpdate: "",
+      idToUpdate: null,
 
-      // Style (classes)
-      updatingStyle: "btn my-2 btn-primary",
-      creatingStyle: "btn my-2 btn-warning",
+      // Form style variables
+      submitButtonText: "Create",
 
       // Inputs
       plNameInput: "",
-      plParadigmInput: "",
       plFirstAppearedInput: "",
       plLastVersionInput: "",
       plCreatorInput: "",
-      plDescriptionInput: ""
+      plDescriptionInput: "",
+      plImageInput: null,
+
+      //Paradigm checkboxes
+      plParadigms: []
     };
   },
   methods: {
-    isImage(fileName) {
-      var regex = /^(\w+\.(jpeg|jpg|png)$)/;
-
-      console.log(fileName);
-
-      return regex.test(fileName);
-    },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
 
       if (!files.length) return;
 
-      if (!this.isImage(e.target.files[0].name)) {
-        this.fileError = true;
-        return;
-      } else {
-        this.fileError = false;
-      }
-
-      this.createImage(files[0]);
+      this.plImageInput = files[0];
+      this.createImage(this.plImageInput);
     },
-    createImage(file) {
+    createImage(image) {
       var reader = new FileReader();
 
       reader.onload = e => {
-        this.image = e.target.result;
+        this.imageToShow = e.target.result;
       };
 
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(image);
     },
-    removeImage: function() {
-      this.image = "";
+    removeImage() {
+      // Remove image to show and clear file input
+      this.imageToShow = "";
+      this.plImageInput = null;
     },
+    cancelUpdate() {
+      // Set style
+      this.updating = false;
+      this.submitButtonText = "Create";
+      this.idToUpdate = null;
 
+      this.removeImage();
+
+      // Clear form
+      this.plNameInput = "";
+      this.plFirstAppearedInput = "";
+      this.plLastVersionInput = "";
+      this.plCreatorInput = "";
+      this.plDescriptionInput = "";
+      this.plParadigms = [];
+    },
     setUpdate(id) {
+      this.removeImage();
       this.updating = true;
+      this.submitButtonText = "Update";
 
       var languageToUpdate = this.response.filter(
         language => language.id == id
@@ -242,13 +267,50 @@ export default {
       languageToUpdate = languageToUpdate[0];
 
       this.plNameInput = languageToUpdate.name;
-      this.plParadigmInput = languageToUpdate.paradigm;
       this.plFirstAppearedInput = languageToUpdate.firstAppeared;
       this.plLastVersionInput = languageToUpdate.lastVersion;
       this.plCreatorInput = languageToUpdate.creator;
       this.plDescriptionInput = languageToUpdate.description;
+      this.plParadigms = languageToUpdate.paradigms;
+      this.plImageInput = null; // Set image parameter properly
 
-      console.log(languageToUpdate);
+      this.imageToShow = languageToUpdate.image;
+
+      this.idToUpdate = id;
+    },
+    performFormAction() {
+      if (this.createOrUpdate === "create") {
+        this.createLanguage();
+      } else {
+        this.updateLanguage();
+      }
+    },
+    setPayload() {
+      var payload = {};
+
+      payload["name"] = this.plNameInput;
+      payload["paradigms"] = this.plParadigms;
+      payload["firstAppeared"] = this.plFirstAppearedInput;
+      payload["lastVersion"] = this.plLastVersionInput;
+      payload["creator"] = this.plCreatorInput;
+      payload["description"] = this.plDescriptionInput;
+      payload["image"] = null; // set image parameter properly
+
+      return payload;
+    },
+    createLanguage() {
+      console.log("creating...");
+      //Set here the create request
+      this.setPayload();
+    },
+    updateLanguage() {
+      console.log(`updating ${this.idToUpdate}...`);
+      //Set here the update request
+      this.setPayload();
+    },
+    deleteLanguage(id) {
+      console.log(`deleting ${id}...`);
+      //Set here the delete request
     }
   }
 };

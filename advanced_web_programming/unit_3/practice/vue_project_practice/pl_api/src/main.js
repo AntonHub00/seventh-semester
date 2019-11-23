@@ -9,6 +9,35 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios;
 Vue.prototype.$BaseUrl = "http://localhost:8080/";
 
+// Helping global variables
+Vue.prototype.$paradigms =
+  [
+    {
+      name: "Object-oriented",
+      value: "object-oriented"
+    },
+    {
+      name: "Functional",
+      value: "functional"
+    },
+    {
+      name: "Imperative",
+      value: "imperative"
+    },
+    {
+      name: "Structured",
+      value: "structured"
+    },
+    {
+      name: "Generic",
+      value: "generic"
+    },
+    {
+      name: "Other",
+      value: "other"
+    }
+  ];
+
 // Importing components to use in routes
 import MainView from './components/MainView.vue';
 import Admin from './components/Admin.vue';

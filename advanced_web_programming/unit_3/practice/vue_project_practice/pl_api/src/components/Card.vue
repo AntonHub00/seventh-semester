@@ -3,7 +3,12 @@
     <div class="card row mb-3">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img :src="language.image" class="card-img-top" />
+          <img :src="language.image" class="card-img-top" v-if="language.image" />
+          <img
+            src="https://library.ucf.edu/wp-content/uploads/sites/5/2015/08/photo-not-available.jpg"
+            class="card-img-top"
+            v-else
+          />
         </div>
         <div class="col-md-8">
           <h5 class="card-title text-center">{{language.name}}</h5>
@@ -14,7 +19,7 @@
             </li>
             <li class="list-group-item">
               <b>Paradigm(s):</b>
-              {{language.paradigm.join(", ")}}
+              {{language.paradigms.join(", ")}}
             </li>
             <li class="list-group-item">
               <b>First appeared:</b>

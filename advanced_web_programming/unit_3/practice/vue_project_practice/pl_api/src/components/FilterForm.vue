@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit="sendFormData">
+    <form @submit.prevent="sendFormData">
       <div class="row">
         <div class="form-group col">
           <select class="form-control" v-model="scope" required>
@@ -11,13 +11,13 @@
         </div>
 
         <div class="form-group col" v-if="scope == 'byName'">
-          <input type="text" class="form-control" v-model="pl_name" placeholder="Name" />
+          <input type="text" class="form-control" v-model="pl_name" placeholder="Name" required />
         </div>
 
         <div class="form-group col" v-if="scope == 'byParadigm'">
           <select class="form-control" v-model="paradigmPicked" required>
             <option
-              v-for="(item, index) in paradigms"
+              v-for="(item, index) in $paradigms"
               :key="index"
               :value="item.value"
             >{{item.name}}</option>
@@ -39,38 +39,11 @@ export default {
     return {
       scope: "all",
       pl_name: "",
-      paradigms: [
-        {
-          name: "Object-oriented",
-          value: "oo"
-        },
-        {
-          name: "Functional",
-          value: "functional"
-        },
-        {
-          name: "Imperative",
-          value: "imperative"
-        },
-        {
-          name: "Structured",
-          value: "structured"
-        },
-        {
-          name: "Generic",
-          value: "generic"
-        },
-        {
-          name: "Other",
-          value: "other"
-        }
-      ],
-      paradigmPicked: "oo"
+      paradigmPicked: "object-oriented"
     };
   },
   methods: {
-    sendFormData(e) {
-      e.preventDefault();
+    sendFormData() {
       this.$emit("receive-form-data", this);
     }
   }
