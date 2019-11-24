@@ -335,3 +335,28 @@ y puede organizarse de varias formas para construir un archivos físico.
 
 - Cinta magnética
 - Disco magnético
+
+## Clúster (sistema de archivos)
+
+Es un conjunto de sectores contiguos que componen la unidad más pequeña de
+alacenamiento de un disco. Los archivos se almacenan en uno o varios clústeres,
+dependiendo de su tamaño de unidad de asignación. Sin embargo, si el tamaño de
+archivo es menor que el tamaño de un clúster, este lo ocupa completo.
+
+A partir de 2007 la Asociación Internacional de Unidades, Equipo y Materiales
+de Disco (IDEMA) recomienda un tamaño de bloque de 4KB, desaconsejando 521 bytes
+que se habían usualmente empleado.
+Esto permite aprovechar mejor los discos modernos y también aumentar la velocidad
+de acceso y reducir los errores.
+
+## Manejo de espacio libre en memoria secundaria
+
+- Vector de bits
+- Lista ligada
+- Por agrupación
+
+## Manejo de espacio de archivos
+
+- Contiguos
+- Asignación Ligada o Encadenada
+- Asignación indexada
