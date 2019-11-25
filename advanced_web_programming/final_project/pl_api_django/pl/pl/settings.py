@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Improve some django things like shell-plus
-    'django_extensions',
+
+    # Installed packages
+    'django_extensions',  # Improve some django things like shell-plus
     'rest_framework',
 
     # Local

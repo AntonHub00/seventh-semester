@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Paradigm(models.Model):
+    """This class represents a paradigm Model"""
+
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -9,6 +11,8 @@ class Paradigm(models.Model):
 
 
 class Language(models.Model):
+    """This class represents a language Model"""
+
     name = models.CharField(max_length=50)
     # Missing field to store blob or images
     description = models.TextField()

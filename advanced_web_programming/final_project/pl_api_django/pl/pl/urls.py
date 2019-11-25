@@ -19,7 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # Django rest framework (browsable login/logout)
+    # Django rest framework (browsable login/logout views)
     path('api-auth/', include('rest_framework.urls')),
 
     # Local
