@@ -73,7 +73,7 @@
       <!-- image -->
       <div class="row">
         <div class="input-group col mb-3">
-          <div class="custom-file" v-if="!imageToShow">
+          <div class="custom-file" v-if="!plImageInput">
             <input
               @change="onFileChange"
               type="file"
@@ -90,7 +90,7 @@
 
           <!-- remove image button -->
           <div v-else>
-            <img :src="imageToShow" style="max-width:400px;" />
+            <img :src="plImageInput" style="max-width:400px;" />
             <button @click="removeImage" class="btn btn-danger mx-4">Remove image</button>
           </div>
         </div>
@@ -156,7 +156,6 @@ export default {
     return {
       languages: [],
       paradigms: [],
-      imageToShow: "",
       updating: false,
       createOrUpdate: "",
       idToUpdate: null,
@@ -170,7 +169,7 @@ export default {
       plLastVersionInput: "",
       plCreatorInput: "",
       plDescriptionInput: "",
-      plImageInput: null,
+      plImageInput: "",
 
       //Paradigm checkboxes
       plParadigms: []
@@ -183,22 +182,20 @@ export default {
 
       if (!files.length) return;
 
-      this.plImageInput = files[0];
-      this.createImage(this.plImageInput);
+      this.createImage(files[0]);
     },
     createImage(image) {
       var reader = new FileReader();
 
       reader.onload = e => {
-        this.imageToShow = e.target.result;
-        console.log(this.imageToShow);
+        this.plImageInput = e.target.result;
+        console.log(this.plImageInput);
       };
 
       reader.readAsDataURL(image);
     },
     removeImage() {
       // Remove image to show and clear file input
-      this.imageToShow = "";
       this.plImageInput = null;
     },
     cancelUpdate() {
@@ -270,7 +267,7 @@ export default {
           }
         })
         .then(response => {
-          alert("language create successfully");
+          alert("language created successfully");
           console.log(response);
         })
         .catch(error => {

@@ -35,7 +35,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields = ['id', 'name', 'description', 'firstAppeared', 'lastVersion',
+        fields = ['id', 'name', 'image', 'description', 'firstAppeared', 'lastVersion',
                   'creator', 'paradigms']
         read_only_fields = ['id']
 
@@ -48,6 +48,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
+        instance.image = validated_data.get('image', instance.image)
         instance.creator = validated_data.get('creator', instance.creator)
         instance.description = validated_data.get(
             'description', instance.description)

@@ -14,6 +14,7 @@ class Language(models.Model):
     """This class represents a language Model"""
 
     name = models.CharField(max_length=50)
+    image = models.TextField()
     description = models.TextField()
     firstAppeared = models.IntegerField()
     lastVersion = models.CharField(max_length=50)
