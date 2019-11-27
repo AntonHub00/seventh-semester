@@ -7,7 +7,7 @@ Vue.config.productionTip = false
 
 // Global variables for axios request
 Vue.prototype.$axios = axios;
-Vue.prototype.$BaseUrl = "http://localhost:8080/";
+Vue.prototype.$BaseUrl = "http://localhost:8000/api/";
 
 // Helping global variables
 Vue.prototype.$paradigms =

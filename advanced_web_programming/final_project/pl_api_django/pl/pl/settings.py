@@ -25,7 +25,8 @@ SECRET_KEY = 'rf#v^(r&jr44yy+#ad^@zm+m3r1k)60*jmtaksx*nc*!lz^hq2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +44,9 @@ INSTALLED_APPS = [
     'django_extensions',  # Improve some django things like shell-plus
     'rest_framework',
 
+    # CORS
+    'corsheaders',
+
     # Local
     'api'
 ]
@@ -55,6 +59,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # CORS
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'pl.urls'
@@ -126,3 +133,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Config to upload files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'api/')
+
+# CORS allow requests from other sites
+CORS_ORIGIN_ALLOW_ALL = True

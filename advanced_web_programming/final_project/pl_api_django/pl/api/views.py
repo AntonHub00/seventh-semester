@@ -19,8 +19,19 @@ class ParadigmsList(generics.ListCreateAPIView):
 class ParadigmDetail(generics.RetrieveUpdateDestroyAPIView):
     """This class shows the details of a specific paradigm base on the
     id provided in the url. Returns id and name"""
+
     queryset = Paradigm.objects.all()
     serializer_class = ParadigmSerializer
+
+
+class ParadigmFind(generics.ListAPIView):
+    """This class filters paradigms by name"""
+
+    serializer_class = ParadigmSerializer
+
+    def get_queryset(self):
+        if 'paradigm' in self.kwargs:
+            return Paradigm.objects.filter(name__contains=self.kwargs['paradigm'])
 
 
 class LanguagesList(generics.ListCreateAPIView):
@@ -40,3 +51,23 @@ class LanguageDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Language.objects.all()
     serializer_class = LanguageSerializer
+
+
+class LanguageFindByParadigm(generics.ListAPIView):
+    """This class filters languages by paradigm"""
+
+    serializer_class = LanguageSerializer
+
+    def get_queryset(self):
+        if 'language' in self.kwargs:
+            return Language.objects.filter(paradigms__name__contains=self.kwargs['language'])
+
+
+class LanguageFindByName(generics.ListAPIView):
+    """This class filters languages by paradigm"""
+
+    serializer_class = LanguageSerializer
+
+    def get_queryset(self):
+        if 'language' in self.kwargs:
+            return Language.objects.filter(name__contains=self.kwargs['language'])

@@ -35,8 +35,8 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields = ['id', 'name', 'description',
-                  'firstAppeared', 'lastVersion', 'creator', 'paradigms']
+        fields = ['id', 'name', 'description', 'firstAppeared', 'lastVersion',
+                  'creator', 'paradigms']
         read_only_fields = ['id']
 
     def create(self, validated_data):
@@ -47,15 +47,19 @@ class LanguageSerializer(serializers.ModelSerializer):
         return language
 
     def update(self, instance, validated_data):
-        instance.name = validated_data['name']
-        instance.creator = validated_data['creator']
-        instance.description = validated_data['description']
-        instance.firstAppeared = validated_data['firstAppeared']
-        instance.lastVersion = validated_data['lastVersion']
+        instance.name = validated_data.get('name', instance.name)
+        instance.creator = validated_data.get('creator', instance.creator)
+        instance.description = validated_data.get(
+            'description', instance.description)
+        instance.firstAppeared = validated_data.get(
+            'firstAppeared', instance.firstAppeared)
+        instance.lastVersion = validated_data.get(
+            'lastVersion', instance.lastVersion)
 
         # Should be this way in order to update "paradigms" many to many field
         # (validate_data['paradimgs'] is a list of paradigm objects)
-        instance.paradigms.set(validated_data['paradigms'])
+        if 'paradigms' in validated_data:
+            instance.paradigms.set(validated_data['paradigms'])
 
         instance.save()
 

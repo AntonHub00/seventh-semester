@@ -1,5 +1,5 @@
-module.exports = {
-    devServer: {
-        proxy: 'https://getguidelines.com/'
-    }
-}
+// module.exports = {
+//     devServer: {
+//         proxy: 'http://localhost:8000/api/'
+//     }
+// }

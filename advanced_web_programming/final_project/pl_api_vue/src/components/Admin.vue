@@ -8,16 +8,16 @@
         </div>
 
         <!-- object-oriented paradigm checkbox -->
-        <div class="form-group col" v-for="(item, index) in $paradigms" :key="index">
+        <div class="form-group col" v-for="(item, index) in paradigms" :key="index">
           <div class="form-check form-check-inline">
             <input
               class="form-check-input"
               type="checkbox"
-              :id="item.value"
-              :value="item.value"
+              :id="item.id"
+              :value="item.id"
               v-model="plParadigms"
             />
-            <label class="form-check-label" :for="item.value">{{item.name}}</label>
+            <label class="form-check-label" :for="item.id">{{item.name}}</label>
           </div>
         </div>
       </div>
@@ -113,7 +113,7 @@
             type="submit"
             v-if="updating"
             class="btn m-2 btn-success"
-          >Update</button>
+          >{{submitButtonText}}</button>
           <!-- cancel update button -->
           <button @click="cancelUpdate" v-if="updating" class="btn btn-danger">Cancel</button>
         </div>
@@ -131,17 +131,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in response" :key="index">
+        <tr v-for="(item, index) in languages" :key="index">
           <th scope="row">{{item.id}}</th>
           <td>{{item.name}}</td>
           <td>
             <!-- set update button -->
-            <button
-              @click="setUpdate(item.id)"
-              :id="item.id"
-              type="button"
-              class="btn btn-warning"
-            >Update</button>
+            <button @click="setUpdate(item.id)" type="button" class="btn btn-warning">Update</button>
           </td>
           <td>
             <!-- delete button -->
@@ -156,46 +151,11 @@
 <script>
 export default {
   name: "Admin",
+
   data() {
     return {
-      response: [
-        {
-          id: 11,
-          // image:
-          //   "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png",
-          name: "python",
-          description:
-            "Python is an interpreted, high-level, general-purpose programming language. Created by Guido van Rossum and first released in 1991",
-          paradigms: ["object-oriented", "functional", "imperative"],
-          firstAppeared: 1990,
-          lastVersion: "3.8.0",
-          creator: "Guido van Rossum"
-        },
-        {
-          id: 12,
-          image:
-            "https://www.clker.com/cliparts/d/5/5/3/1242257669472701825NYCS-bull-trans-C.svg.hi.png",
-          name: "c",
-          description:
-            "C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, while a static type system prevents unintended operations",
-          paradigms: ["imperative", "structured"],
-          firstAppeared: 1972,
-          lastVersion: "C18",
-          creator: "Dennis Ritchie"
-        },
-        {
-          id: 13,
-          image:
-            "https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-java-software-develop-command-language-512.png",
-          name: "java",
-          description:
-            "Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.",
-          paradigms: ["generic", "object-oriented"],
-          firstAppeared: 1995,
-          lastVersion: "Java SE 13",
-          creator: "James Gosling"
-        }
-      ],
+      languages: [],
+      paradigms: [],
       imageToShow: "",
       updating: false,
       createOrUpdate: "",
@@ -216,6 +176,7 @@ export default {
       plParadigms: []
     };
   },
+
   methods: {
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -230,6 +191,7 @@ export default {
 
       reader.onload = e => {
         this.imageToShow = e.target.result;
+        console.log(this.imageToShow);
       };
 
       reader.readAsDataURL(image);
@@ -260,29 +222,31 @@ export default {
       this.updating = true;
       this.submitButtonText = "Update";
 
-      var languageToUpdate = this.response.filter(
+      var languageToUpdate = this.languages.filter(
         language => language.id == id
       );
 
       languageToUpdate = languageToUpdate[0];
 
+      this.plParadigms = this.paradigms
+        .filter(paradigm => languageToUpdate.paradigms.includes(paradigm.name))
+        .map(paradigm => paradigm.id);
+
+      this.idToUpdate = id;
       this.plNameInput = languageToUpdate.name;
       this.plFirstAppearedInput = languageToUpdate.firstAppeared;
       this.plLastVersionInput = languageToUpdate.lastVersion;
       this.plCreatorInput = languageToUpdate.creator;
       this.plDescriptionInput = languageToUpdate.description;
-      this.plParadigms = languageToUpdate.paradigms;
-      this.plImageInput = null; // Set image parameter properly
+      this.plImageInput = languageToUpdate.image;
 
       this.imageToShow = languageToUpdate.image;
-
-      this.idToUpdate = id;
     },
-    performFormAction() {
+    async performFormAction() {
       if (this.createOrUpdate === "create") {
-        this.createLanguage();
+        await this.createLanguage();
       } else {
-        this.updateLanguage();
+        await this.updateLanguage();
       }
     },
     setPayload() {
@@ -294,24 +258,105 @@ export default {
       payload["lastVersion"] = this.plLastVersionInput;
       payload["creator"] = this.plCreatorInput;
       payload["description"] = this.plDescriptionInput;
-      payload["image"] = null; // set image parameter properly
+      payload["image"] = this.plImageInput;
 
       return payload;
     },
-    createLanguage() {
-      console.log("creating...");
-      //Set here the create request
-      this.setPayload();
+    async createLanguage() {
+      await this.$axios
+        .post(`${this.$BaseUrl}languages/`, this.setPayload(), {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          alert("language create successfully");
+          console.log(response);
+        })
+        .catch(error => {
+          alert("Server request failed");
+          console.log(error);
+        });
+
+      await this.getLanguages();
     },
-    updateLanguage() {
-      console.log(`updating ${this.idToUpdate}...`);
-      //Set here the update request
-      this.setPayload();
+    async updateLanguage() {
+      await this.$axios
+        .put(
+          `${this.$BaseUrl}languages/${this.idToUpdate}/`,
+          this.setPayload(),
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(response => {
+          alert("language updated successfully");
+          console.log(response);
+        })
+        .catch(error => {
+          alert("Server request failed");
+          console.log(error);
+        });
+
+      await this.getLanguages();
+      this.cancelUpdate();
     },
-    deleteLanguage(id) {
-      console.log(`deleting ${id}...`);
-      //Set here the delete request
+    async deleteLanguage(id) {
+      await this.$axios
+        .delete(`${this.$BaseUrl}languages/${id}/`, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          alert("language deleted successfully");
+          console.log(response);
+        })
+        .catch(error => {
+          alert("Server request failed");
+          console.log(error);
+        });
+
+      await this.getLanguages();
+    },
+    getLanguages() {
+      return this.$axios
+        .get(this.$BaseUrl + "languages/", {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          this.languages = response.data;
+          console.log(this.languages);
+        })
+        .catch(error => {
+          alert("Server request failed");
+          console.log(error);
+        });
+    },
+    getParadigms() {
+      return this.$axios
+        .get(`${this.$BaseUrl}paradigms/`, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(response => {
+          this.paradigms = response.data;
+          console.log(this.paradigms);
+        })
+        .catch(error => {
+          alert("Server request failed");
+          console.log(error);
+        });
     }
+  },
+  async created() {
+    await this.getLanguages();
+    await this.getParadigms();
   }
 };
 </script>
