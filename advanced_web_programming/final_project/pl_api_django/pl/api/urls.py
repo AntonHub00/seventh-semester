@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from api.views import (ParadigmsList, ParadigmDetail, ParadigmFind,
                        LanguagesList, LanguageDetail, LanguageFindByParadigm,
-                       LanguageFindByName)
+                       LanguageFindByName, seed_db)
 
 urlpatterns = [
 
@@ -18,4 +18,6 @@ urlpatterns = [
          LanguageFindByParadigm.as_view(), name='findLanguageByParadigm'),
     path('languages/by-name/<language>/',
          LanguageFindByName.as_view(), name='findLanguageByName'),
+
+    path('languages/seeder/', seed_db, name='seedLanguages'),
 ]

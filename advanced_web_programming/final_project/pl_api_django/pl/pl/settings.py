@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     # Installed packages
     'django_extensions',  # Improve some django things like shell-plus
     'rest_framework',
+    'django_seed',  # Testing seeder
+    'data_seeder',  # Testing seeder
 
     # CORS
     'corsheaders',
