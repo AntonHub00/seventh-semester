@@ -5,9 +5,9 @@
         public static void main(String[] args) throws ParseException {
             SimpleExpression analisis = new SimpleExpression(System.in);
 
-            System.out.println();
-            System.out.println("## Simple expression analizer ##");
-            System.out.println();
+            // System.out.println();
+            // System.out.println("## Simple expression analizer ##");
+            // System.out.println();
 
             analisis.start();
         }
@@ -17,14 +17,16 @@
     jj_consume_token(0);
 Postfix.flushStack();
 
-        System.out.println();
-        System.out.println("postfix list: " + Postfix.getPostfixList());
-        System.out.println();
+        // System.out.println();
+        // System.out.println("postfix list: " + Postfix.getPostfixList());
+        // System.out.println();
 
-        float postfixEvaluation = Postfix.evaluatePostfix();
+        // float postfixEvaluation = Postfix.evaluatePostfix();
+        Postfix.evaluatePostfix();
 
-        System.out.println("postfix evaluation: " + postfixEvaluation);
-        System.out.println();
+        // System.out.println("postfix evaluation: " + postfixEvaluation);
+        // System.out.println();
+
   }
 
   static final public void expression() throws ParseException {

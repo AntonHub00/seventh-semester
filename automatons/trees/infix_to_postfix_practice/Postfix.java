@@ -96,15 +96,21 @@ public class Postfix {
                 float rightOperand = evaluationStack.pop();
                 float leftOperand = evaluationStack.pop();
 
+                System.out.println("pop edx\npop eax");
+
                 if (item == "+") {
+                    System.out.println("add eax, edx\npush eax");
                     evaluationStack.push(leftOperand + rightOperand);
                 } else if (item == "-") {
+                    System.out.println("sub eax, edx\npush eax");
                     evaluationStack.push(leftOperand - rightOperand);
                 } else if (item == "*") {
+                    System.out.println("mul eax, edx\npush eax");
                     evaluationStack.push(leftOperand * rightOperand);
                 } else if (item == "/") {
+                    System.out.println("div eax, edx\npush eax");
                     if (rightOperand == 0.0) {
-                        System.out.println("Can not divide by 0");
+                        // System.out.println("Can not divide by 0");
                         System.exit(1);
                     }
 
@@ -114,6 +120,7 @@ public class Postfix {
                 // It is not an operator
 
                 evaluationStack.push(Float.parseFloat(item));
+                System.out.println("Push " + item);
             }
         }
 
