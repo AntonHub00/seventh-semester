@@ -54,7 +54,6 @@ void start() : {} {
 }
 
 void expression(): {} {
-    /* term() ((<addOperator> | <subOperator>) term())* */
     term() expression_prime()
 }
 
@@ -67,7 +66,6 @@ void expression_prime(): {} {
 }
 
 void term(): {} {
-    /* factor() ((<mulOperator> | <divOperator>) factor())* */
     factor() term_prime()
 }
 
