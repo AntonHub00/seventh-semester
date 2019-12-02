@@ -26,19 +26,10 @@
     jj_consume_token(15);
     expression();
     jj_consume_token(0);
-Postfix.flushStack();
-
-        System.out.println();
-        System.out.println("postfix list: " + Postfix.getPostfixList());
-        System.out.println();
-
-        float postfixEvaluation = Postfix.evaluatePostfix(symbols_table);
-
-        System.out.println("postfix evaluation: " + postfixEvaluation);
-        System.out.println();
-
+System.out.println();
         System.out.println("\u005cn####Finished####\u005cn");
-
+        System.out.println();
+        System.out.println("-------------------------------------");
         System.out.println("Symbols table:\u005cn");
 
         Enumeration symbols_table_keys = symbols_table.keys();
@@ -49,6 +40,29 @@ Postfix.flushStack();
             String key = (String) symbols_table_keys.nextElement();
             System.out.println(symbols_table.get(key));
         }
+
+        System.out.println("-------------------------------------");
+        System.out.println();
+
+        Postfix.flushStack();
+
+        System.out.println();
+        System.out.println("-------------------------------------");
+        System.out.println("postfix list: " + Postfix.getPostfixList());
+        System.out.println("-------------------------------------");
+        System.out.println();
+
+        System.out.println();
+        System.out.println("-------------------------------------");
+        System.out.println("Intermediate code:\u005cn");
+        Postfix.generateIntermediateCode();
+        System.out.println("-------------------------------------");
+        System.out.println();
+
+        /* float postfixEvaluation = Postfix.evaluatePostfix(symbols_table); */
+
+        /* System.out.println("postfix evaluation: " + postfixEvaluation); */
+
   }
 
 /* Start of semantic section of variable definition------------------------- */
@@ -97,12 +111,12 @@ value = token.image.toString();
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case addOperator:{
         jj_consume_token(addOperator);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
         break;
         }
       case subOperator:{
         jj_consume_token(subOperator);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
         break;
         }
       default:
@@ -132,12 +146,12 @@ Postfix.shuntingYard(symbols_table, token.image.toString());
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case mulOperator:{
         jj_consume_token(mulOperator);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
         break;
         }
       case divOperator:{
         jj_consume_token(divOperator);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
         break;
         }
       default:
@@ -159,20 +173,20 @@ Postfix.shuntingYard(symbols_table, token.image.toString());
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case constant:{
       jj_consume_token(constant);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
       break;
       }
     case id:{
       jj_consume_token(id);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
       break;
       }
     case leftParen:{
       jj_consume_token(leftParen);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
       expression();
       jj_consume_token(rightParen);
-Postfix.shuntingYard(symbols_table, token.image.toString());
+Postfix.shuntingYard(token.image.toString());
       break;
       }
     default:

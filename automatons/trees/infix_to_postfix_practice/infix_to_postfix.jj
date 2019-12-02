@@ -29,7 +29,7 @@ PARSER_END(SimpleExpression)
 TOKEN:
 {
     /* Operands */
-    <id: (["a"-"z"])+>
+    <id: (["a"-"z", "A"-"Z"])+>
         |
         <constant: (["0"-"9"])+>
         |
@@ -57,19 +57,11 @@ TOKEN:
 void start() : {} {
     var_declaration() "##" expression() <EOF>
     {
-        Postfix.flushStack();
 
         System.out.println();
-        System.out.println("postfix list: " + Postfix.getPostfixList());
-        System.out.println();
-
-        float postfixEvaluation = Postfix.evaluatePostfix(symbols_table);
-
-        System.out.println("postfix evaluation: " + postfixEvaluation);
-        System.out.println();
-
         System.out.println("\n####Finished####\n");
-
+        System.out.println();
+        System.out.println("-------------------------------------");
         System.out.println("Symbols table:\n");
 
         Enumeration symbols_table_keys = symbols_table.keys();
@@ -80,6 +72,28 @@ void start() : {} {
             String key = (String) symbols_table_keys.nextElement();
             System.out.println(symbols_table.get(key));
         }
+
+        System.out.println("-------------------------------------");
+        System.out.println();
+
+        Postfix.flushStack();
+
+        System.out.println();
+        System.out.println("-------------------------------------");
+        System.out.println("postfix list: " + Postfix.getPostfixList());
+        System.out.println("-------------------------------------");
+        System.out.println();
+
+        System.out.println();
+        System.out.println("-------------------------------------");
+        System.out.println("Intermediate code:\n");
+        Postfix.generateIntermediateCode();
+        System.out.println("-------------------------------------");
+        System.out.println();
+
+        /* float postfixEvaluation = Postfix.evaluatePostfix(symbols_table); */
+
+        /* System.out.println("postfix evaluation: " + postfixEvaluation); */
     }
 }
 
@@ -114,9 +128,9 @@ void expression(): {} {
 }
 
 void expression_prime(): {} {
-    (<addOperator> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+    (<addOperator> {Postfix.shuntingYard(token.image.toString());}
      |
-     <subOperator> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+     <subOperator> {Postfix.shuntingYard(token.image.toString());}
     )
         term() expression_prime() | empty()
 }
@@ -126,21 +140,21 @@ void term(): {} {
 }
 
 void term_prime(): {} {
-    (<mulOperator> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+    (<mulOperator> {Postfix.shuntingYard(token.image.toString());}
      |
-     <divOperator> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+     <divOperator> {Postfix.shuntingYard(token.image.toString());}
     )
         factor() term_prime() | empty()
 }
 
 void factor(): {} {
-    <constant> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+    <constant> {Postfix.shuntingYard(token.image.toString());}
     |
-        <id> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+        <id> {Postfix.shuntingYard(token.image.toString());}
     |
-        <leftParen> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+        <leftParen> {Postfix.shuntingYard(token.image.toString());}
     expression()
-        <rightParen> {Postfix.shuntingYard(symbols_table, token.image.toString());}
+        <rightParen> {Postfix.shuntingYard(token.image.toString());}
 }
 /* End of semantic section of expressions----------------------------------- */
 

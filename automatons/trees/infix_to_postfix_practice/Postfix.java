@@ -5,7 +5,6 @@ import java.util.Hashtable;
 public class Postfix {
     private static ArrayList<String> postfixList = new ArrayList<String>();
     private static Stack<String> operatorsStack = new Stack<String>();
-    private static Stack<Float> evaluationStack = new Stack<Float>();
     private static Hashtable<String, Integer> operatorsValues = new Hashtable<String, Integer>();
 
     // Static block initialize variable (runs just once)
@@ -88,7 +87,37 @@ public class Postfix {
         }
     }
 
+    static void generateIntermediateCode() {
+        Stack<String> intermediateCodeStack = new Stack<String>();
+        int tempCounter = 1;
+        String currentTempVar = "";
+        ArrayList<String> cuadruples = new ArrayList<String>();
+
+        for (String item : postfixList) {
+            if (operatorsValues.containsKey(item)) {
+                // It is an operator
+
+                String rightOperand = intermediateCodeStack.pop();
+                String leftOperand = intermediateCodeStack.pop();
+
+                currentTempVar = String.format("T%s", tempCounter);
+                cuadruples.add(String.format("%s,%s,%s,%s", item, leftOperand, rightOperand, currentTempVar));
+                intermediateCodeStack.push(currentTempVar);
+                tempCounter++;
+            } else {
+                // It is not an operator
+                intermediateCodeStack.push(item);
+            }
+        }
+
+        for (String item : cuadruples) {
+            System.out.println(item);
+        }
+    }
+
     static float evaluatePostfix(Hashtable <String, Id> symbols_table) {
+        Stack<Float> evaluationStack = new Stack<Float>();
+
         for (String item : postfixList) {
             if (operatorsValues.containsKey(item)) {
                 // It is an operator
