@@ -14,9 +14,9 @@ real suma(real p)
 void main(void)
 {
     real i;
-    int h; 
+    int h;
     int x[10];
-    
+
     i = 5.7;
     while (i < 10)
     {
@@ -27,6 +27,6 @@ void main(void)
     h=7;
     h=gcd(5,6);
     i=suma(9.3);
-    
+
  }
 

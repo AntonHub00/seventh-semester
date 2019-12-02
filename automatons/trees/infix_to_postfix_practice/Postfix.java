@@ -88,7 +88,7 @@ public class Postfix {
         }
     }
 
-    static float evaluatePostfix() {
+    static float evaluatePostfix(Hashtable <String, Id> symbols_table) {
         for (String item : postfixList) {
             if (operatorsValues.containsKey(item)) {
                 // It is an operator
@@ -96,21 +96,14 @@ public class Postfix {
                 float rightOperand = evaluationStack.pop();
                 float leftOperand = evaluationStack.pop();
 
-                System.out.println("pop edx\npop eax");
-
                 if (item == "+") {
-                    System.out.println("add eax, edx\npush eax");
                     evaluationStack.push(leftOperand + rightOperand);
                 } else if (item == "-") {
-                    System.out.println("sub eax, edx\npush eax");
                     evaluationStack.push(leftOperand - rightOperand);
                 } else if (item == "*") {
-                    System.out.println("mul eax, edx\npush eax");
                     evaluationStack.push(leftOperand * rightOperand);
                 } else if (item == "/") {
-                    System.out.println("div eax, edx\npush eax");
                     if (rightOperand == 0.0) {
-                        // System.out.println("Can not divide by 0");
                         System.exit(1);
                     }
 
@@ -118,12 +111,15 @@ public class Postfix {
                 }
             } else {
                 // It is not an operator
-
-                evaluationStack.push(Float.parseFloat(item));
-                System.out.println("Push " + item);
+                if(symbols_table.containsKey(item)){
+                    evaluationStack.push(Float.parseFloat(symbols_table.get(item).value));
+                }else{
+                    evaluationStack.push(Float.parseFloat(item));
+                }
             }
         }
 
         return evaluationStack.pop();
     }
 }
+

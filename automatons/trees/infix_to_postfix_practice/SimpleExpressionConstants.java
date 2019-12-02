@@ -9,7 +9,7 @@ public interface SimpleExpressionConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int variable = 5;
+  int id = 5;
   /** RegularExpression Id. */
   int constant = 6;
   /** RegularExpression Id. */
@@ -24,6 +24,10 @@ public interface SimpleExpressionConstants {
   int leftParen = 11;
   /** RegularExpression Id. */
   int rightParen = 12;
+  /** RegularExpression Id. */
+  int equals = 13;
+  /** RegularExpression Id. */
+  int semicolon = 14;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -35,7 +39,7 @@ public interface SimpleExpressionConstants {
     "\"\\t\"",
     "\"\\n\"",
     "\"\\r\"",
-    "<variable>",
+    "<id>",
     "<constant>",
     "\"+\"",
     "\"-\"",
@@ -43,6 +47,9 @@ public interface SimpleExpressionConstants {
     "\"/\"",
     "\"(\"",
     "\")\"",
+    "\"=\"",
+    "\";\"",
+    "\"##\"",
   };
 
 }
