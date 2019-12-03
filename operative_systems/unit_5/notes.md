@@ -51,3 +51,37 @@ esos elementos de protección.
 - Sistema ejecutándose
 - Reporte descriptivo (manual de usuario)
 - Jueves 5 de diciembre
+
+## Mecanismo de protección y seguiridad de datos
+
+*Copia de seguridad(backup)*: Es una copia d los datos originales que se realiza
+con el fin de disponer de un medio para recuperarlos en caos de su pérdida.
+
+*Matriz de acceso*: Es un elemento  básico a la hora de definiar una políticad de
+seguridad ya que permite formalizar las distintas relaciones entre sujetos
+activos y pasivos.
+
+- Sujeto
+- Objecto
+- Derecho de acceso
+
+*Firma digital*: Es un mecanismo criptográfico que permite al receptor de un
+mensaje firmado identificar a la entidad originadora de dicho y confirmar que
+el mensaje no ha sido alterado desde que fue enviado.
+
+*Certificado digital*: Es un fichero informático firmado electrónicamente por un
+prestador de servicios de certificación, que vincula unos datos de verificación
+de firma a un firmante y confirma su identidad.
+
+ - TLS (Transport Layer Security)
+ - SSL (Secure Sockets Layer)
+
+*Cifrado*: Es un procedimiento que utiliza un algoritmo de cifrado con cierta clave
+para transformar el mensaje, de tal forma que se incomprensible, o al menos,
+difícil de comprender a toda persona que no tenga la clave secreta.
+
+
+- Cifrado César
+- Transposición (Inversa, Columnar, China)
+- Simétrica
+- Asimétrica
