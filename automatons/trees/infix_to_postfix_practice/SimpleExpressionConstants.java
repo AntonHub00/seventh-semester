@@ -13,37 +13,39 @@ public interface SimpleExpressionConstants {
   /** RegularExpression Id. */
   int Else = 6;
   /** RegularExpression Id. */
-  int Id = 7;
+  int Then = 7;
   /** RegularExpression Id. */
-  int Constant = 8;
+  int Id = 8;
   /** RegularExpression Id. */
-  int AddOperator = 9;
+  int Constant = 9;
   /** RegularExpression Id. */
-  int SubOperator = 10;
+  int AddOperator = 10;
   /** RegularExpression Id. */
-  int MulOperator = 11;
+  int SubOperator = 11;
   /** RegularExpression Id. */
-  int DivOperator = 12;
+  int MulOperator = 12;
   /** RegularExpression Id. */
-  int LeftParen = 13;
+  int DivOperator = 13;
   /** RegularExpression Id. */
-  int RightParen = 14;
+  int LeftParen = 14;
   /** RegularExpression Id. */
-  int LessThan = 15;
+  int RightParen = 15;
   /** RegularExpression Id. */
-  int GreaterThan = 16;
+  int LessThan = 16;
   /** RegularExpression Id. */
-  int LessEqualThan = 17;
+  int GreaterThan = 17;
   /** RegularExpression Id. */
-  int GreaterEqualThan = 18;
+  int LessEqualThan = 18;
   /** RegularExpression Id. */
-  int EqualEqual = 19;
+  int GreaterEqualThan = 19;
   /** RegularExpression Id. */
-  int Different = 20;
+  int EqualEqual = 20;
   /** RegularExpression Id. */
-  int Equal = 21;
+  int Different = 21;
   /** RegularExpression Id. */
-  int Semicolon = 22;
+  int Equal = 22;
+  /** RegularExpression Id. */
+  int Semicolon = 23;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -57,6 +59,7 @@ public interface SimpleExpressionConstants {
     "\"\\r\"",
     "\"if\"",
     "\"else\"",
+    "\"then\"",
     "<Id>",
     "<Constant>",
     "\"+\"",

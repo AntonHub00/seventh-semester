@@ -44,7 +44,6 @@ public class Postfix {
         while (!operatorsStack.isEmpty()) {
             postfixList.add(operatorsStack.pop());
         }
-        ;
     }
 
     static void shuntingYard(String operator) {
@@ -91,7 +90,7 @@ public class Postfix {
             while (
                     currentOperatorPrecedence < currentTopOperatorPrecedence
                     || currentOperatorPrecedence == currentTopOperatorPrecedence
-                    && operatorsValues.get(operator).isLeftToRight
+                    // && operatorsValues.get(operator).isLeftToRight
                   ) {
 
                 postfixList.add(operatorsStack.pop());
@@ -102,7 +101,6 @@ public class Postfix {
 
                 currentTopOperatorPrecedence = operatorsValues.get(operatorsStack.peek()).precedence;
                   }
-            ;
 
             operatorsStack.push(operator);
         }
@@ -128,7 +126,7 @@ public class Postfix {
                     tempCounter++;
                 }else{
                     cuadruples.add(String.format("%s,%s,,%s", item, rightOperand, leftOperand));
-                    intermediateCodeStack.push(currentTempVar);
+                    intermediateCodeStack.push(leftOperand);
                 }
             } else {
                 // It is not an operator
