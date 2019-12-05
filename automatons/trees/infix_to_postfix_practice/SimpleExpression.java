@@ -22,24 +22,26 @@
         }
 
   static final public void start() throws ParseException {
-    var_declaration();
-    jj_consume_token(15);
-    expression();
+    label_1:
+    while (true) {
+      expression();
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case Id:
+      case Constant:
+      case LeftParen:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[0] = jj_gen;
+        break label_1;
+      }
+    }
     jj_consume_token(0);
 System.out.println();
         System.out.println("\u005cn####Finished####\u005cn");
         System.out.println();
         System.out.println("-------------------------------------");
-        System.out.println("Symbols table:\u005cn");
-
-        Enumeration symbols_table_keys = symbols_table.keys();
-
-        System.out.format("%20s%20s%20s%20s%20s\u005cn\u005cn", "Name", "Type", "Category", "Size", "Value");
-
-        while(symbols_table_keys.hasMoreElements()) {
-            String key = (String) symbols_table_keys.nextElement();
-            System.out.println(symbols_table.get(key));
-        }
 
         System.out.println("-------------------------------------");
         System.out.println();
@@ -48,7 +50,7 @@ System.out.println();
 
         System.out.println();
         System.out.println("-------------------------------------");
-        System.out.println("postfix list: " + Postfix.getPostfixList());
+        System.out.println("Postfix list: " + Postfix.getPostfixList());
         System.out.println("-------------------------------------");
         System.out.println();
 
@@ -58,65 +60,30 @@ System.out.println();
         Postfix.generateIntermediateCode();
         System.out.println("-------------------------------------");
         System.out.println();
-
-        /* float postfixEvaluation = Postfix.evaluatePostfix(symbols_table); */
-
-        /* System.out.println("postfix evaluation: " + postfixEvaluation); */
-
   }
 
-/* Start of semantic section of variable definition------------------------- */
-  static final public void var_declaration() throws ParseException {String lexem, type = "int", value;
-    jj_consume_token(id);
-lexem = token.image.toString();
-    jj_consume_token(equals);
-    jj_consume_token(constant);
-value = token.image.toString();
-        symbols_table.put(lexem, new Id(lexem, type, "variable", 0, value));
-    jj_consume_token(semicolon);
-    var_declaration_prime();
-  }
+/* Start of semantic section of conditional definition------------------------- */
+/* void if_declaration(): {} */
+/* { */
 
-  static final public void var_declaration_prime() throws ParseException {String lexem, type = "int", value;
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case id:{
-      jj_consume_token(id);
-lexem = token.image.toString();
-      jj_consume_token(equals);
-      jj_consume_token(constant);
-value = token.image.toString();
-        symbols_table.put(lexem, new Id(lexem, type, "variable", 0, value));
-      jj_consume_token(semicolon);
-      var_declaration_prime();
-      break;
-      }
-    default:
-      jj_la1[0] = jj_gen;
-      empty();
-    }
-  }
+/* } */
+/* End of semantic section of conditional definition------------------------- */
 
-/* End of semantic section of variable definition--------------------------- */
 
 /* Start of semantic section of expressions--------------------------------- */
   static final public void expression() throws ParseException {
-    term();
-    expression_prime();
-  }
-
-  static final public void expression_prime() throws ParseException {
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case addOperator:
-    case subOperator:{
+    if (jj_2_1(2)) {
+      jj_consume_token(Id);
+Postfix.shuntingYard(token.image.toString());
+      jj_consume_token(Equal);
+Postfix.shuntingYard(token.image.toString());
+      simple_expression();
+    } else {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case addOperator:{
-        jj_consume_token(addOperator);
-Postfix.shuntingYard(token.image.toString());
-        break;
-        }
-      case subOperator:{
-        jj_consume_token(subOperator);
-Postfix.shuntingYard(token.image.toString());
+      case Id:
+      case Constant:
+      case LeftParen:{
+        simple_expression();
         break;
         }
       default:
@@ -124,12 +91,99 @@ Postfix.shuntingYard(token.image.toString());
         jj_consume_token(-1);
         throw new ParseException();
       }
-      term();
-      expression_prime();
+    }
+  }
+
+  static final public void simple_expression() throws ParseException {
+    additive_expression();
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case LessThan:
+    case GreaterThan:
+    case LessEqualThan:
+    case GreaterEqualThan:
+    case EqualEqual:
+    case Different:{
+      relational_operator();
+Postfix.shuntingYard(token.image.toString());
+      additive_expression();
       break;
       }
     default:
       jj_la1[2] = jj_gen;
+      empty();
+    }
+  }
+
+  static final public void relational_operator() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case LessThan:{
+      jj_consume_token(LessThan);
+Postfix.shuntingYard(token.image.toString());
+      break;
+      }
+    case GreaterThan:{
+      jj_consume_token(GreaterThan);
+Postfix.shuntingYard(token.image.toString());
+      break;
+      }
+    case LessEqualThan:{
+      jj_consume_token(LessEqualThan);
+Postfix.shuntingYard(token.image.toString());
+      break;
+      }
+    case GreaterEqualThan:{
+      jj_consume_token(GreaterEqualThan);
+Postfix.shuntingYard(token.image.toString());
+      break;
+      }
+    case EqualEqual:{
+      jj_consume_token(EqualEqual);
+Postfix.shuntingYard(token.image.toString());
+      break;
+      }
+    case Different:{
+      jj_consume_token(Different);
+Postfix.shuntingYard(token.image.toString());
+      break;
+      }
+    default:
+      jj_la1[3] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+  }
+
+  static final public void additive_expression() throws ParseException {
+    term();
+    additive_expression_prime();
+  }
+
+  static final public void additive_expression_prime() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case AddOperator:
+    case SubOperator:{
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case AddOperator:{
+        jj_consume_token(AddOperator);
+Postfix.shuntingYard(token.image.toString());
+        break;
+        }
+      case SubOperator:{
+        jj_consume_token(SubOperator);
+Postfix.shuntingYard(token.image.toString());
+        break;
+        }
+      default:
+        jj_la1[4] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      term();
+      additive_expression_prime();
+      break;
+      }
+    default:
+      jj_la1[5] = jj_gen;
       empty();
     }
   }
@@ -141,21 +195,21 @@ Postfix.shuntingYard(token.image.toString());
 
   static final public void term_prime() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case mulOperator:
-    case divOperator:{
+    case MulOperator:
+    case DivOperator:{
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case mulOperator:{
-        jj_consume_token(mulOperator);
+      case MulOperator:{
+        jj_consume_token(MulOperator);
 Postfix.shuntingYard(token.image.toString());
         break;
         }
-      case divOperator:{
-        jj_consume_token(divOperator);
+      case DivOperator:{
+        jj_consume_token(DivOperator);
 Postfix.shuntingYard(token.image.toString());
         break;
         }
       default:
-        jj_la1[3] = jj_gen;
+        jj_la1[6] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -164,33 +218,33 @@ Postfix.shuntingYard(token.image.toString());
       break;
       }
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[7] = jj_gen;
       empty();
     }
   }
 
   static final public void factor() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case constant:{
-      jj_consume_token(constant);
+    case Id:{
+      jj_consume_token(Id);
 Postfix.shuntingYard(token.image.toString());
       break;
       }
-    case id:{
-      jj_consume_token(id);
+    case Constant:{
+      jj_consume_token(Constant);
 Postfix.shuntingYard(token.image.toString());
       break;
       }
-    case leftParen:{
-      jj_consume_token(leftParen);
+    case LeftParen:{
+      jj_consume_token(LeftParen);
 Postfix.shuntingYard(token.image.toString());
-      expression();
-      jj_consume_token(rightParen);
+      simple_expression();
+      jj_consume_token(RightParen);
 Postfix.shuntingYard(token.image.toString());
       break;
       }
     default:
-      jj_la1[5] = jj_gen;
+      jj_la1[8] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -198,9 +252,25 @@ Postfix.shuntingYard(token.image.toString());
 
 /* End of semantic section of expressions----------------------------------- */
 
+
 /* Start of emulates epsilon------------------------------------------------ */
   static final public void empty() throws ParseException {
 {if ("" != null) return;}
+  }
+
+  static private boolean jj_2_1(int xla)
+ {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_1(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(0, xla); }
+  }
+
+  static private boolean jj_3_1()
+ {
+    if (jj_scan_token(Id)) return true;
+    if (jj_scan_token(Equal)) return true;
+    return false;
   }
 
   static private boolean jj_initialized_once = false;
@@ -212,15 +282,20 @@ Postfix.shuntingYard(token.image.toString());
   /** Next token. */
   static public Token jj_nt;
   static private int jj_ntk;
+  static private Token jj_scanpos, jj_lastpos;
+  static private int jj_la;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[6];
+  static final private int[] jj_la1 = new int[9];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x20,0x180,0x180,0x600,0x600,0x860,};
+      jj_la1_0 = new int[] {0x2180,0x2180,0x1f8000,0x1f8000,0x600,0x600,0x1800,0x1800,0x2180,};
    }
+  static final private JJCalls[] jj_2_rtns = new JJCalls[1];
+  static private boolean jj_rescan = false;
+  static private int jj_gc = 0;
 
   /** Constructor with InputStream. */
   public SimpleExpression(java.io.InputStream stream) {
@@ -240,7 +315,8 @@ Postfix.shuntingYard(token.image.toString());
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -254,7 +330,8 @@ Postfix.shuntingYard(token.image.toString());
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Constructor. */
@@ -271,7 +348,8 @@ Postfix.shuntingYard(token.image.toString());
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -281,7 +359,8 @@ Postfix.shuntingYard(token.image.toString());
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Constructor with generated Token Manager. */
@@ -297,7 +376,8 @@ Postfix.shuntingYard(token.image.toString());
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   /** Reinitialise. */
@@ -306,7 +386,8 @@ Postfix.shuntingYard(token.image.toString());
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
+    for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -316,11 +397,45 @@ Postfix.shuntingYard(token.image.toString());
     jj_ntk = -1;
     if (token.kind == kind) {
       jj_gen++;
+      if (++jj_gc > 100) {
+        jj_gc = 0;
+        for (int i = 0; i < jj_2_rtns.length; i++) {
+          JJCalls c = jj_2_rtns[i];
+          while (c != null) {
+            if (c.gen < jj_gen) c.first = null;
+            c = c.next;
+          }
+        }
+      }
       return token;
     }
     token = oldToken;
     jj_kind = kind;
     throw generateParseException();
+  }
+
+  @SuppressWarnings("serial")
+  static private final class LookaheadSuccess extends java.lang.Error { }
+  static final private LookaheadSuccess jj_ls = new LookaheadSuccess();
+  static private boolean jj_scan_token(int kind) {
+    if (jj_scanpos == jj_lastpos) {
+      jj_la--;
+      if (jj_scanpos.next == null) {
+        jj_lastpos = jj_scanpos = jj_scanpos.next = token_source.getNextToken();
+      } else {
+        jj_lastpos = jj_scanpos = jj_scanpos.next;
+      }
+    } else {
+      jj_scanpos = jj_scanpos.next;
+    }
+    if (jj_rescan) {
+      int i = 0; Token tok = token;
+      while (tok != null && tok != jj_scanpos) { i++; tok = tok.next; }
+      if (tok != null) jj_add_error_token(kind, i);
+    }
+    if (jj_scanpos.kind != kind) return true;
+    if (jj_la == 0 && jj_scanpos == jj_lastpos) throw jj_ls;
+    return false;
   }
 
 
@@ -353,16 +468,43 @@ Postfix.shuntingYard(token.image.toString());
   static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
   static private int[] jj_expentry;
   static private int jj_kind = -1;
+  static private int[] jj_lasttokens = new int[100];
+  static private int jj_endpos;
+
+  static private void jj_add_error_token(int kind, int pos) {
+    if (pos >= 100) return;
+    if (pos == jj_endpos + 1) {
+      jj_lasttokens[jj_endpos++] = kind;
+    } else if (jj_endpos != 0) {
+      jj_expentry = new int[jj_endpos];
+      for (int i = 0; i < jj_endpos; i++) {
+        jj_expentry[i] = jj_lasttokens[i];
+      }
+      jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it.hasNext();) {
+        int[] oldentry = (int[])(it.next());
+        if (oldentry.length == jj_expentry.length) {
+          for (int i = 0; i < jj_expentry.length; i++) {
+            if (oldentry[i] != jj_expentry[i]) {
+              continue jj_entries_loop;
+            }
+          }
+          jj_expentries.add(jj_expentry);
+          break jj_entries_loop;
+        }
+      }
+      if (pos != 0) jj_lasttokens[(jj_endpos = pos) - 1] = kind;
+    }
+  }
 
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[16];
+    boolean[] la1tokens = new boolean[23];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 9; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -371,13 +513,16 @@ Postfix.shuntingYard(token.image.toString());
         }
       }
     }
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 23; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
         jj_expentries.add(jj_expentry);
       }
     }
+    jj_endpos = 0;
+    jj_rescan_token();
+    jj_add_error_token(0, 0);
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
       exptokseq[i] = jj_expentries.get(i);
@@ -391,6 +536,41 @@ Postfix.shuntingYard(token.image.toString());
 
   /** Disable tracing. */
   static final public void disable_tracing() {
+  }
+
+  static private void jj_rescan_token() {
+    jj_rescan = true;
+    for (int i = 0; i < 1; i++) {
+    try {
+      JJCalls p = jj_2_rtns[i];
+      do {
+        if (p.gen > jj_gen) {
+          jj_la = p.arg; jj_lastpos = jj_scanpos = p.first;
+          switch (i) {
+            case 0: jj_3_1(); break;
+          }
+        }
+        p = p.next;
+      } while (p != null);
+      } catch(LookaheadSuccess ls) { }
+    }
+    jj_rescan = false;
+  }
+
+  static private void jj_save(int index, int xla) {
+    JJCalls p = jj_2_rtns[index];
+    while (p.gen > jj_gen) {
+      if (p.next == null) { p = p.next = new JJCalls(); break; }
+      p = p.next;
+    }
+    p.gen = jj_gen + xla - jj_la; p.first = token; p.arg = xla;
+  }
+
+  static final class JJCalls {
+    int gen;
+    Token first;
+    int arg;
+    JJCalls next;
   }
 
     }

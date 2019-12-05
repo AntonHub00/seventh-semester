@@ -28,50 +28,61 @@ PARSER_END(SimpleExpression)
 
 TOKEN:
 {
-    /* Operands */
-    <id: (["a"-"z", "A"-"Z"])+>
+    /* Conditional tokens */
+    <If: "if">
         |
-        <constant: (["0"-"9"])+>
+        <Else: "else">
+        |
+
+        /* Operands */
+        <Id: (["a"-"z", "A"-"Z"])+>
+        |
+        <Constant: (["0"-"9"])+>
         |
 
         /* Operators */
-        <addOperator: "+">
+        <AddOperator: "+">
         |
-        <subOperator: "-">
+        <SubOperator: "-">
         |
-        <mulOperator: "*">
+        <MulOperator: "*">
         |
-        <divOperator: "/">
+        <DivOperator: "/">
         |
-        <leftParen: "(">
+        <LeftParen: "(">
         |
-        <rightParen: ")">
+        <RightParen: ")">
         |
 
-        /* declaration and assignment of variables */
-        <equals: "=">
+        /* Relational operators */
+        <LessThan: "<">
         |
-        <semicolon: ";">
+        <GreaterThan: ">">
+        |
+        <LessEqualThan: "<=">
+        |
+        <GreaterEqualThan: ">=">
+        |
+        <EqualEqual: "==">
+        |
+        <Different: "!=">
+        |
+
+        /* Other */
+        <Equal: "=">
+        |
+        <Semicolon: ";">
 }
 
 void start() : {} {
-    var_declaration() "##" expression() <EOF>
+    (expression())+ <EOF>
+
     {
 
         System.out.println();
         System.out.println("\n####Finished####\n");
         System.out.println();
         System.out.println("-------------------------------------");
-        System.out.println("Symbols table:\n");
-
-        Enumeration symbols_table_keys = symbols_table.keys();
-
-        System.out.format("%20s%20s%20s%20s%20s\n\n", "Name", "Type", "Category", "Size", "Value");
-
-        while(symbols_table_keys.hasMoreElements()) {
-            String key = (String) symbols_table_keys.nextElement();
-            System.out.println(symbols_table.get(key));
-        }
 
         System.out.println("-------------------------------------");
         System.out.println();
@@ -80,7 +91,7 @@ void start() : {} {
 
         System.out.println();
         System.out.println("-------------------------------------");
-        System.out.println("postfix list: " + Postfix.getPostfixList());
+        System.out.println("Postfix list: " + Postfix.getPostfixList());
         System.out.println("-------------------------------------");
         System.out.println();
 
@@ -90,73 +101,75 @@ void start() : {} {
         Postfix.generateIntermediateCode();
         System.out.println("-------------------------------------");
         System.out.println();
-
-        /* float postfixEvaluation = Postfix.evaluatePostfix(symbols_table); */
-
-        /* System.out.println("postfix evaluation: " + postfixEvaluation); */
     }
 }
 
-/* Start of semantic section of variable definition------------------------- */
-void var_declaration(): {String lexem, type = "int", value;}
-{
-    <id> {lexem = token.image.toString();}
-    <equals> <constant>
-    {
-        value = token.image.toString();
-        symbols_table.put(lexem, new Id(lexem, type, "variable", 0, value));
-    }
-    <semicolon> var_declaration_prime()
-}
 
-void var_declaration_prime(): {String lexem, type = "int", value;}
-{
-    <id> {lexem = token.image.toString();}
-    <equals> <constant>
-    {
-        value = token.image.toString();
-        symbols_table.put(lexem, new Id(lexem, type, "variable", 0, value));
-    }
-    <semicolon> var_declaration_prime()
-    | empty()
-}
-/* End of semantic section of variable definition--------------------------- */
+/* Start of semantic section of conditional definition------------------------- */
+/* void if_declaration(): {} */
+/* { */
+
+/* } */
+/* End of semantic section of conditional definition------------------------- */
+
 
 /* Start of semantic section of expressions--------------------------------- */
-void expression(): {} {
-    term() expression_prime()
+void expression() : {} {
+    (LOOKAHEAD(2)
+    <Id> {Postfix.shuntingYard(token.image.toString());}
+    <Equal> {Postfix.shuntingYard(token.image.toString());}
+    simple_expression() | simple_expression())
 }
 
-void expression_prime(): {} {
-    (<addOperator> {Postfix.shuntingYard(token.image.toString());}
+void simple_expression() : {} {
+    additive_expression() (relational_operator() {Postfix.shuntingYard(token.image.toString());}
+    additive_expression() | empty())
+}
+
+void relational_operator() : {} {
+    <LessThan> {Postfix.shuntingYard(token.image.toString());}
+        | <GreaterThan> {Postfix.shuntingYard(token.image.toString());}
+        | <LessEqualThan> {Postfix.shuntingYard(token.image.toString());}
+        | <GreaterEqualThan> {Postfix.shuntingYard(token.image.toString());}
+        | <EqualEqual> {Postfix.shuntingYard(token.image.toString());}
+        | <Different> {Postfix.shuntingYard(token.image.toString());}
+}
+
+void additive_expression() : {} {
+    term() additive_expression_prime()
+}
+
+void additive_expression_prime() : {} {
+    (
+     <AddOperator> {Postfix.shuntingYard(token.image.toString());}
      |
-     <subOperator> {Postfix.shuntingYard(token.image.toString());}
-    )
-        term() expression_prime() | empty()
+     <SubOperator> {Postfix.shuntingYard(token.image.toString());}
+    ) term() additive_expression_prime() | empty()
 }
 
-void term(): {} {
+void term() : {} {
     factor() term_prime()
 }
 
-void term_prime(): {} {
-    (<mulOperator> {Postfix.shuntingYard(token.image.toString());}
+void term_prime() : {} {
+    (
+     <MulOperator> {Postfix.shuntingYard(token.image.toString());}
      |
-     <divOperator> {Postfix.shuntingYard(token.image.toString());}
-    )
-        factor() term_prime() | empty()
+     <DivOperator> {Postfix.shuntingYard(token.image.toString());}
+    ) factor() term_prime() | empty()
 }
 
-void factor(): {} {
-    <constant> {Postfix.shuntingYard(token.image.toString());}
+void factor() : {} {
+    <Id> {Postfix.shuntingYard(token.image.toString());}
     |
-        <id> {Postfix.shuntingYard(token.image.toString());}
+        <Constant> {Postfix.shuntingYard(token.image.toString());}
     |
-        <leftParen> {Postfix.shuntingYard(token.image.toString());}
-    expression()
-        <rightParen> {Postfix.shuntingYard(token.image.toString());}
+        <LeftParen> {Postfix.shuntingYard(token.image.toString());}
+    simple_expression()
+        <RightParen> {Postfix.shuntingYard(token.image.toString());}
 }
 /* End of semantic section of expressions----------------------------------- */
+
 
 /* Start of emulates epsilon------------------------------------------------ */
 void empty(): {}

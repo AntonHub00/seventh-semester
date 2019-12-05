@@ -9,25 +9,41 @@ public interface SimpleExpressionConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int id = 5;
+  int If = 5;
   /** RegularExpression Id. */
-  int constant = 6;
+  int Else = 6;
   /** RegularExpression Id. */
-  int addOperator = 7;
+  int Id = 7;
   /** RegularExpression Id. */
-  int subOperator = 8;
+  int Constant = 8;
   /** RegularExpression Id. */
-  int mulOperator = 9;
+  int AddOperator = 9;
   /** RegularExpression Id. */
-  int divOperator = 10;
+  int SubOperator = 10;
   /** RegularExpression Id. */
-  int leftParen = 11;
+  int MulOperator = 11;
   /** RegularExpression Id. */
-  int rightParen = 12;
+  int DivOperator = 12;
   /** RegularExpression Id. */
-  int equals = 13;
+  int LeftParen = 13;
   /** RegularExpression Id. */
-  int semicolon = 14;
+  int RightParen = 14;
+  /** RegularExpression Id. */
+  int LessThan = 15;
+  /** RegularExpression Id. */
+  int GreaterThan = 16;
+  /** RegularExpression Id. */
+  int LessEqualThan = 17;
+  /** RegularExpression Id. */
+  int GreaterEqualThan = 18;
+  /** RegularExpression Id. */
+  int EqualEqual = 19;
+  /** RegularExpression Id. */
+  int Different = 20;
+  /** RegularExpression Id. */
+  int Equal = 21;
+  /** RegularExpression Id. */
+  int Semicolon = 22;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -39,17 +55,24 @@ public interface SimpleExpressionConstants {
     "\"\\t\"",
     "\"\\n\"",
     "\"\\r\"",
-    "<id>",
-    "<constant>",
+    "\"if\"",
+    "\"else\"",
+    "<Id>",
+    "<Constant>",
     "\"+\"",
     "\"-\"",
     "\"*\"",
     "\"/\"",
     "\"(\"",
     "\")\"",
+    "\"<\"",
+    "\">\"",
+    "\"<=\"",
+    "\">=\"",
+    "\"==\"",
+    "\"!=\"",
     "\"=\"",
     "\";\"",
-    "\"##\"",
   };
 
 }

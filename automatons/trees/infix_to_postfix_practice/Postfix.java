@@ -5,22 +5,33 @@ import java.util.Hashtable;
 public class Postfix {
     private static ArrayList<String> postfixList = new ArrayList<String>();
     private static Stack<String> operatorsStack = new Stack<String>();
-    private static Hashtable<String, Integer> operatorsValues = new Hashtable<String, Integer>();
+    private static Hashtable<String, Operator> operatorsValues = new Hashtable<String, Operator>();
 
     // Static block initialize variable (runs just once)
     // To compare the operators precedence
     // To know if a value in postfixList is an operand or an operator (in
     // evaluatePostfix function)
     static {
-        operatorsValues.put("+", 0);
-        operatorsValues.put("-", 0);
-        operatorsValues.put("*", 1);
-        operatorsValues.put("/", 1);
+        operatorsValues.put("=", new Operator("=", 0, false));
+
+        operatorsValues.put("==", new Operator("==", 1, true));
+        operatorsValues.put("!=", new Operator("!=", 1, true));
+
+        operatorsValues.put("<", new Operator("<", 2, true));
+        operatorsValues.put(">", new Operator(">", 2, true));
+        operatorsValues.put("<=", new Operator("<=", 2, true));
+        operatorsValues.put(">=", new Operator(">=", 2, true));
+
+        operatorsValues.put("+", new Operator("+", 3, true));
+        operatorsValues.put("-", new Operator("-", 3, true));
+
+        operatorsValues.put("*", new Operator("*", 4, true));
+        operatorsValues.put("/", new Operator("/", 4, true));
 
         // Just to test if the given value to the shuntingYard algorithm is
         // an operand. Doesn't affect the algorithm
-        operatorsValues.put("(", 2);
-        operatorsValues.put(")", 2);
+        operatorsValues.put("(", new Operator("(", 5, true));
+        operatorsValues.put(")", new Operator(")", 5, true));
     }
 
     // Get postfixList
@@ -59,19 +70,22 @@ public class Postfix {
         // stack top element is "(" or current "operator" precedence is higher
         // than the stack top element. Then push the "operator" onto the
         // stack
-        else if (operator == "(" || operatorsStack.isEmpty() || operatorsStack.peek() == "("
-                || operatorsValues.get(operator) > operatorsValues.get(operatorsStack.peek())) {
+        else if (
+                operator == "("
+                || operatorsStack.isEmpty()
+                || operatorsStack.peek() == "("
+                || operatorsValues.get(operator).precedence > operatorsValues.get(operatorsStack.peek()).precedence) {
 
             operatorsStack.push(operator);
         } else {
-            int currentOperatorValue = operatorsValues.get(operator);
-            int stackTopOperatorValue = operatorsValues.get(operatorsStack.peek());
+            int currentOperatorPrecedence = operatorsValues.get(operator).precedence;
+            int currentTopOperatorPrecedence = operatorsValues.get(operatorsStack.peek()).precedence;
 
             // If the current "operator" precedence is lower or equals than
             // the stack top element, then stack elements will be popped
             // till the stack is empty or the stack top element is "(". Then
             // the current operator will be pushed to the stack
-            while (currentOperatorValue < stackTopOperatorValue || currentOperatorValue == stackTopOperatorValue) {
+            while (currentOperatorPrecedence < currentTopOperatorPrecedence || currentOperatorPrecedence == currentTopOperatorPrecedence) {
 
                 postfixList.add(operatorsStack.pop());
 
@@ -79,7 +93,7 @@ public class Postfix {
                     break;
                 }
 
-                stackTopOperatorValue = operatorsValues.get(operatorsStack.peek());
+                currentTopOperatorPrecedence = operatorsValues.get(operatorsStack.peek()).precedence;
             }
             ;
 
