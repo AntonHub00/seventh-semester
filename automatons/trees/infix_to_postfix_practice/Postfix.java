@@ -74,7 +74,10 @@ public class Postfix {
                 operator == "("
                 || operatorsStack.isEmpty()
                 || operatorsStack.peek() == "("
-                || operatorsValues.get(operator).precedence > operatorsValues.get(operatorsStack.peek()).precedence) {
+                || operatorsValues.get(operator).precedence > operatorsValues.get(operatorsStack.peek()).precedence
+                || operatorsValues.get(operator).precedence == operatorsValues.get(operatorsStack.peek()).precedence
+                && !operatorsValues.get(operator).isLeftToRight
+                ) {
 
             operatorsStack.push(operator);
         } else {
@@ -85,7 +88,11 @@ public class Postfix {
             // the stack top element, then stack elements will be popped
             // till the stack is empty or the stack top element is "(". Then
             // the current operator will be pushed to the stack
-            while (currentOperatorPrecedence < currentTopOperatorPrecedence || currentOperatorPrecedence == currentTopOperatorPrecedence) {
+            while (
+                    currentOperatorPrecedence < currentTopOperatorPrecedence
+                    || currentOperatorPrecedence == currentTopOperatorPrecedence
+                    && operatorsValues.get(operator).isLeftToRight
+                  ) {
 
                 postfixList.add(operatorsStack.pop());
 
@@ -94,7 +101,7 @@ public class Postfix {
                 }
 
                 currentTopOperatorPrecedence = operatorsValues.get(operatorsStack.peek()).precedence;
-            }
+                  }
             ;
 
             operatorsStack.push(operator);
@@ -114,10 +121,15 @@ public class Postfix {
                 String rightOperand = intermediateCodeStack.pop();
                 String leftOperand = intermediateCodeStack.pop();
 
-                currentTempVar = String.format("T%s", tempCounter);
-                cuadruples.add(String.format("%s,%s,%s,%s", item, leftOperand, rightOperand, currentTempVar));
-                intermediateCodeStack.push(currentTempVar);
-                tempCounter++;
+                if(operatorsValues.get(item).isLeftToRight){
+                    currentTempVar = String.format("T%s", tempCounter);
+                    cuadruples.add(String.format("%s,%s,%s,%s", item, leftOperand, rightOperand, currentTempVar));
+                    intermediateCodeStack.push(currentTempVar);
+                    tempCounter++;
+                }else{
+                    cuadruples.add(String.format("%s,%s,,%s", item, rightOperand, leftOperand));
+                    intermediateCodeStack.push(currentTempVar);
+                }
             } else {
                 // It is not an operator
                 intermediateCodeStack.push(item);
