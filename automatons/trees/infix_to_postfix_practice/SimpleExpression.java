@@ -62,8 +62,6 @@ System.out.println();
         System.out.println("-------------------------------------");
         System.out.println();
 
-        Postfix.flushStack();
-
         System.out.println();
         System.out.println("-------------------------------------");
         System.out.println("Postfix list: " + Postfix.getPostfixList());
@@ -73,7 +71,7 @@ System.out.println();
         System.out.println();
         System.out.println("-------------------------------------");
         System.out.println("Intermediate code:\u005cn");
-        Postfix.generateIntermediateCode();
+        Postfix.printCuadruples();
         System.out.println("-------------------------------------");
         System.out.println();
   }
@@ -121,6 +119,7 @@ Postfix.shuntingYard(token.image.toString());
         throw new ParseException();
       }
     }
+Postfix.evaluateCurrentExpression();
   }
 
   static final public void simple_expression() throws ParseException {

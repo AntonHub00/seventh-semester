@@ -89,8 +89,6 @@ void start() : {} {
         System.out.println("-------------------------------------");
         System.out.println();
 
-        Postfix.flushStack();
-
         System.out.println();
         System.out.println("-------------------------------------");
         System.out.println("Postfix list: " + Postfix.getPostfixList());
@@ -100,7 +98,7 @@ void start() : {} {
         System.out.println();
         System.out.println("-------------------------------------");
         System.out.println("Intermediate code:\n");
-        Postfix.generateIntermediateCode();
+        Postfix.printCuadruples();
         System.out.println("-------------------------------------");
         System.out.println();
     }
@@ -120,6 +118,7 @@ void expression() : {} {
     <Id> {Postfix.shuntingYard(token.image.toString());}
     <Equal> {Postfix.shuntingYard(token.image.toString());}
     simple_expression() | simple_expression())
+    {Postfix.evaluateCurrentExpression();}
 }
 
 void simple_expression() : {} {

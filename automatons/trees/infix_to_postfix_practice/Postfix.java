@@ -6,6 +6,8 @@ public class Postfix {
     private static ArrayList<String> postfixList = new ArrayList<String>();
     private static Stack<String> operatorsStack = new Stack<String>();
     private static Hashtable<String, Operator> operatorsValues = new Hashtable<String, Operator>();
+    private static Stack<String> intermediateCodeStack = new Stack<String>();
+    private static ArrayList<String> cuadruples = new ArrayList<String>();
 
     // Static block initialize variable (runs just once)
     // To compare the operators precedence
@@ -90,7 +92,7 @@ public class Postfix {
             while (
                     currentOperatorPrecedence < currentTopOperatorPrecedence
                     || currentOperatorPrecedence == currentTopOperatorPrecedence
-                    // && operatorsValues.get(operator).isLeftToRight
+                    && operatorsValues.get(operator).isLeftToRight
                   ) {
 
                 postfixList.add(operatorsStack.pop());
@@ -107,10 +109,8 @@ public class Postfix {
     }
 
     static void generateIntermediateCode() {
-        Stack<String> intermediateCodeStack = new Stack<String>();
         int tempCounter = 1;
         String currentTempVar = "";
-        ArrayList<String> cuadruples = new ArrayList<String>();
 
         for (String item : postfixList) {
             if (operatorsValues.containsKey(item)) {
@@ -133,7 +133,19 @@ public class Postfix {
                 intermediateCodeStack.push(item);
             }
         }
+    }
 
+    static void resetPostfixList(){
+        postfixList.removeAll(postfixList);
+    }
+
+    static void evaluateCurrentExpression(){
+        Postfix.flushStack();
+        Postfix.generateIntermediateCode();
+        Postfix.resetPostfixList();
+    }
+
+    static void printCuadruples(){
         for (String item : cuadruples) {
             System.out.println(item);
         }
