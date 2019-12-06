@@ -154,13 +154,13 @@ public class Postfix {
     }
 
     static void addJumpCuadruple(boolean inElseBlock){
-        // The condition set whether is a conditional jump
+        // The condition sets whether is a conditional jump
         if(!inElseBlock){
             ArrayList<String> lastCuadruple = cuadruples.get(cuadruples.size()-1);
             String lastTempVar = lastCuadruple.get(lastCuadruple.size()-1);
             cuadruples.add(new ArrayList<String>(Arrays.asList("TRZ", "", "", lastTempVar)));
         }else{
-            cuadruples.add(new ArrayList<String>(Arrays.asList("TRZ", "", "", "")));
+            cuadruples.add(new ArrayList<String>(Arrays.asList("TR", "", "", "")));
         }
         toJumpCuadrupleIndexes.add(cuadruples.size()-1);
     }

@@ -15,7 +15,7 @@
             System.out.println();
 
             System.out.println();
-            System.out.println("(Variable definition just work with integers)");
+            System.out.println("(Variable definitions just work with integers)");
             System.out.println();
 
             analisis.start();
