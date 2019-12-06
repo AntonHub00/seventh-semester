@@ -35,6 +35,10 @@ TOKEN:
         |
         <Then: "then">
         |
+        <leftBrace: "{">
+        |
+        <rightBrace: "}">
+        |
 
         /* Operands */
         <Id: (["a"-"z", "A"-"Z"])+>
@@ -84,16 +88,6 @@ void start() : {} {
         System.out.println();
         System.out.println("\n####Finished####\n");
         System.out.println();
-        System.out.println("-------------------------------------");
-
-        System.out.println("-------------------------------------");
-        System.out.println();
-
-        System.out.println();
-        System.out.println("-------------------------------------");
-        System.out.println("Postfix list: " + Postfix.getPostfixList());
-        System.out.println("-------------------------------------");
-        System.out.println();
 
         System.out.println();
         System.out.println("-------------------------------------");
@@ -107,7 +101,17 @@ void start() : {} {
 
 /* Start of semantic section of conditional definition------------------------- */
 void if_statement(): {} {
-    <If> expression() <Then> expression() (<Else> expression() | empty())
+    <If> expression() {Postfix.addJumpCuadruple(false);}
+    <Then>
+        <leftBrace>
+        (expression())+
+        <rightBrace>
+        (<Else> <leftBrace>
+         {Postfix.addJumpCuadruple(true);}
+         {Postfix.setJumpCuadruple();}
+         (expression())+
+         {Postfix.setJumpCuadruple();}
+         <rightBrace> | {Postfix.setJumpCuadruple();} empty())
 }
 /* End of semantic section of conditional definition------------------------- */
 

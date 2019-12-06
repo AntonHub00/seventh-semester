@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Hashtable;
+import java.util.Arrays;
 
 public class Postfix {
     private static ArrayList<String> postfixList = new ArrayList<String>();
     private static Stack<String> operatorsStack = new Stack<String>();
     private static Hashtable<String, Operator> operatorsValues = new Hashtable<String, Operator>();
     private static Stack<String> intermediateCodeStack = new Stack<String>();
-    private static ArrayList<String> cuadruples = new ArrayList<String>();
+    private static ArrayList<ArrayList<String>> cuadruples = new ArrayList<ArrayList<String>>();
+    private static ArrayList<Integer> toJumpCuadrupleIndexes = new ArrayList<Integer>();
 
     // Static block initialize variable (runs just once)
     // To compare the operators precedence
@@ -121,11 +123,15 @@ public class Postfix {
 
                 if(operatorsValues.get(item).isLeftToRight){
                     currentTempVar = String.format("T%s", tempCounter);
-                    cuadruples.add(String.format("%s,%s,%s,%s", item, leftOperand, rightOperand, currentTempVar));
+                    // String[] cuadruple = {item, leftOperand, rightOperand, currentTempVar};
+                    // cuadruples.add(String.format("%s,%s,%s,%s", item, leftOperand, rightOperand, currentTempVar));
+                    cuadruples.add(new ArrayList<String>(Arrays.asList(item, leftOperand, rightOperand, currentTempVar)));
                     intermediateCodeStack.push(currentTempVar);
                     tempCounter++;
                 }else{
-                    cuadruples.add(String.format("%s,%s,,%s", item, rightOperand, leftOperand));
+                    // String[] cuadruple = {item, rightOperand, "", leftOperand};
+                    // cuadruples.add(String.format("%s,%s,,%s", item, rightOperand, leftOperand));
+                    cuadruples.add(new ArrayList<String>(Arrays.asList(item, rightOperand, "", leftOperand)));
                     intermediateCodeStack.push(leftOperand);
                 }
             } else {
@@ -142,8 +148,28 @@ public class Postfix {
     }
 
     static void printCuadruples(){
-        for (String item : cuadruples) {
-            System.out.println(item);
+        for (ArrayList<String> item : cuadruples) {
+            System.out.println("["+cuadruples.indexOf(item)+"]: "+item);
+        }
+    }
+
+    static void addJumpCuadruple(boolean inElseBlock){
+        // The condition set whether is a conditional jump
+        if(!inElseBlock){
+            ArrayList<String> lastCuadruple = cuadruples.get(cuadruples.size()-1);
+            String lastTempVar = lastCuadruple.get(lastCuadruple.size()-1);
+            cuadruples.add(new ArrayList<String>(Arrays.asList("TRZ", "", "", lastTempVar)));
+        }else{
+            cuadruples.add(new ArrayList<String>(Arrays.asList("TRZ", "", "", "")));
+        }
+        toJumpCuadrupleIndexes.add(cuadruples.size()-1);
+    }
+
+    static void setJumpCuadruple(){
+        if(!toJumpCuadrupleIndexes.isEmpty()){
+            String nextCuadrupleIndex = String.valueOf(cuadruples.size());
+            ArrayList<String> cuadrupleToSet = cuadruples.get(toJumpCuadrupleIndexes.remove(0));
+            cuadrupleToSet.set(1, nextCuadrupleIndex);
         }
     }
 
