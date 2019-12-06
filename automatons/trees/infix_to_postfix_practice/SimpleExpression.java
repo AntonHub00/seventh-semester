@@ -71,7 +71,6 @@ System.out.println();
     jj_consume_token(If);
     expression();
 Postfix.addJumpCuadruple(false);
-    jj_consume_token(Then);
     jj_consume_token(leftBrace);
     label_2:
     while (true) {
@@ -345,7 +344,7 @@ Postfix.shuntingYard(token.image.toString());
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x10c20,0x10c20,0x10c00,0x10c00,0x40,0x10c00,0xfc0000,0xfc0000,0x3000,0x3000,0xc000,0xc000,0x10c00,};
+      jj_la1_0 = new int[] {0x8620,0x8620,0x8600,0x8600,0x40,0x8600,0x7e0000,0x7e0000,0x1800,0x1800,0x6000,0x6000,0x8600,};
    }
   static final private JJCalls[] jj_2_rtns = new JJCalls[1];
   static private boolean jj_rescan = false;
@@ -553,7 +552,7 @@ Postfix.shuntingYard(token.image.toString());
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[26];
+    boolean[] la1tokens = new boolean[25];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -567,7 +566,7 @@ Postfix.shuntingYard(token.image.toString());
         }
       }
     }
-    for (int i = 0; i < 26; i++) {
+    for (int i = 0; i < 25; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

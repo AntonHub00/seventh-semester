@@ -33,8 +33,6 @@ TOKEN:
         |
         <Else: "else">
         |
-        <Then: "then">
-        |
         <leftBrace: "{">
         |
         <rightBrace: "}">
@@ -102,8 +100,7 @@ void start() : {} {
 /* Start of semantic section of conditional definition------------------------- */
 void if_statement(): {} {
     <If> expression() {Postfix.addJumpCuadruple(false);}
-    <Then>
-        <leftBrace>
+    <leftBrace>
         (expression())+
         <rightBrace>
         (<Else> <leftBrace>
