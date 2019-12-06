@@ -79,7 +79,7 @@ System.out.println();
 /* Start of semantic section of conditional definition------------------------- */
   static final public void if_statement() throws ParseException {
     jj_consume_token(If);
-    simple_expression();
+    expression();
     jj_consume_token(Then);
     expression();
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {

@@ -135,14 +135,10 @@ public class Postfix {
         }
     }
 
-    static void resetPostfixList(){
-        postfixList.removeAll(postfixList);
-    }
-
     static void evaluateCurrentExpression(){
         Postfix.flushStack();
         Postfix.generateIntermediateCode();
-        Postfix.resetPostfixList();
+        postfixList.removeAll(postfixList);
     }
 
     static void printCuadruples(){

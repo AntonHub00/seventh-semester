@@ -107,7 +107,7 @@ void start() : {} {
 
 /* Start of semantic section of conditional definition------------------------- */
 void if_statement(): {} {
-    <If> simple_expression() <Then> expression() (<Else> expression() | empty())
+    <If> expression() <Then> expression() (<Else> expression() | empty())
 }
 /* End of semantic section of conditional definition------------------------- */
 
