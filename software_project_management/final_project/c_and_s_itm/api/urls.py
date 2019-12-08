@@ -1,10 +1,22 @@
 from django.urls import path, include
-from api.views import (get_complaints, create_student_complaint,
+from api.views import (get_complaints,
+                       get_student_complaint,
+                       get_staff_complaint,
+                       get_external_related_complaint,
+                       create_student_complaint,
                        create_staff_complaint,
                        create_external_related_complaint)
 
 urlpatterns = [
     path('get-complaints/', get_complaints, name='api-get-complaints'),
+
+    path('get-student-complaint/<int:pk>/', get_student_complaint,
+         name='api-get-student-complaint'),
+    path('get-staff-complaint/<int:pk>/', get_staff_complaint,
+         name='api-get-staff-complaint'),
+    path('get-external-related-complaint/<int:pk>/', get_external_related_complaint,
+         name='api-get-external-related-complaint'),
+
     path('create-student-complaint/', create_student_complaint,
          name='api-create-student-complaint'),
     path('create-staff-complaint/', create_staff_complaint,

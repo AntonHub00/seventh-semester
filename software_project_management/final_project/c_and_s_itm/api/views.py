@@ -5,6 +5,7 @@ from api.serializers import (StudentComplaintSerializer,
                              ExternalRelatedComplaintSerializer)
 
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
@@ -31,6 +32,37 @@ def get_complaints(request):
         many=True).data
 
     return Response({'complaints' : payload})
+
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def get_student_complaint(request, pk):
+    student_complaint = get_object_or_404(StudentComplaint, complaint=pk)
+
+    payload = StudentComplaintSerializer(student_complaint).data
+
+    return Response({'complaint' : payload})
+
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def get_staff_complaint(request, pk):
+    staff_complaint = get_object_or_404(StaffComplaint, complaint=pk)
+
+    payload = StaffComplaintSerializer(staff_complaint).data
+
+    return Response({'complaint' : payload})
+
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def get_external_related_complaint(request, pk):
+    external_related_complaint = get_object_or_404(ExternalRelatedComplaint,
+                                                   complaint=pk)
+
+    payload = ExternalRelatedComplaintSerializer(external_related_complaint).data
+
+    return Response({'complaint' : payload})
 
 
 @api_view(['POST'])
