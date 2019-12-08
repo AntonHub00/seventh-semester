@@ -1,14 +1,54 @@
 from django.db import models
 
 
+class ComplaintState(models.Model):
+    """This a model class which represents a complaint state"""
+
+    name = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class StrategicProcess(models.Model):
+    """This a model class which represents a strategic process"""
+
+    name = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class SubdivisionReponsible(models.Model):
+    """This a model class which represents a subdivision responsible"""
+
+    name = models.CharField(max_length=100, null=False, blank=False)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Complaint(models.Model):
     """This a model class which represents a general complaint"""
 
-    name = models.CharField(max_length=100, null=False, blank=False) # To split
-    email = models.EmailField(null=False, blank=False) # To split
-    phone = models.CharField(max_length=10,null=False, blank=False) # To split
-    date = models.DateField(auto_now=True) # To split
-    complaint_content = models.TextField(null=False, blank=False) # To split
+    folio = models.BigIntegerField(null=True, blank=True)
+    compliant_state = models.ForeignKey('ComplaintState', on_delete=models.CASCADE)
+    complaint_content = models.TextField(null=False, blank=False)
+
+    name = models.CharField(max_length=100, null=False, blank=False)
+    email = models.EmailField(null=False, blank=False)
+    phone = models.CharField(max_length=10,null=False, blank=False)
+
+    received_date = models.DateField(auto_now=True)
+    opening_date = models.DateField(null=True)
+    strategic_process = models.ForeignKey('StrategicProcess', null=True,
+                                          on_delete=models.CASCADE) # Select (6 options)
+    subdivision_responsible = models.ForeignKey('SubdivisionReponsible',
+                                                null=True,
+                                                on_delete=models.CASCADE) # Select (3 options)
+    responsible_delivery_date = models.DateField(null=True) # Manual
+    responsible_response_date = models.DateField(null=True) # Both manual and automatic
+    complainer_response_date = models.DateField(null=True) # Manual
 
     def __str__(self):
         return f"{self.name}'s general complaint"
