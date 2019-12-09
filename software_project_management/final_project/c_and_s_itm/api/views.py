@@ -88,7 +88,7 @@ class ComplaintGetAllOrCreateOfOneType(APIView):
             payload = ExternalRelatedComplaintSerializer(external_related_complaints,
                                                          many=True).data
 
-        return Response({"complaints" : payload})
+        return Response({'complaints' : payload})
 
 
     def post(self, request, complaint_type):
@@ -152,7 +152,7 @@ class ComplaintGetAllOfOneType(APIView):
             payload = ExternalRelatedComplaintSerializer(get_object(complaint_type,
                                                                          pk)).data
 
-        return Response({"complaints" : payload})
+        return Response({'complaints' : payload})
 
 
 class ComplaintGetAllRaw(APIView):
@@ -169,7 +169,8 @@ class ComplaintRaw(APIView):
         return Response({'complaints' : payload})
 
     def patch(self, request, pk):
-        pass
+        general_complaint = get_object_or_404(Complaint, pk=pk)
+        return Response({'success' : 'Complaint updated succesfully'})
 
 
 class StateGetAll(APIView):
