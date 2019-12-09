@@ -144,13 +144,13 @@ class ComplaintGetAllOfOneType(APIView):
 
         if complaint_type == 'student':
             payload = StudentComplaintSerializer(get_object(complaint_type,
-                                                                 pk)).data
+                                                            pk)).data
         elif complaint_type == 'staff':
             payload = StaffComplaintSerializer(get_object(complaint_type,
-                                                               pk)).data
+                                                          pk)).data
         else:
             payload = ExternalRelatedComplaintSerializer(get_object(complaint_type,
-                                                                         pk)).data
+                                                                    pk)).data
 
         return Response({'complaints' : payload})
 
@@ -170,6 +170,29 @@ class ComplaintRaw(APIView):
 
     def patch(self, request, pk):
         general_complaint = get_object_or_404(Complaint, pk=pk)
+
+        if 'complaint_state' in request.data:
+            pass
+        elif 'opening_date' in request.data:
+            pass
+        elif 'strategic_process' in request.data:
+            pass
+        elif 'subdivision_responsible' in request.data:
+            pass
+        elif 'responsible_delivery_date' in request.data:
+            pass
+        elif 'responsible_response_date' in request.data:
+            pass
+        elif 'complainer_response_date' in request.data:
+            pass
+        else:
+            return Response({'error' : 'Only the following fields are available'
+                             ' to be updated: complaint_state, opening_date,'
+                             ' strategic_process, subdivision_responsible,'
+                             ' responsible_delivery_date, responsible_response_date'
+                             ' and complainer_response_date'},
+                            status=status.HTTP_400_BAD_REQUEST)
+
         return Response({'success' : 'Complaint updated succesfully'})
 
 
