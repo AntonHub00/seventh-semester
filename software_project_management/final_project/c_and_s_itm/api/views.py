@@ -1,9 +1,21 @@
-from api.models import (Complaint, StudentComplaint, StaffComplaint,
-                        ExternalRelatedComplaint)
-from api.serializers import (ComplaintSerializer,
-                             StudentComplaintSerializer,
-                             StaffComplaintSerializer,
-                             ExternalRelatedComplaintSerializer)
+from api.models import (
+    ComplaintState,
+    StrategicProcess,
+    SubdivisionReponsible,
+    Complaint,
+    StudentComplaint,
+    StaffComplaint,
+    ExternalRelatedComplaint
+)
+from api.serializers import (
+    ComplaintStateSerializer,
+    StrategicProcessSerializer,
+    SubdivisionReponsibleSerializer,
+    ComplaintSerializer,
+    StudentComplaintSerializer,
+    StaffComplaintSerializer,
+    ExternalRelatedComplaintSerializer
+)
 
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
@@ -15,27 +27,34 @@ from rest_framework import permissions
 from rest_framework.response import Response
 
 
-def get_specific_object(complaint_type, pk):
-    if complaint_type not in ['student', 'staff', 'external-related']:
-        return Response({'error': "only 'student', 'staff' and 'external-related'"
-                         ' are available in the url'},
-                        status=status.HTTP_404_NOT_FOUND)
+def complaint_type_is_valid(complaint_type):
+    return complaint_type in ['student', 'staff', 'external-related']
 
-    if complaint_type == 'student':
-        return get_object_or_404(StudentComplaint, complaint=pk)
-    elif complaint_type == 'staff':
-        return get_object_or_404(StaffComplaint, complaint=pk)
+
+def get_object(complaint_type, pk=None):
+    if pk is not None:
+        if complaint_type == 'student':
+            return get_object_or_404(StudentComplaint, complaint=pk)
+        elif complaint_type == 'staff':
+            return get_object_or_404(StaffComplaint, complaint=pk)
+        else:
+            return get_object_or_404(ExternalRelatedComplaint, complaint=pk)
     else:
-        return get_object_or_404(ExternalRelatedComplaint, complaint=pk)
+        if complaint_type == 'student':
+            return StudentComplaint.objects.all()
+        elif complaint_type == 'staff':
+            return StaffComplaint.objects.all()
+        else:
+            return ExternalRelatedComplaint.objects.all()
 
 
-class ComplaintAllOfAllTypes(APIView):
+class ComplaintGetAllOfAllTypes(APIView):
     def get(self, request):
         payload = {}
 
-        student_complaints = StudentComplaint.objects.all()
-        staff_complaints = StaffComplaint.objects.all()
-        external_related_complaints = ExternalRelatedComplaint.objects.all()
+        student_complaints = get_object('student')
+        staff_complaints = get_object('staff')
+        external_related_complaints = get_object('external-related')
 
         payload['students'] = StudentComplaintSerializer(student_complaints,
                                                          many=True).data
@@ -48,140 +67,127 @@ class ComplaintAllOfAllTypes(APIView):
         return Response({'complaints' : payload})
 
 
-class ComplaintGetCreateOneType(APIView):
+class ComplaintGetAllOrCreateOfOneType(APIView):
     def get(self, request, complaint_type):
         payload = {}
 
-        if complaint_type not in ['student', 'staff', 'external-related']:
+        if not complaint_type_is_valid(complaint_type):
             return Response({'error': "only 'student', 'staff' and 'external-related'"
                              ' are available in the url'},
                             status=status.HTTP_404_NOT_FOUND)
 
         if complaint_type == 'student':
-            student_complaints = StudentComplaint.objects.all()
+            student_complaints = get_object('student')
             payload = StudentComplaintSerializer(student_complaints,
                                                  many=True).data
         elif complaint_type == 'staff':
-            staff_complaints = StaffComplaint.objects.all()
+            staff_complaints = get_object('staff')
             payload = StaffComplaintSerializer(staff_complaints,many=True).data
         else:
-            enternal_related_complaints = ExternalRelatedComplaint.objects.all()
+            external_related_complaints = get_object('external-related')
             payload = ExternalRelatedComplaintSerializer(external_related_complaints,
                                                          many=True).data
 
-        return Response(payload)
+        return Response({"complaints" : payload})
+
 
     def post(self, request, complaint_type):
-        pass
+        if not complaint_type_is_valid(complaint_type):
+            return Response({'error': "only 'student', 'staff' and 'external-related'"
+                             ' are available in the url'},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        general_complaint = Complaint.objects.create(
+            name=request.data['name'],
+            email=request.data['email'],
+            phone=request.data['phone'],
+            complaint_content=request.data['complaint_content']
+        )
+
+        if complaint_type == 'student':
+            student_complaint.create(
+                complaint=general_complaint,
+                control_number=request.data['control_number'],
+                career=request.data['career'],
+                semester=request.data['semester'],
+                group=request.data['group'],
+                turn=request.data['turn'],
+                classroom=request.data['classroom']
+            )
+
+            return Response({'succes' : 'Student complaint created succesfully'})
+        elif complaint_type == 'staff':
+            staff_complaint = StaffComplaint.objects.create(
+                complaint=general_complaint,
+                rfc=request.data['rfc'],
+                department=request.data['department']
+            )
+
+            return Response({'succes' : 'Staff complaint created succesfully'})
+        else:
+            external_related_complaint = ExternalRelatedComplaint.objects.create(
+                complaint=general_complaint,
+                relation=request.data['relation']
+            )
+
+            return Response({'succes' : 'Staff complaint created succesfully'})
 
 
-class ComplaintAllOfOneType(APIView):
+class ComplaintGetAllOfOneType(APIView):
     def get(self, request, complaint_type, pk):
         payload = {}
 
+        if not complaint_type_is_valid(complaint_type):
+            return Response({'error': "only 'student', 'staff' and 'external-related'"
+                             ' are available in the url'},
+                            status=status.HTTP_404_NOT_FOUND)
+
         if complaint_type == 'student':
-            payload = StudentComplaintSerializer(get_specific_object(complaint_type,
+            payload = StudentComplaintSerializer(get_object(complaint_type,
                                                                  pk)).data
         elif complaint_type == 'staff':
-            payload = StaffComplaintSerializer(get_specific_object(complaint_type,
+            payload = StaffComplaintSerializer(get_object(complaint_type,
                                                                pk)).data
         else:
-            payload = ExternalRelatedComplaintSerializer(get_specific_object(complaint_type,
+            payload = ExternalRelatedComplaintSerializer(get_object(complaint_type,
                                                                          pk)).data
 
-        return Response(payload)
+        return Response({"complaints" : payload})
 
 
-class ComplaintListAllRaw(APIView):
+class ComplaintGetAllRaw(APIView):
     def get(self, request):
         general_complaints = Complaint.objects.all()
-        payload = ComplaintSerializer(general_complaints, many=True)
-        return Response({'raw_complaints' : payload})
+        payload = ComplaintSerializer(general_complaints, many=True).data
+        return Response({'complaints' : payload})
 
 
 class ComplaintRaw(APIView):
-    pass
+    def get(self, request, pk):
+        general_complaint = get_object_or_404(Complaint, pk=pk)
+        payload = ComplaintSerializer(general_complaint).data
+        return Response({'complaints' : payload})
+
+    def patch(self, request, pk):
+        pass
 
 
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
-def create_student_complaint(request):
-    # Assuming the data is validated in front-end
-
-    general_complaint, created = Complaint.objects.get_or_create(
-        name=request.data['name'],
-        email=request.data['email'],
-        phone=request.data['phone'],
-        complaint_content=request.data['complaint_content']
-    )
-
-    if not created:
-        return Response({'error' : 'There is already a complaint with this data'})
-
-    student_complaint, created = StudentComplaint.objects.get_or_create(
-        complaint=general_complaint,
-        control_number=request.data['control_number'],
-        career=request.data['career'],
-        semester=request.data['semester'],
-        group=request.data['group'],
-        turn=request.data['turn'],
-        classroom=request.data['classroom']
-    )
-
-    if not created:
-        return Response({'error' : 'There is already a student complaint with this data'})
-
-    return Response({'succes' : 'Student complaint created succesfully'})
+class StateGetAll(APIView):
+    def get(self, request):
+        complaint_states = ComplaintState.objects.all()
+        payload = ComplaintStateSerializer(complaint_states, many=True).data
+        return Response({'states' : payload})
 
 
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
-def create_staff_complaint(request):
-    # Assuming the data is validated in front-end
-
-    general_complaint, created = Complaint.objects.get_or_create(
-        name=request.data['name'],
-        email=request.data['email'],
-        phone=request.data['phone'],
-        complaint_content=request.data['complaint_content']
-    )
-
-    if not created:
-        return Response({'error' : 'There is already a complaint with this data'})
-
-    staff_complaint, created = StaffComplaint.objects.get_or_create(
-        complaint=general_complaint,
-        rfc=request.data['rfc'],
-        department=request.data['department']
-    )
-
-    if not created:
-        return Response({'error' : 'There is already a staff complaint with this data'})
-
-    return Response({'succes' : 'Staff complaint created succesfully'})
+class StrategicProcessGetAll(APIView):
+    def get(self, request):
+        strategic_processes = StrategicProcess.objects.all()
+        payload = StrategicProcessSerializer(strategic_processes, many=True).data
+        return Response({'strategic_processes' : payload})
 
 
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
-def create_external_related_complaint(request):
-    # Assuming the data is validated in front-end
-
-    general_complaint, created = Complaint.objects.get_or_create(
-        name=request.data['name'],
-        email=request.data['email'],
-        phone=request.data['phone'],
-        complaint_content=request.data['complaint_content']
-    )
-
-    if not created:
-        return Response({'error' : 'There is already a complaint with this data'})
-
-    external_related_complaint, created = ExternalRelatedComplaint.objects.get_or_create(
-        complaint=general_complaint,
-        relation=request.data['relation']
-    )
-
-    if not created:
-        return Response({'error' : 'There is already a external related complaint with this data'})
-
-    return Response({'succes' : 'Staff complaint created succesfully'})
+class SubdivisionReponsibleGetAll(APIView):
+    def get(self, request):
+        subdivision_responsibles = SubdivisionReponsible.objects.all()
+        payload = SubdivisionReponsibleSerializer(subdivision_responsibles, many=True).data
+        return Response({'subdivision_responsibles' : payload})
