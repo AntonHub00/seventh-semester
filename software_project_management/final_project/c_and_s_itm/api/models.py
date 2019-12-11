@@ -32,6 +32,7 @@ class SubdivisionReponsible(models.Model):
 class Complaint(models.Model):
     """This a model class which represents a general complaint"""
 
+    #TODO title field
     folio = models.BigIntegerField(null=True, blank=True)
     compliant_state = models.ForeignKey('ComplaintState',
                                         default=ComplaintState.DEFAULT_STATE_ID,
